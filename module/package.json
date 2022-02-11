@@ -1,0 +1,18 @@
+{
+  "name": "tracy",
+  "version": "1.0.0",
+  "description": "Quorum is an open-source, private-permissioned blockchain compatible with Ethereum. It provides enhanced enterprise functionality with multiple pluggable consensus mechanisms, enterprise-grade permissions management, and transaction privacy features. Developed by J.P. Morgan, and later acquired by ConsenSys, the blockchain is used to run the Interbank Information Network, a payments network that involves more than 300 banks.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@nestjs/common": "^8.2.6",
+    "axios": "^0.25.0",
+    "class-validator": "^0.13.2",
+    "express": "^4.17.2",
+    "nestjs-pino": "^2.5.0"
+  }
+}

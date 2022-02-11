@@ -161,6 +161,7 @@ let main = ([action, store  ]: [action, storage]) : [list<operation>, storage] =
                                                        Get_details : () => get_details(store),
                                                        Update_owner: uo => update_owner([uo, store]),
                                                        Update_details: ud => update_details([ud, store]),
+                                                       
                                                        })
     ];
 };

@@ -50,19 +50,48 @@ type product_details ={
 
 };
 
-type product_details_map = big_map<id, product_details>;
-type storage2 = big_map<id,product_details_map>;
-
-type storage = {
-  identities: big_map<id, id_details>,
-  next_id: int,
-};
-
 type action =
-
 | ["Update_owner", update_owner]
 | ["Update_details", update_details]
 |["Get_details"];
+
+
+type update = {
+    txDate : string,
+    txObj : id_details,  
+};
+type pMap  =  list<update>; 
+type storage2 = big_map <id, pMap>;
+type storage = {
+  identities: big_map<id, id_details>,
+  history : storage2,
+  next_id: int,
+};
+
+
+//type product_details_map = big_map<id, product_details>;
+
+let push_details=([parameter,updated_details,store]:[id,id_details,storage]):storage=>{
+  let history : storage2 = store.history;
+  let previous_list: pMap =
+  match(Big_map.find_opt(parameter, history),{
+      Some : pMap => pMap,
+      None : ()=>(failwith("This ID does not exist.") as pMap )
+   });
+  let current_update :  update = {
+      txDate : "14th feb",
+      txObj : updated_details,
+  };
+
+  let larger_list: pMap = list([current_update, ...previous_list]);
+  let updated_store2 : storage2 = Big_map.update (parameter , Some(larger_list), history) ;
+  return {
+      identities : store.identities,
+      history : updated_store2,
+      next_id: store.next_id,
+  } ;
+
+}; 
 
 
 
@@ -93,6 +122,7 @@ let update_owner = ([parameter, storage]: [update_owner, storage]) : storage => 
   let updated_identities = Big_map.update(id, Some(updated_id_details), identities);
   return                {
                            identities : updated_identities,
+                           history : storage.history,
                            next_id : storage.next_id,
                         };
 };
@@ -145,12 +175,16 @@ let update_details = ([parameter, storage]: [update_details, storage]) : storage
     createdAt: createdAt,
     manufacturedIn: manufacturedIn
   };
+
   let updated_identities: big_map<id, id_details> =
     Big_map.update(id, Some(updated_id_details), identities);
-  return                 {
+    let storage2:storage = push_details(id,updated_id_details,storage);
+    let new_storage:storage = {
                             identities : updated_identities,
+                            history : storage2.history,
                             next_id : storage.next_id
                           };
+  return       new_storage ;          
 };
 
 let get_details = (store :storage) : storage => store ;

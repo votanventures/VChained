@@ -2,7 +2,7 @@ import { Body, Get, Headers, Param, Post, Put, Delete, UseGuards, Query } from '
 import { ParticipentService } from '../services/ParticipentService';
 import { ParticipentError } from '../dto/ParticipentError';
 
-export abstract class ParticipentController {
+export abstract class ParticipientController {
     protected constructor(protected readonly service: ParticipentService) {
 
     }

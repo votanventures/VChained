@@ -141,10 +141,10 @@ let update_details = ([parameter, storage]: [update_details, storage]) : storage
       None: () => (failwith("This ID does not exist.") as id_details)
     });
 
-  if ((sender != current_id_details.controller) &&
-        (sender != current_id_details.owner)) {
-      failwith ("You are not the owner or controller of this ID.");
-  }
+   if ((sender != current_id_details.controller) &&
+         (sender != current_id_details.owner)) {
+       failwith ("You are not the owner or controller of this ID.");
+   }
 
   let owner: address = current_id_details.owner;
   let profile: bytes =
@@ -181,8 +181,8 @@ let update_details = ([parameter, storage]: [update_details, storage]) : storage
     let storage2:storage = push_details(id,updated_id_details,storage);
     let new_storage:storage = {
                             identities : updated_identities,
-                            history : storage2.history,
-                            next_id : storage.next_id
+                            history : storage.history,
+                            next_id : storage.next_id,
                           };
   return       new_storage ;          
 };

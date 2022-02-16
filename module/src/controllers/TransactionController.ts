@@ -9,45 +9,50 @@ export abstract class TransactionController {
     }
 
     @Post('/create')
-    async storeData(@Body() body: any, id: string, @Headers() header: object) {
+    async storeData(@Body() body: any, @Headers() header: object) {
         try {
-            return await this.service.storeData(header['x-api-key'],body,id);
+            const {data} = await this.service.storeData(header['x-api-key'],body);
+            return data;
         } catch (e) {
-            throw new TransactionError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Inventory.error');
+            throw new TransactionError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Transaction.error');
         }
     }
 
     @Get('/id')
-    async getData(@Query('id') id: string, body: any, @Headers() header: object) {
+    async getData(@Query('id') id: string, @Headers() header: object) {
         try {
-            return await this.service.getData(header['x-api-key'],id,body);
+            const {data} = await this.service.getData(header['x-api-key'],id);
+            return data;
         } catch (e) {
-            throw new TransactionError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Inventory.error');
+            throw new TransactionError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Transaction.error');
         }
     }
 
     @Get('/getInventory')
-    async getUserData(@Body('id') id: string, body : any, @Headers() header: object) {
+    async getUserData(@Body('id') @Headers() header: object) {
         try{
-            return await this.service.getMasterData(header['x-api-key'],id,body);
+            const {data} = await this.service.getMasterData(header['x-api-key']);
+            return data;
          } catch(e) {
-            throw new TransactionError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'User.error');
+            throw new TransactionError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Transaction.error');
         }
     }
 
     @Put('/update')
-    async updateData(@Body('id') id: string, body: any, @Headers() header: object) {
+    async updateData(@Body('id') id: string, @Headers() header: object) {
         try{
-                return await this.service.updateData(header['x-api-key'],id,body);
+                const {data} = await this.service.updateData(header['x-api-key'],id);
+                return data;
          } catch(e) {
-            throw new TransactionError(`Unexpected error occured. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'User.error');
+            throw new TransactionError(`Unexpected error occured. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Transaction.error');
         }
     }
 
     @Delete('/delete')
-    async deleteData(@Body() id: string, body: any, @Headers() header: object) {
+    async deleteData(@Body() id: string, @Headers() header: object) {
         try{
-                return await this.service.deleteData(header['x-api-key'],id,body);
+                const {data} = await this.service.deleteData(header['x-api-key'],id);
+                return data;
         } catch(e) {
             throw new TransactionError(`Incompatible chain`, 'deleteUser.error')
         }

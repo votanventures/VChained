@@ -8,7 +8,7 @@ export abstract class InventoryService {
 
     }
 
-    public async storeData(key: string, data: any): Promise<{ data: string }> {
+    public async storeData(key: string, data: any): Promise<{data:string}> {
         try {
             const {data} = await axios.post('http://localhost:7000/api/inventory/create',{headres:{"x-api-key":key}})
             return data;

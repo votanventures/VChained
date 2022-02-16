@@ -8,9 +8,10 @@ export abstract class TransactionService {
 
     }
 
-    public async storeData(key: string, data: any, url: string): Promise<{ data: string }> {
+    public async storeData(key: string, data: any): Promise<{ data: string }> {
         try {
-            return axios.post('http://localhost:7000/api/transaction/create',{headres:{"x-api-key":key}},data)
+            const {data} = await axios.post('http://localhost:7000/api/transaction/create',{headres:{"x-api-key":key}})
+            return data;
         } catch (e) {
             this.logger.error(e);
             throw new TransactionError(`Error occurred. ${e}`, 'Transaction.error');
@@ -18,36 +19,40 @@ export abstract class TransactionService {
     }
 
 
-    public async getData(id: string, key: string, data:any): Promise<{data:string}> {
+    public async getData(id: string, key: string): Promise<{data:string}> {
         try{
-            return axios.get('http://localhost:7000/api/transaction/id',{headers:{"x-api-key":key}})
+            const {data} = await axios.get('http://localhost:7000/api/transaction/id',{headers:{"x-api-key":key}})
+            return data;
         } catch(e) {
             this.logger.error(e);
             throw new TransactionError(`Error occurred ${e}`, 'Transaction.error');
         }
     }
 
-    public async getMasterData(key: string, data:any, id: string): Promise<{data:string}> {
+    public async getMasterData(key: string): Promise<{data:string}> {
         try{
-            return axios.get('http://localhost:7000/api/transaction/getTransaction',{headers:{"x-api-key":key}})
+            const {data} = await axios.get('http://localhost:7000/api/transaction/getTransaction',{headers:{"x-api-key":key}})
+            return data;
         } catch(e) {
             this.logger.error(e);
             throw new TransactionError(`Error occurred ${e}`, 'Transaction.error');
         }
     }
 
-    public async updateData(key:string, data:any, id: string): Promise<{data: string}> {
+    public async updateData(key:string, data:any): Promise<{data: string}> {
         try {
-            return axios.put('http://localhost:7000/api/transaction/update',{haeders:{"x-api-key":key}},data)
+            const {data} = await axios.put('http://localhost:7000/api/transaction/update',{haeders:{"x-api-key":key}})
+            return data;
         } catch (e) {
             this.logger.error(e);
             throw new TransactionError(`Error occurred. ${e}`, 'Transaction.error');
         }
     }
 
-    public async deleteData(key:string, data:any, id: string): Promise<{data: string}> {
+    public async deleteData(key:string, data:any): Promise<{data: string}> {
         try {
-            return axios.put('http://localhost:7000/api/transaction/delete',{headers:{"x-api-key":key}},data)
+            const {data} = await axios.put('http://localhost:7000/api/transaction/delete',{headers:{"x-api-key":key}})
+            return data;
         } catch (e) {
             this.logger.error(e);
             throw new TransactionError(`Error occurred. ${e}`, 'Transaction.error');

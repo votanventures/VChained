@@ -8,45 +8,45 @@ export abstract class IncomingController {
     }
 
     @Post('/create')
-    async storeData(@Body() body: any, id: string, @Headers() header: object) {
+    async storeData(@Body() body: any, @Headers() header: object) {
         try {
-            return await this.service.storeData(header['x-api-key'],body,id);
+            return await this.service.storeData(header['x-api-key'],body);
         } catch (e) {
             throw new IncomingError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Inventory.error');
         }
     }
 
     @Get('/id')
-    async getData(@Query('id') id: string, body: any, @Headers() header: object) {
+    async getData(@Query('id') id: string, @Headers() header: object) {
         try {
-            return await this.service.getData(header['x-api-key'],id,body);
+            return await this.service.getData(header['x-api-key'],id);
         } catch (e) {
-            throw new IncomingError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Inventory.error');
+            throw new IncomingError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Incoming.error');
         }
     }
 
     @Get('/getIncoming')
-    async getIncomingData(@Body('id') id: string, body : any, @Headers() header: object) {
+    async getIncomingData(@Body('id') @Headers() header: object) {
         try{
-            return await this.service.getIncomingData(header['x-api-key'],id,body);
+            return await this.service.getIncomingData(header['x-api-key']);
          } catch(e) {
-            throw new IncomingError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'User.error');
+            throw new IncomingError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Incoming.error');
         }
     }
 
     @Put('/update')
-    async updateData(@Body('id') id: string, body: any, @Headers() header: object) {
+    async updateData(@Body('id') id: string, @Headers() header: object) {
         try{
-                return await this.service.updateData(header['x-api-key'],id,body);
+                return await this.service.updateData(header['x-api-key'],id);
          } catch(e) {
-            throw new IncomingError(`Unexpected error occured. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'User.error');
+            throw new IncomingError(`Unexpected error occured. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Incoming.error');
         }
     }
 
     @Delete('/delete')
-    async deleteData(@Body() id: string, body: any, @Headers() header: object) {
+    async deleteData(@Body() id: string, @Headers() header: object) {
         try{
-                return await this.service.deleteData(header['x-api-key'],id,body);
+                return await this.service.deleteData(header['x-api-key'],id);
         } catch(e) {
             throw new IncomingError(`Incompatible chain`, 'deleteUser.error')
         }

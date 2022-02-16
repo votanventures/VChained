@@ -1,6 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
 
-
 export class Employee {
     @IsNotEmpty()
     public productId: string;

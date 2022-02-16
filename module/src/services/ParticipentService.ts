@@ -8,9 +8,10 @@ export abstract class ParticipentService {
 
     }
 
-    public async storeData(key: string, data: any, url: string): Promise<{ data: string }> {
+    public async storeData(key: string, data: any): Promise<{ data: string }> {
         try {
-            return axios.post('http://localhost:7000/api/recipient/create',{headres:{"x-api-key":key}},data)
+            const {data} = await axios.post('http://localhost:7000/api/recipient/create',{headres:{"x-api-key":key}})
+            return data;
         } catch (e) {
             this.logger.error(e);
             throw new ParticipentError(`Error occurred. ${e}`, 'Participent.error');
@@ -18,36 +19,40 @@ export abstract class ParticipentService {
     }
 
 
-    public async getData(id: string, key: string, data:any): Promise<{data:string}> {
+    public async getData(id: string, key: string): Promise<{data:string}> {
         try{
-            return axios.get('http://localhost:7000/api/participent/id',{headers:{"x-api-key":key}})
+            const {data} = await axios.get('http://localhost:7000/api/participent/id',{headers:{"x-api-key":key}})
+            return data;
         } catch(e) {
             this.logger.error(e);
             throw new ParticipentError(`Error occurred ${e}`, 'Participent.error');
         }
     }
 
-    public async getParticipentData(key: string, data:any, id: string): Promise<{data:string}> {
+    public async getParticipentData(key: string): Promise<{data:string}> {
         try{
-            return axios.get('http://localhost:7000/api/participent/getParticipent',{headers:{"x-api-key":key}})
+            const {data} = await axios.get('http://localhost:7000/api/participent/getParticipent',{headers:{"x-api-key":key}})
+            return data;
         } catch(e) {
             this.logger.error(e);
             throw new ParticipentError(`Error occurred ${e}`, 'Participent.error');
         }
     }
 
-    public async updateData(key:string, data:any, id: string): Promise<{data: string}> {
+    public async updateData(key:string, data:any): Promise<{data: string}> {
         try {
-            return axios.put('http://localhost:7000/api/participent/update',{haeders:{"x-api-key":key}},data)
+            const {data} = await axios.put('http://localhost:7000/api/participent/update',{haeders:{"x-api-key":key}})
+            return data;
         } catch (e) {
             this.logger.error(e);
             throw new ParticipentError(`Error occurred. ${e}`, 'Participent.error');
         }
     }
 
-    public async deleteData(key:string, data:any, id: string): Promise<{data: string}> {
+    public async deleteData(key:string, data:any): Promise<{data: string}> {
         try {
-            return axios.put('http://localhost:7000/api/participent/delete',{headers:{"x-api-key":key}},data)
+            const {data} = await axios.put('http://localhost:7000/api/participent/delete',{headers:{"x-api-key":key}})
+            return data;
         } catch (e) {
             this.logger.error(e);
             throw new ParticipentError(`Error occurred. ${e}`, 'Participent.error');

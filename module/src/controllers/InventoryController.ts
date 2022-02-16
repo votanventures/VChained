@@ -31,7 +31,7 @@ export abstract class InventoryController {
         try{
             return await this.service.getInventoryData(header['x-api-key']);
          } catch(e) {
-            throw new InventoryError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'User.error');
+            throw new InventoryError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Inventory.error');
         }
     }
 
@@ -40,7 +40,7 @@ export abstract class InventoryController {
         try{
                 return await this.service.updateData(header['x-api-key'],id);
          } catch(e) {
-            throw new InventoryError(`Unexpected error occured. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'User.error');
+            throw new InventoryError(`Unexpected error occured. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Inventory.error');
         }
     }
 

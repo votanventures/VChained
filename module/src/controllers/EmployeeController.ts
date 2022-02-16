@@ -12,7 +12,7 @@ export abstract class EmployeeController {
         try {
             return await this.service.storeData(header['x-api-key'],body);
         } catch (e) {
-            throw new EmployeeError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'fabric.error');
+            throw new EmployeeError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Employee.error');
         }
     }
 
@@ -21,32 +21,32 @@ export abstract class EmployeeController {
         try {
             return await this.service.getData(header['x-api-key'],id);
         } catch (e) {
-            throw new EmployeeError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'fabric.error');
+            throw new EmployeeError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Employee.error');
         }
     }
 
     @Get('/getEmployee')
-    async getEmployeeData(@Body('id') id: string, body : any, @Headers() header: object) {
+    async getEmployeeData(@Body('id') @Headers() header: object) {
         try{
-            return await this.service.getEmployeeData(header['x-api-key'],id,body);
+            return await this.service.getEmployeeData(header['x-api-key']);
          } catch(e) {
-            throw new EmployeeError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'User.error');
+            throw new EmployeeError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Employee.error');
         }
     }
 
     @Put('/update')
-    async updateData(@Body('id') id: string, body: any, @Headers() header: object) {
+    async updateData(@Body('id') id: string, @Headers() header: object) {
         try{
-                return await this.service.updateData(header['x-api-key'],id,body);
+                return await this.service.updateData(header['x-api-key'],id);
          } catch(e) {
-            throw new EmployeeError(`Unexpected error occured. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'User.error');
+            throw new EmployeeError(`Unexpected error occured. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Employee.error');
         }
     }
 
     @Delete('/delete')
-    async deleteData(@Body() id: string, body: any, @Headers() header: object) {
+    async deleteData(@Body() id: string, @Headers() header: object) {
         try{
-                return await this.service.deleteData(header['x-api-key'],id,body);
+                return await this.service.deleteData(header['x-api-key'],id);
         } catch(e) {
             throw new EmployeeError(`Incompatible chain`, 'deleteEmployee.error')
         }

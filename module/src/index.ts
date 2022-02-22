@@ -1,3 +1,4 @@
+const c = require('./services/BlockchainServices')
 // user services
 export * from  './services/UserService';
 export * from  './controllers/UserController';
@@ -30,3 +31,5 @@ export * from './dto/EmployeeError';
 export * from './services/ParticipentService';
 export * from './controllers/ParticipientController';
 export * from './dto/ParticipentError';
+// blockchain services
+// export * from './services/BlockchainServices';

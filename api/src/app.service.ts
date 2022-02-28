@@ -18,7 +18,7 @@ export class EmpService extends EmployeeService {
 }
 @Injectable()
 export class IncService extends IncomingService {
-  constructor(@InjectPinoLogger(InvService.name) logger: PinoLogger) {
+  constructor(@InjectPinoLogger(IncService.name) logger: PinoLogger) {
     super(logger);
   }
 }
@@ -54,7 +54,7 @@ export class TransService extends TransactionService {
 }
 @Injectable()
 export class UsrService extends UserService {
-  constructor(@InjectPinoLogger(TransService.name) logger: PinoLogger) {
+  constructor(@InjectPinoLogger(UsrService.name) logger: PinoLogger) {
     super(logger);
   }
 }

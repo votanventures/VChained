@@ -14,7 +14,7 @@ import { EmpService, IncService, InvService,
                MasController, ParController, MasController, 
                ParController, RecController, TransController, 
                UsrController],
-  providers: [EmpService, InvService, IncService, 
+  providers: [EmpService, IncService, InvService, 
               MasService, ParService, RecService, 
               TransService, UsrService],
 })

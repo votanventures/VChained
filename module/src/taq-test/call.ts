@@ -28,6 +28,7 @@ export class Call {
       .catch((error) => console.log(`Error: ${JSON.stringify(error, null, 2)}`))
   }
   public test(
+    id: number,
     owner: string, 
     controller: string, 
     profile: string, 
@@ -42,32 +43,22 @@ export class Call {
     {
     this.tezos.contract
       .at(contract) //call the contract to get its entry points
-      .then((contract) => {
+      .then(async(contract) => {
         console.log(`Adding ${profile} to storage...`)
         //calling the main function. Unlike ligo syntax, the main entry point is referred to as default
-        return contract.methods.update_details(1,
-          owner, 
+        return contract.methods.create_details(
+          name,
           controller, 
           profile,   
-          name,
           model,
+          id,
           category,
-          description,           
-          createdAt,
-          manufacturedIn
+          description,          
+          manufacturedIn,
+          owner,
+          createdAt
           ).send()
       })
-        // return contract.methods.default([
-        //   owner,
-        //   controller,
-        //   profile,
-        //   name,
-        //   model,
-        //   category,
-        //   description,
-        //   createdAt,
-        //   manufacturedIn]).send()
-      // })
       .then((op) => {
         console.log(`Awaiting for ${op.hash} to be confirmed...`)
         return op.confirmation(1).then(() => op.hash) //waiting for 1 confirmation to get the results faster

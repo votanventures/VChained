@@ -7,7 +7,7 @@ const RPC_URL = ' https://hangzhounet.smartpy.io/'
 
 //launch App that will broadcast the node’s address to the main function
 //declare the constant with the Everstake baker’s address
-const ADDRESS = 'tz1aRoaRhSpRYvFdyvgWLL6TGyRoGF51wDjM'
+const ADDRESS = 'tz1KmAMKKFS9HzGZHvEqyJWhYF4pjqnSQ6av'
 
 //launching App, sending a link to the node, calling getBalance and sending it the address
 // new App(RPC_URL).getBalance(ADDRESS);

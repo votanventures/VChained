@@ -50,6 +50,19 @@ type product_details ={
 
 };
 
+type create_details ={
+    id: int,
+    owner: address,
+    controller: address,
+    profile : bytes,
+    name: string,
+    model: string,
+    category: string,
+    description: string,
+    createdAt: string,
+    manufacturedIn: string
+};
+
 type product_details_map = big_map<id, product_details>;
 type storage2 = big_map<id,product_details_map>;
 
@@ -62,8 +75,44 @@ type action =
 
 | ["Update_owner", update_owner]
 | ["Update_details", update_details]
-|["Get_details"];
+| ["Create_details", create_details]
+| ["Get_details"];
 
+let create_details = ([parameter, storage]: [create_details, storage]) : storage => {
+    let name = parameter.name;
+    let model = parameter.model;
+    let category = parameter.category;
+    let description = parameter.description;
+    let createdAt = parameter.createdAt;
+    let owner=parameter.owner;
+    let controller=parameter.controller;
+    let manufacturedIn = parameter.manufacturedIn;
+    let identities = storage.identities;
+    let id = storage.next_id;
+    let profile : bytes= parameter.profile;
+    let create_details_obj: id_details = {
+    owner : owner,
+    controller : controller,
+    profile : profile,
+    name: name,
+    model: model,
+    category: category,
+    description: description,           
+    createdAt: createdAt,
+    manufacturedIn: manufacturedIn
+  };
+    let updated_identities = Big_map.update(id, Some(create_details_obj), identities);
+            return      {
+                           identities : updated_identities,
+                           next_id : storage.next_id + 1,
+                        };
+    
+    // let updated_identities :option <id_details>  = Big_map.add(id, Some(create_details_obj), identities);
+    //     return {
+    //             identities : updated_identities,
+    //             next_id    : storage.next_id,
+    //            };
+};
 
 
 let update_owner = ([parameter, storage]: [update_owner, storage]) : storage => {
@@ -147,10 +196,10 @@ let update_details = ([parameter, storage]: [update_details, storage]) : storage
   };
   let updated_identities: big_map<id, id_details> =
     Big_map.update(id, Some(updated_id_details), identities);
-  return                 {
-                            identities : updated_identities,
-                            next_id : storage.next_id
-                          };
+    return  {
+                identities : updated_identities,
+                next_id : storage.next_id
+            };
 };
 
 let get_details = (store :storage) : storage => store ;
@@ -160,7 +209,8 @@ let main = ([action, store  ]: [action, storage]) : [list<operation>, storage] =
    return [(list([]) as list<operation>), match(action, {
                                                        Get_details : () => get_details(store),
                                                        Update_owner: uo => update_owner([uo, store]),
-                                                       Update_details: ud => update_details([ud, store]),
+                                                       Create_details: cd => create_details([cd, store]),
+                                                       Update_details: ud => update_details([ud, store])
                                                        })
     ];
 };

@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { EmpService, IncService, InvService, MasService, ParService, RecService, TransService, UsrService } from './app.service';
+import { EmpService, IncService, InvService, MasService, ParService, RecService, TransService, UsrService, BlckService } from './app.service';
 import { EmployeeController } from '../../module/src/controllers/EmployeeController';
 import { IncomingController } from '../../module/src/controllers/IncomingController';
 import { InventoryController } from '../../module/src/controllers/InventoryController';
@@ -8,6 +8,7 @@ import { ParticipientController } from '../../module/src/controllers/Participien
 import { RecipientController } from '../../module/src/controllers/RecipientController';
 import { TransactionController } from '../../module/src/controllers/TransactionController';
 import { UserController } from '../../module/src/controllers/UserController';
+import { BlockchainController } from '../../module/src/controllers/BlockchainController';
 
 @Controller('/employee')
 export class EmpController extends EmployeeController {
@@ -54,6 +55,12 @@ export class TransController extends TransactionController {
 @Controller('/user')
 export class UsrController extends UserController {
   constructor(private readonly quorumService: UsrService) {
+    super(quorumService);
+  }
+}
+@Controller('/ledger')
+export class BlckController extends BlockchainController {
+  constructor(private readonly quorumService: BlckService) {
     super(quorumService);
   }
 }

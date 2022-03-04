@@ -1,4 +1,4 @@
-{
+export const CONSTANTS={
 	"pkh": "tz1KmAMKKFS9HzGZHvEqyJWhYF4pjqnSQ6av",
 	"mnemonic": [
 		"jacket",
@@ -20,5 +20,6 @@
 	"email": "qcpqedqq.bgoxbsct@teztnets.xyz",
 	"password": "oCuMptn7sq",
 	"amount": "30007071077",
-	"activation_code": "57a58ba2e1cfa419ea4c4e7636b47e2ffd1e3527"
+	"activation_code": "57a58ba2e1cfa419ea4c4e7636b47e2ffd1e3527",
+	"RPC_URL": ' https://hangzhounet.smartpy.io/'
 }

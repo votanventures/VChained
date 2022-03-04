@@ -9,6 +9,7 @@ import { ParticipentService } from '../../module/src/services/ParticipentService
 import { RecipientService } from '../../module/src/services/RecipientService';
 import { TransactionService } from '../../module/src/services/TransactionService';
 import { UserService } from '../../module/src/services/UserService';
+import { BlockchainService } from '../../module/src/services/BlockchainServices';
 
 @Injectable()
 export class EmpService extends EmployeeService {
@@ -55,6 +56,12 @@ export class TransService extends TransactionService {
 @Injectable()
 export class UsrService extends UserService {
   constructor(@InjectPinoLogger(UsrService.name) logger: PinoLogger) {
+    super(logger);
+  }
+}
+@Injectable()
+export class BlckService extends BlockchainService {
+  constructor(@InjectPinoLogger(BlckService.name) logger: PinoLogger) {
     super(logger);
   }
 }

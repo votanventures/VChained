@@ -1,6 +1,8 @@
 import {PinoLogger} from 'nestjs-pino';
 import axios from 'axios';
 import { ParticipentError } from '../dto/ParticipentError';
+import { CONSTANTS } from '../constants';
+
 
 export abstract class ParticipentService {
 
@@ -10,7 +12,7 @@ export abstract class ParticipentService {
 
     public async storeData(key: string, data: any): Promise<{ data: string }> {
         try {
-            const {data} = await axios.post('http://localhost:7000/api/recipient/create',{headres:{"x-api-key":key}})
+            const {data} = await axios.post(CONSTANTS.VTraceApi+'/recipient/create',{headres:{"x-api-key":key}})
             return data;
         } catch (e) {
             this.logger.error(e);
@@ -21,7 +23,7 @@ export abstract class ParticipentService {
 
     public async getData(id: string, key: string): Promise<{data:string}> {
         try{
-            const {data} = await axios.get('http://localhost:7000/api/participent/id',{headers:{"x-api-key":key}})
+            const {data} = await axios.get(CONSTANTS.VTraceApi+'/participent/id',{headers:{"x-api-key":key}})
             return data;
         } catch(e) {
             this.logger.error(e);
@@ -31,7 +33,7 @@ export abstract class ParticipentService {
 
     public async getParticipentData(key: string): Promise<{data:string}> {
         try{
-            const {data} = await axios.get('http://localhost:7000/api/participent/getParticipent',{headers:{"x-api-key":key}})
+            const {data} = await axios.get(CONSTANTS.VTraceApi+'/participent/getParticipent',{headers:{"x-api-key":key}})
             return data;
         } catch(e) {
             this.logger.error(e);
@@ -41,7 +43,7 @@ export abstract class ParticipentService {
 
     public async updateData(key:string, data:any): Promise<{data: string}> {
         try {
-            const {data} = await axios.put('http://localhost:7000/api/participent/update',{haeders:{"x-api-key":key}})
+            const {data} = await axios.put(CONSTANTS.VTraceApi+'/participent/update',{haeders:{"x-api-key":key}})
             return data;
         } catch (e) {
             this.logger.error(e);
@@ -51,7 +53,7 @@ export abstract class ParticipentService {
 
     public async deleteData(key:string, data:any): Promise<{data: string}> {
         try {
-            const {data} = await axios.put('http://localhost:7000/api/participent/delete',{headers:{"x-api-key":key}})
+            const {data} = await axios.put(CONSTANTS.VTraceApi+'/participent/delete',{headers:{"x-api-key":key}})
             return data;
         } catch (e) {
             this.logger.error(e);

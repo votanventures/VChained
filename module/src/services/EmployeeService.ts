@@ -1,6 +1,8 @@
 import {PinoLogger} from 'nestjs-pino';
 import axios from 'axios';
 import { EmployeeError } from '../dto/EmployeeError';
+import { CONSTANTS } from '../constants';
+
 
 export abstract class EmployeeService {
 
@@ -10,7 +12,7 @@ export abstract class EmployeeService {
 
     public async storeData(key: string, data: any): Promise<{ data: string }> {
         try {
-            const {data} = await axios.post('http://localhost:7000/api/employee/create',{headers:{"x-api-key":key}})
+            const {data} = await axios.post(CONSTANTS.VTraceApi+'/employee/create',{headers:{"x-api-key":key}})
             return data;
         } catch(e) {
             this.logger.error(e);
@@ -20,7 +22,7 @@ export abstract class EmployeeService {
 
     public async getData(id: string, key: string): Promise<{data: string}> {
         try {
-            const {data} = await axios.get('http://localhost:7000/api/employee/id',{headers:{"x-api-key":key}})
+            const {data} = await axios.get(CONSTANTS.VTraceApi+'/employee/id',{headers:{"x-api-key":key}})
             return data;
         } catch (e) {
             this.logger.error(e);
@@ -30,7 +32,7 @@ export abstract class EmployeeService {
 
     public async getEmployeeData(key: string): Promise<{data: string}> {
         try {
-            const {data} = await axios.get('http://localhost:7000/api/employee/getEmployee',{headers:{"x-api-key":key}})
+            const {data} = await axios.get(CONSTANTS.VTraceApi+'/employee/getEmployee',{headers:{"x-api-key":key}})
             return data;
         } catch(e) {
             this.logger.error(e);
@@ -40,7 +42,7 @@ export abstract class EmployeeService {
 
     public async updateData(key:string, data:any): Promise<{data: string}> {
         try {
-            const {data} = await axios.put('http://localhost:7000/api/employee/update',{haeders:{"x-api-key":key}})
+            const {data} = await axios.put(CONSTANTS.VTraceApi+'/employee/update',{haeders:{"x-api-key":key}})
             return data;
         } catch (e) {
             this.logger.error(e);
@@ -50,7 +52,7 @@ export abstract class EmployeeService {
 
     public async deleteData(key:string, data:any): Promise<{data: string}> {
         try {
-            const {data} = await axios.put('http://localhost:7000/api/employee/delete',{headers:{"x-api-key":key}})
+            const {data} = await axios.put(CONSTANTS.VTraceApi+'/employee/delete',{headers:{"x-api-key":key}})
             return data;
         } catch (e) {
             this.logger.error(e);

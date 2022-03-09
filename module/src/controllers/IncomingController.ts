@@ -12,7 +12,7 @@ export abstract class IncomingController {
         try {
             return await this.service.storeData(header['x-api-key'],body);
         } catch (e) {
-            throw new IncomingError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Inventory.error');
+            throw new IncomingError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Incoming.error');
         }
     }
 

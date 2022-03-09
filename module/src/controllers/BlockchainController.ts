@@ -12,7 +12,7 @@ export abstract class BlockchainController {
         try{
             return await this.service.deploy();
          } catch(e) {
-            throw new BlockchainError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Employee.error');
+            throw new BlockchainError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Blockchain.error');
         }
     }
     @Post('/create')
@@ -20,7 +20,7 @@ export abstract class BlockchainController {
         try{
             return await this.service.create(body);
          } catch(e) {
-            throw new BlockchainError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Employee.error');
+            throw new BlockchainError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Blockchain.error');
         }
     }
     @Post('/update')
@@ -28,7 +28,7 @@ export abstract class BlockchainController {
         try{
             return await this.service.update(body);
          } catch(e) {
-            throw new BlockchainError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Employee.error');
+            throw new BlockchainError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Blockchain.error');
         }
     }
 }

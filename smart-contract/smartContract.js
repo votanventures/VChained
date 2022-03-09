@@ -3,7 +3,7 @@ type id = int;
 type id_details = {
   owner: address,
   controller: address,
-  profile: bytes,
+  profile: string,
   name: string,
   model: string,
   category: string,
@@ -13,7 +13,7 @@ type id_details = {
 };
 
 type buy = {
-  profile: bytes,
+  profile: string,
   initial_controller: option<address>,
 };
 
@@ -30,7 +30,7 @@ type update_owner = {
 
 type update_details = {
   id: id,
-  new_profile: option<bytes>,
+  new_profile: option<string>,
   new_controller: option<address>,
   new_name: option<string>,
   new_model: option<string>,
@@ -54,7 +54,7 @@ type create_details ={
     id: int,
     owner: address,
     controller: address,
-    profile : bytes,
+    profile : string,
     name: string,
     model: string,
     category: string,
@@ -89,7 +89,7 @@ let create_details = ([parameter, storage]: [create_details, storage]) : storage
     let manufacturedIn = parameter.manufacturedIn;
     let identities = storage.identities;
     let id = storage.next_id;
-    let profile : bytes= parameter.profile;
+    let profile : string= parameter.profile;
     let create_details_obj: id_details = {
     owner : owner,
     controller : controller,
@@ -166,7 +166,7 @@ let update_details = ([parameter, storage]: [update_details, storage]) : storage
   }
 
   let owner: address = current_id_details.owner;
-  let profile: bytes =
+  let profile: string =
     match (new_profile, {
       None: () =>  current_id_details.profile,
       Some: new_profile => new_profile

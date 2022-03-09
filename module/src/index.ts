@@ -31,5 +31,3 @@ export * from './dto/EmployeeError';
 export * from './services/ParticipentService';
 export * from './controllers/ParticipientController';
 export * from './dto/ParticipentError';
-// blockchain services
-// export * from './services/BlockchainServices';

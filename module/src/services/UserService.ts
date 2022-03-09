@@ -1,6 +1,8 @@
 import {PinoLogger} from 'nestjs-pino';
 import axios from 'axios';
 import { UserError } from '../dto/UserError';
+import { CONSTANTS } from '../constants';
+
 
 export abstract class UserService {
 
@@ -10,7 +12,7 @@ export abstract class UserService {
 
     public async storeData(key: string, data: any): Promise<{ data: string }> {
         try {
-            const {data} = await axios.post('http://localhost:7000/api/user/create',{headers:{"x-api-key":key}})
+            const {data} = await axios.post(CONSTANTS.VTraceApi+'/user/create',{headers:{"x-api-key":key}})
             return data;
         } catch(e) {
             this.logger.error(e);
@@ -20,7 +22,7 @@ export abstract class UserService {
 
     public async getData(id: string, key: string): Promise<{data: string}> {
         try {
-            const {data} = await axios.get('http://localhost:7000/api/user/id?user_id=id',{headers:{"x-api-key":key}})
+            const {data} = await axios.get(CONSTANTS.VTraceApi+'/user/id?user_id=id',{headers:{"x-api-key":key}})
             return data;
         } catch (e) {
             this.logger.error(e);
@@ -30,7 +32,7 @@ export abstract class UserService {
 
     public async getUserData(key: string): Promise<{data: string}> {
         try {
-            const {data} = await axios.get('http://localhost:7000/api/user/getUser',{headers:{"x-api-key":key}})
+            const {data} = await axios.get(CONSTANTS.VTraceApi+'/user/getUser',{headers:{"x-api-key":key}})
             return data;
         } catch(e) {
             this.logger.error(e);
@@ -40,7 +42,7 @@ export abstract class UserService {
 
     public async updateData(key:string, data:any): Promise<{data: string}> {
         try {
-            const {data} = await axios.put('http://localhost:7000/api/user/update',{haeders:{"x-api-key":key}})
+            const {data} = await axios.put(CONSTANTS.VTraceApi+'/user/update',{haeders:{"x-api-key":key}})
             return data;
         } catch (e) {
             this.logger.error(e);
@@ -50,7 +52,7 @@ export abstract class UserService {
 
     public async deleteData(key:string, data:any): Promise<{data: string}> {
         try {
-            const {data} = await axios.put('http://localhost:7000/api/user/delete',{headers:{"x-api-key":key}})
+            const {data} = await axios.put(CONSTANTS.VTraceApi+'/user/delete',{headers:{"x-api-key":key}})
             return data;
         } catch (e) {
             this.logger.error(e);

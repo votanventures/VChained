@@ -27,5 +27,5 @@ export const CONSTANTS = {
     address: "tz1KmAMKKFS9HzGZHvEqyJWhYF4pjqnSQ6av",
   },
   RPC_URL: " https://hangzhounet.smartpy.io/",
-  VTraceApi:'http://localhost:7000/api'
+  VTraceApi:' https://vtracy.herokuapp.com'
 };

@@ -20,6 +20,26 @@ export abstract class UserService {
         }
     }
 
+    public async signupData(key: string, data: any): Promise<{ data: string }> {
+       try {
+           const {data} = await axios.post(CONSTANTS.VTraceApi+'/user/create', {headers:{"x-api-key":key}})
+           return data;
+       } catch(e) {
+           this.logger.error(e);
+           throw new UserError(`Error occurred. ${e}`, 'User.error');
+       }
+    }
+
+    public async loginData(key: string, data: any): Promise<{ data: string }> {
+        try {
+            const {data} = await axios.get(CONSTANTS.VTraceApi+'/user/login', {headers:{"x-api-key":key}})
+            return data;
+        } catch(e) {
+            this.logger.error(e);
+            throw new UserError(`Error occurred. ${e}`, 'User.error');
+        }
+    }
+
     public async getData(id: string, key: string): Promise<{data: string}> {
         try {
             const {data} = await axios.get(CONSTANTS.VTraceApi+'/user/id?user_id=id',{headers:{"x-api-key":key}})

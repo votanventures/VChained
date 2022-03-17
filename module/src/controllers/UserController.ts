@@ -17,6 +17,26 @@ export abstract class UserController {
         }
     }
 
+    @Post('/signup')
+    async signupData(@Body() body: any, @Headers() header:object) {
+        try{
+            const {data} = await this.service.signupData(header['x-api-key'],body);
+            return data;
+        } catch(e) {
+            throw new UserError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message ||  e}`, 'User.error');
+        }
+    }
+
+    @Post('/login')
+    async loginData(@Body() body: any, @Headers() header:object) {
+        try{
+            const {data} = await this.service.loginData(header['x-api-key'],body);
+            return data;
+        } catch(e) {
+            throw new UserError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'User.error');
+        }
+    }
+
     @Get('/id')
     async getData(@Query('user_id') user_id: string, @Headers() header: object) {
         try {

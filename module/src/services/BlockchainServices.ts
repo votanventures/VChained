@@ -106,7 +106,11 @@ export class BlockchainService {
       if(!body.contract){
         return {data:"Please Specify Contract Address"}
       }
-      const ctrct = await this.tezos.contract.at("KT1S2h1cbttAwWZrT9HiiMMqKt1BHvvER4bp")
+      const ctrct = await this.tezos.contract.at(body.contract)
+      const  contract  = await axios.get(CONSTANTS.VTraceApi+'/user/getUser')
+      if(!body.contract){
+        return contract
+      }
       const op    = await ctrct.methodsObject.create_details(
         {
           category: body.category,
@@ -143,7 +147,11 @@ export class BlockchainService {
     contract:string}): Promise<{ data:any }>
   {
     try{
-    const ctrct = await this.tezos.contract.at("KT1S2h1cbttAwWZrT9HiiMMqKt1BHvvER4bp")
+    const ctrct = await this.tezos.contract.at(body.contract)
+    const contract = await axios.get(CONSTANTS.VTraceApi+'/user/getUser')
+    if(!body.contract){
+      return contract
+    }
     const op    = await ctrct.methodsObject.update_details(
       {
         new_category: body.category,
@@ -164,5 +172,3 @@ export class BlockchainService {
   }
   }
 }
-
-  

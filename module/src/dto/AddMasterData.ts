@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class MasterData {
+export class AddMasterData {
     @IsNotEmpty()
     public name: string;
     @IsNotEmpty()
@@ -8,11 +8,11 @@ export class MasterData {
     @IsNotEmpty()
     public model: string;
     @IsNotEmpty()
+    public PID: string;
+    @IsNotEmpty()
     public category: string;
     @IsNotEmpty()
-    public productclass: string;
+    public productClass: string;
     @IsNotEmpty()
-    public productid: string;
-    @IsNotEmpty()
-    public action: string;
+    public productId: string;
 }

@@ -10,7 +10,8 @@ export abstract class BlockchainController {
     @Get('/deploy')
     async deploy( @Headers() header: object) {
         try{
-            return await this.service.deploy();
+            const { data } = await this.service.deploy();
+            return data;
          } catch(e) {
             throw new BlockchainError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Blockchain.error');
         }
@@ -18,7 +19,8 @@ export abstract class BlockchainController {
     @Post('/create')
     async create(@Body() body:any ,@Headers()  header: object) {
         try{
-            return await this.service.create(body);
+            const { data } = await this.service.create(body);
+            return data;
          } catch(e) {
             throw new BlockchainError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Blockchain.error');
         }
@@ -26,7 +28,8 @@ export abstract class BlockchainController {
     @Post('/update')
     async update(@Body() body:any ,@Headers()  header: object) {
         try{
-            return await this.service.update(body);
+            const { data } = await this.service.update(body);
+            return data;
          } catch(e) {
             throw new BlockchainError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Blockchain.error');
         }

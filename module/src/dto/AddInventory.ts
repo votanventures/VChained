@@ -1,20 +1,26 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class InventoryAddress {
+export class AddInventory {
     @IsNotEmpty()
     public id: string;
     @IsNotEmpty()
-    public budget: string;
+    public name: string;
+    @IsNotEmpty()
+    public user_id: string;
+    @IsNotEmpty()
+    public owner: string;
+    @IsNotEmpty()
+    public PID: string;
     @IsNotEmpty()
     public category: string;
     @IsNotEmpty()
     public model: string;
     @IsNotEmpty()
-    public maunfacturein: string;
+    public manufactureIn: string;
     @IsNotEmpty()
-    public createdin: string;
+    public createdIn: string;
     @IsNotEmpty()
-    public description: string;
+    public description: string; 
     @IsNotEmpty()
     public action: string;
 }

@@ -10,7 +10,8 @@ export abstract class EmployeeController {
     @Post('/create')
     async storeData(@Body() body: any, id: string, @Headers() header: object) {
         try {
-            return await this.service.storeData(header['x-api-key'],body);
+            const { data } = await this.service.storeData(header['x-api-key'],body);
+            return data;
         } catch (e) {
             throw new EmployeeError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Employee.error');
         }
@@ -19,7 +20,8 @@ export abstract class EmployeeController {
     @Get('/id')
     async getData(@Query('id') id: string, body:any, @Headers() header: object) {
         try {
-            return await this.service.getData(header['x-api-key'],id);
+            const { data } = await this.service.getData(header['x-api-key'],id);
+            return data;
         } catch (e) {
             throw new EmployeeError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Employee.error');
         }
@@ -28,7 +30,8 @@ export abstract class EmployeeController {
     @Get('/getEmployee')
     async getEmployeeData(@Body('id') @Headers() header: object) {
         try{
-            return await this.service.getEmployeeData(header['x-api-key']);
+            const { data } = await this.service.getEmployeeData(header['x-api-key']);
+            return data;
          } catch(e) {
             throw new EmployeeError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Employee.error');
         }
@@ -37,7 +40,8 @@ export abstract class EmployeeController {
     @Put('/update')
     async updateData(@Body('id') id: string, @Headers() header: object) {
         try{
-                return await this.service.updateData(header['x-api-key'],id);
+            const { data } = await this.service.updateData(header['x-api-key'],id);
+            return data;
          } catch(e) {
             throw new EmployeeError(`Unexpected error occured. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Employee.error');
         }
@@ -46,7 +50,8 @@ export abstract class EmployeeController {
     @Delete('/delete')
     async deleteData(@Body() id: string, @Headers() header: object) {
         try{
-                return await this.service.deleteData(header['x-api-key'],id);
+            const { data } = await this.service.deleteData(header['x-api-key'],id);
+            return data;
         } catch(e) {
             throw new EmployeeError(`Incompatible chain`, 'deleteEmployee.error')
         }

@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class Recipient {
+export class AddRecipient {
     @IsNotEmpty()
     public groupId: string;
     @IsNotEmpty()

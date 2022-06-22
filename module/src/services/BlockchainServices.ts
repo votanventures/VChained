@@ -6,6 +6,7 @@ import { InMemorySigner } from '@taquito/signer';
 import { CONSTANTS } from "../constants";
 // Contract file
 import { updateContract } from "./Common";
+import { Tx } from './Tx';
 
 export class BlockchainService {
   private tezos: TezosToolkit
@@ -13,7 +14,7 @@ export class BlockchainService {
   protected constructor(protected readonly logger: PinoLogger) {
       this.tezos = new TezosToolkit(CONSTANTS.RPC_URL)
       this.rpcUrl = CONSTANTS.RPC_URL
-      // new Tx(RPC_URL).activateAccount() 
+      
       this.activateAccount()
     //declaring the parameters using fromFundraiser: mail, password, and passphrase from which one can extract the private key
     this.tezos.setSignerProvider(InMemorySigner.fromFundraiser(CONSTANTS.wallet.email, CONSTANTS.wallet.password, CONSTANTS.wallet.mnemonic.join(' ')))

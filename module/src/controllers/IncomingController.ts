@@ -10,7 +10,8 @@ export abstract class IncomingController {
     @Post('/create')
     async storeData(@Body() body: any, @Headers() header: object) {
         try {
-            return await this.service.storeData(header['x-api-key'],body);
+            const { data } = await this.service.storeData(header['x-api-key'],body);
+            return data;
         } catch (e) {
             throw new IncomingError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Incoming.error');
         }
@@ -19,7 +20,8 @@ export abstract class IncomingController {
     @Get('/id')
     async getData(@Query('id') id: string, @Headers() header: object) {
         try {
-            return await this.service.getData(header['x-api-key'],id);
+            const { data } = await this.service.getData(header['x-api-key'],id);
+            return data;
         } catch (e) {
             throw new IncomingError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Incoming.error');
         }
@@ -28,7 +30,8 @@ export abstract class IncomingController {
     @Get('/getIncoming')
     async getIncomingData(@Body('id') @Headers() header: object) {
         try{
-            return await this.service.getIncomingData(header['x-api-key']);
+            const { data } = await this.service.getIncomingData(header['x-api-key']);
+            return data;
          } catch(e) {
             throw new IncomingError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Incoming.error');
         }
@@ -37,7 +40,8 @@ export abstract class IncomingController {
     @Put('/update')
     async updateData(@Body('id') id: string, @Headers() header: object) {
         try{
-                return await this.service.updateData(header['x-api-key'],id);
+            const { data } = await this.service.updateData(header['x-api-key'],id);
+            return data;
          } catch(e) {
             throw new IncomingError(`Unexpected error occured. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'Incoming.error');
         }
@@ -46,7 +50,8 @@ export abstract class IncomingController {
     @Delete('/delete')
     async deleteData(@Body() id: string, @Headers() header: object) {
         try{
-                return await this.service.deleteData(header['x-api-key'],id);
+            const { data } = await this.service.deleteData(header['x-api-key'],id);
+            return data;
         } catch(e) {
             throw new IncomingError(`Incompatible chain`, 'deleteUser.error')
         }

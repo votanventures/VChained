@@ -10,55 +10,55 @@ import { TransactionController } from '../../module/src/controllers/TransactionC
 import { UserController } from '../../module/src/controllers/UserController';
 import { BlockchainController } from '../../module/src/controllers/BlockchainController';
 
-@Controller('/employee')
+@Controller('/api/employee')
 export class EmpController extends EmployeeController {
   constructor(private readonly quorumService: EmpService) {
     super(quorumService);
   }
 }
-@Controller('/incoming')
+@Controller('/api/incoming')
 export class IncController extends IncomingController {
   constructor(private readonly quorumService: IncService) {
     super(quorumService);
   }
 }
-@Controller('/inventory')
+@Controller('/api/inventory')
 export class InvController extends InventoryController {
   constructor(private readonly quorumService: InvService) {
     super(quorumService);
   }
 }
-@Controller('/masterdata')
+@Controller('/api/masterdata')
 export class MasController extends MasterController {
   constructor(private readonly quorumService: MasService) {
     super(quorumService);
   }
 }
-@Controller('/participent')
+@Controller('/api/participent')
 export class ParController extends ParticipientController {
   constructor(private readonly quorumService: ParService) {
     super(quorumService);
   }
 }
-@Controller('/recipient')
+@Controller('/api/recipient')
 export class RecController extends RecipientController {
   constructor(private readonly quorumService: RecService) {
     super(quorumService);
   }
 }
-@Controller('/transaction')
+@Controller('/api/transaction')
 export class TransController extends TransactionController {
   constructor(private readonly quorumService: TransService) {
     super(quorumService);
   }
 }
-@Controller('/user')
+@Controller('/api/user')
 export class UsrController extends UserController {
   constructor(private readonly quorumService: UsrService) {
     super(quorumService);
   }
 }
-@Controller('/ledger')
+@Controller('/api/ledger')
 export class BlckController extends BlockchainController {
   constructor(private readonly quorumService: BlckService) {
     super(quorumService);

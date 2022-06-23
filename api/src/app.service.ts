@@ -5,7 +5,7 @@ import { EmployeeService } from '../../module/src/services/EmployeeService';
 import { IncomingService } from '../../module/src/services/IncomingService';
 import { InventoryService } from '../../module/src/services/InventoryService';
 import { MasterService } from '../../module/src/services/MasterService';
-import { ParticipentService } from '../../module/src/services/ParticipentService';
+import { ParticipantService } from '../../module/src/services/ParticipantService';
 import { RecipientService } from '../../module/src/services/RecipientService';
 import { TransactionService } from '../../module/src/services/TransactionService';
 import { UserService } from '../../module/src/services/UserService';
@@ -36,7 +36,7 @@ export class MasService extends MasterService {
   }
 }
 @Injectable()
-export class ParService extends ParticipentService {
+export class ParService extends ParticipantService {
   constructor(@InjectPinoLogger(ParService.name) logger: PinoLogger) {
     super(logger);
   }

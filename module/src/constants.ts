@@ -27,5 +27,6 @@ export const CONSTANTS = {
     activation_code: "d4c87dd93e6a4a1f2b5c580ea89c2f1eedcfae12",
   },
   RPC_URL: "https://ithacanet.tezos.marigold.dev/",
-  VTraceApi: "https://vtracy.herokuapp.com",
+  VTraceApi: "https://vtracy.herokuapp.com/api",
 };
+// VTraceApi: "http://localhost:7000/api",

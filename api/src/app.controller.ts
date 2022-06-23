@@ -4,7 +4,7 @@ import { EmployeeController } from '../../module/src/controllers/EmployeeControl
 import { IncomingController } from '../../module/src/controllers/IncomingController';
 import { InventoryController } from '../../module/src/controllers/InventoryController';
 import { MasterController } from '../../module/src/controllers/MasterController';
-import { ParticipientController } from '../../module/src/controllers/ParticipientController';
+import { ParticipantController } from '../../module/src/controllers/ParticipantController';
 import { RecipientController } from '../../module/src/controllers/RecipientController';
 import { TransactionController } from '../../module/src/controllers/TransactionController';
 import { UserController } from '../../module/src/controllers/UserController';
@@ -34,8 +34,8 @@ export class MasController extends MasterController {
     super(quorumService);
   }
 }
-@Controller('/api/participent')
-export class ParController extends ParticipientController {
+@Controller('/api/participant')
+export class ParController extends ParticipantController {
   constructor(private readonly quorumService: ParService) {
     super(quorumService);
   }

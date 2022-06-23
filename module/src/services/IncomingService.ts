@@ -1,62 +1,72 @@
-import {PinoLogger} from 'nestjs-pino';
-import axios from 'axios';
-import { IncomingError } from '../dto/IncomingError';
-import { CONSTANTS } from '../constants';
+import { PinoLogger } from "nestjs-pino";
+import axios from "axios";
+import { IncomingError } from "../dto/IncomingError";
+import { CONSTANTS } from "../constants";
 
 export abstract class IncomingService {
+  protected constructor(protected readonly logger: PinoLogger) {}
 
-    protected constructor(protected readonly logger: PinoLogger) {
-
+  public async storeData(key: string, data: any): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.post(
+        CONSTANTS.VTraceApi + "/incoming/create",
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new IncomingError(`Error occurred. ${e}`, "Incoming.error");
     }
+  }
 
-    public async storeData(key: string, data: any): Promise<{ data: string }> {
-        try {
-            const {data} = await axios.post(CONSTANTS.VTraceApi+'/incoming/create',{headres:{"x-api-key":key}})
-            return data;
-        } catch (e) {
-            this.logger.error(e);
-            throw new IncomingError(`Error occurred. ${e}`, 'Incoming.error');
-        }
+  public async getData(id: string, key: string): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(CONSTANTS.VTraceApi + "/incoming/id", {
+        headers: { "x-access-token": key },
+      });
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new IncomingError(`Error occurred ${e}`, "Incoming.error");
     }
+  }
 
-
-    public async getData(id: string, key: string): Promise<{data:string}> {
-        try{
-            const {data} = await axios.get(CONSTANTS.VTraceApi+'/incoming/id',{headers:{"x-api-key":key}})
-            return data;
-        } catch(e) {
-            this.logger.error(e);
-            throw new IncomingError(`Error occurred ${e}`, 'Incoming.error');
-        }
+  public async getIncomingData(key: string): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + "/incoming/getIncoming",
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new IncomingError(`Error occurred ${e}`, "Incoming.error");
     }
+  }
 
-    public async getIncomingData(key: string): Promise<{data:string}> {
-        try{
-            const {data} = await axios.get(CONSTANTS.VTraceApi+'/incoming/getIncoming',{headers:{"x-api-key":key}})
-            return data;
-        } catch(e) {
-            this.logger.error(e);
-            throw new IncomingError(`Error occurred ${e}`, 'Incoming.error');
-        }
+  public async updateData(key: string, data: any): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.put(
+        CONSTANTS.VTraceApi + "/incoming/update",
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new IncomingError(`Error occurred. ${e}`, "Incoming.error");
     }
+  }
 
-    public async updateData(key:string, data:any): Promise<{data: string}> {
-        try {
-            const {data} = await axios.put(CONSTANTS.VTraceApi+'/incoming/update',{haeders:{"x-api-key":key}})
-            return data;
-        } catch (e) {
-            this.logger.error(e);
-            throw new IncomingError(`Error occurred. ${e}`, 'Incoming.error');
-        }
+  public async deleteData(key: string, data: any): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.put(
+        CONSTANTS.VTraceApi + "/incoming/delete",
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new IncomingError(`Error occurred. ${e}`, "Incoming.error");
     }
-
-    public async deleteData(key:string, data:any): Promise<{data: string}> {
-        try {
-            const {data} = await axios.put(CONSTANTS.VTraceApi+'/incoming/delete',{headers:{"x-api-key":key}})
-            return data;
-        } catch (e) {
-            this.logger.error(e);
-            throw new IncomingError(`Error occurred. ${e}`, 'Incoming.error');
-        }
-    }
+  }
 }

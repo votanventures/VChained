@@ -6,13 +6,14 @@ import {
   Post,
   Put,
   Delete,
+  UseGuards,
   Query,
 } from "@nestjs/common";
-import { TransactionService } from "../services/TransactionService";
-import { TransactionError } from "../dto/TransactionError";
+import { ParticipantService } from "../services/ParticipantService";
+import { ParticipantError } from "../dto/ParticipantError";
 
-export abstract class TransactionController {
-  protected constructor(protected readonly service: TransactionService) {}
+export abstract class ParticipantController {
+  protected constructor(protected readonly service: ParticipantService) {}
 
   @Post("/create")
   async storeData(@Body() body: any, @Headers() header: object) {
@@ -20,11 +21,11 @@ export abstract class TransactionController {
       const data = await this.service.storeData(header["x-access-token"], body);
       return data;
     } catch (e) {
-      throw new TransactionError(
+      throw new ParticipantError(
         `Unexpected error occurred. Reason: ${
           e.message?.message || e.response?.data || e.message || e
         }`,
-        "Transaction.error"
+        "Participant.error"
       );
     }
   }
@@ -32,63 +33,73 @@ export abstract class TransactionController {
   @Get("/id")
   async getData(@Query("id") id: string, @Headers() header: object) {
     try {
-      const data = await this.service.getData(header["x-access-token"]);
+      const data = await this.service.getData(header["x-access-token"], id);
       return data;
     } catch (e) {
-      throw new TransactionError(
+      throw new ParticipantError(
         `Unexpected error occurred. Reason: ${
           e.message?.message || e.response?.data || e.message || e
         }`,
-        "Transaction.error"
+        "Participant.error"
       );
     }
   }
 
-  @Get("/getInventory")
-  async getUserData(@Body("id") @Headers() header: object) {
+  @Get("/getParticipant")
+  async getParticipentData(@Body("id") @Headers('headers') header: object) {
     try {
-      const data = await this.service.getMasterData(header["x-access-token"]);
+        console.log(header,"head23333323232323233223234567890")
+      const data = await this.service.getParticipentData(
+        header["x-access-token"]
+      );
       return data;
     } catch (e) {
-      throw new TransactionError(
+      throw new ParticipantError(
         `Unexpected error occurred. Reason: ${
           e.message?.message || e.response?.data || e.message || e
         }`,
-        "Transaction.error"
+        "Participant.error"
       );
     }
   }
 
   @Put("/update")
   async updateData(
-    @Body("id") id: string,
-    body: any,
+    @Body("user_id") user_id: string,
     @Headers() header: object
   ) {
     try {
       const data = await this.service.updateData(
         header["x-access-token"],
-        body,
-        id
+        user_id
       );
       return data;
     } catch (e) {
-      throw new TransactionError(
+      throw new ParticipantError(
         `Unexpected error occured. Reason: ${
           e.message?.message || e.response?.data || e.message || e
         }`,
-        "Transaction.error"
+        "Participant.error"
       );
     }
   }
 
   @Delete("/delete")
-  async deleteData(@Query("id") @Body() id: string, @Headers() header: object) {
+  async deleteData(
+    @Query("user_id") @Body() user_id: string,
+    @Headers() header: object
+  ) {
     try {
-      const data = await this.service.deleteData(header["x-access-token"], id);
+      const data = await this.service.deleteData(
+        header["x-access-token"],
+        user_id
+      );
       return data;
     } catch (e) {
-      throw new TransactionError(`Incompatible chain`, "deleteUser.error");
+      throw new ParticipantError(
+        `Incompatible chain`,
+        "deleteParticipant.error"
+      );
     }
   }
 }

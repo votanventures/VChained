@@ -10,11 +10,10 @@ export abstract class MasterService {
   public async storeData(
     key: string,
     body: AddMasterData
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
-        CONSTANTS.VTraceApi + "/masterdata/create",
-        body,
+        CONSTANTS.VTraceApi + "/masterdata/create",body,
         { headers: { "x-access-token": key } }
       );
       return data;
@@ -91,16 +90,17 @@ export abstract class MasterService {
     }
   }
 
-  public async deleteData(key: string, body: AddMasterData): Promise<{ data: string }> {
+  public async deleteData(key: string, body:any): Promise<{ data: string }> {
     try {
-      const { data } = await axios.put(
-        CONSTANTS.VTraceApi + "/masterdata/delete",
-        body,
-        { headers: { "x-access-token": key } }
+      const { data } = await axios.post(
+        CONSTANTS.VTraceApi + "/masterdata/delete",{
+          data: body,
+          headers: { "x-access-token": key } }
       );
       return data;
     } catch (e) {
-      this.logger.error(e);
+      // this.logger.error(e);
+      console.log('error here')
       throw new MasterError(`Error occurred. ${e}`, "Master.error");
     }
   }

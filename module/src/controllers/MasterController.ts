@@ -18,6 +18,7 @@ export abstract class MasterController {
   @Post("/create")
   async storeData(@Body() body: AddMasterData, @Headers() header: object) {
     try {
+      console.log(header,"master data body /************************************************/")
       const data = await this.service.storeData(header["x-access-token"],body);
       return data;
     } catch (e) {
@@ -109,12 +110,14 @@ export abstract class MasterController {
   }
 
   @Delete("/delete")
-  async deleteData(@Body() body: AddMasterData, @Headers() header: object) {
+  async deleteData(@Body('query') body:any, @Headers() header: object) {
     try {
+      console.log(body,'##############################')
       const data = await this.service.deleteData(header["x-access-token"],body);
       return data;
     } catch (e) {
-      throw new MasterError(`Incompatible chain`, "deleteUser.error");
+      throw e;
+      // throw new MasterError(`Incompatible chain`, "deleteUser.error");
     }
   }
 }

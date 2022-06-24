@@ -82,7 +82,7 @@ export abstract class EmployeeController {
       const data = await this.service.deleteData(header["x-access-token"], id);
       return data;
     } catch (e) {
-      throw new EmployeeError(`Incompatible chain`, "deleteEmployee.error");
+      throw e;
     }
   }
 }

@@ -10,7 +10,7 @@ export abstract class InventoryService {
   public async storeData(
     key: string,
     body: AddInventory
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/inventory/create",
@@ -236,7 +236,7 @@ export abstract class InventoryService {
     }
   }
 
-  public async deleteData(key: string, data: any): Promise<{ data: string }> {
+  public async deleteData(key: string, data: any): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/inventory/delete",

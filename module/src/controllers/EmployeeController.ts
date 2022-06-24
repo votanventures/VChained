@@ -11,12 +11,13 @@ import {
 } from "@nestjs/common";
 import { EmployeeService } from "../services/EmployeeService";
 import { EmployeeError } from "../dto/EmployeeError";
+import { AddEmployee } from "../dto/AddEmployee";
 
 export abstract class EmployeeController {
   protected constructor(protected readonly service: EmployeeService) {}
 
   @Post("/create")
-  async storeData(@Body() body: any, id: string, @Headers() header: object) {
+  async storeData(@Body() body: AddEmployee, @Headers() header: object) {
     try {
       const data = await this.service.storeData(header["x-access-token"], body);
       return data;

@@ -91,11 +91,11 @@ export abstract class MasterService {
     }
   }
 
-  public async deleteData(key: string, id: string): Promise<{ data: string }> {
+  public async deleteData(key: string, body: AddMasterData): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/masterdata/delete",
-        id,
+        body,
         { headers: { "x-access-token": key } }
       );
       return data;

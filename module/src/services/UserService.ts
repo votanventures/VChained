@@ -7,16 +7,7 @@ import { CreateUser } from "../dto/CreateUser";
 export abstract class UserService {
   protected constructor(protected readonly logger: PinoLogger) {}
 
-  // public async storeData(body: CreateUser,key: string): Promise<{ data: string }> {
-  //     try {
-  //         const {data} = await axios.post(CONSTANTS.VTraceApi+'/user/create',body,{headers:{"x-api-key":key}})
-  //         return data;
-  //     } catch(e) {
-  //         this.logger.error(e);
-  //         throw new UserError(`Error occurred. ${e}`, 'User.error');
-  //     }
-  // }
-
+  
   public async signupData(
     key: string,
     body: CreateUser

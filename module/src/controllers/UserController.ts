@@ -15,16 +15,7 @@ import { UserError } from "../dto/UserError";
 export abstract class UserController {
   protected constructor(protected readonly service: UserService) {}
 
-  // @Post('/create')
-  // async storeData(@Body() body: any, @Headers() header: object) {
-  //     try {
-  //         const {data} = await this.service.storeData(header['x-api-key'],body);
-  //         return data;
-  //     } catch (e) {
-  //         throw new UserError(`Unexpected error occurred. Reason: ${e.message?.message || e.response?.data || e.message || e}`, 'User.error');
-  //     }
-  // }
-
+  
   @Post("/signup")
   async signupData(@Body() body: any, @Headers() header: object) {
     try {

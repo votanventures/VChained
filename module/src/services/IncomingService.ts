@@ -2,14 +2,15 @@ import { PinoLogger } from "nestjs-pino";
 import axios from "axios";
 import { IncomingError } from "../dto/IncomingError";
 import { CONSTANTS } from "../constants";
+import { AddIncoming } from "../dto/AddIncoming";
 
 export abstract class IncomingService {
   protected constructor(protected readonly logger: PinoLogger) {}
 
-  public async storeData(key: string, data: any): Promise<{ data: string }> {
+  public async storeData(key: string, body:AddIncoming): Promise<{ data: string }> {
     try {
       const { data } = await axios.post(
-        CONSTANTS.VTraceApi + "/incoming/create",
+        CONSTANTS.VTraceApi + "/incoming/create",body,
         { headers: { "x-access-token": key } }
       );
       return data;

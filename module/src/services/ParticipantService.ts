@@ -37,9 +37,8 @@ export abstract class ParticipantService {
     }
   }
 
-  public async getParticipentData(key: string): Promise<{ data: any }> {
+  public async getParticipentData(key: string,data:any): Promise<{ data: string }> {
     try {
-        console.log(key,"keys123456789")
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + "/participant/getParticipant",
         { headers: { "x-access-token": key } }

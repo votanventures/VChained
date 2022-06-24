@@ -10,14 +10,15 @@ import {
 } from "@nestjs/common";
 import { MasterService } from "../services/MasterService";
 import { MasterError } from "../dto/MasterError";
+import { AddMasterData } from "../dto/AddMasterData";
 
 export abstract class MasterController {
   protected constructor(protected readonly service: MasterService) {}
 
   @Post("/create")
-  async storeData(@Body() body: any, @Headers() header: object) {
+  async storeData(@Body() body: AddMasterData, @Headers() header: object) {
     try {
-      const data = await this.service.storeData(body, header["x-access-token"]);
+      const data = await this.service.storeData(header["x-access-token"],body);
       return data;
     } catch (e) {
       throw new MasterError(
@@ -108,9 +109,9 @@ export abstract class MasterController {
   }
 
   @Delete("/delete")
-  async deleteData(@Query("id") id: string, @Headers() header: object) {
+  async deleteData(@Body() body: AddMasterData, @Headers() header: object) {
     try {
-      const data = await this.service.deleteData(header["x-access-token"], id);
+      const data = await this.service.deleteData(header["x-access-token"],body);
       return data;
     } catch (e) {
       throw new MasterError(`Incompatible chain`, "deleteUser.error");

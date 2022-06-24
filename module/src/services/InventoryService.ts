@@ -51,13 +51,14 @@ export abstract class InventoryService {
 
   public async getInventoryByPID(
     key: string,
-    pid: string
+    pid: string,
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/inventory/getInventory/${pid}`,
         { headers: { "x-access-token": key } }
       );
+      console.log(data,"inventory data here 1234578")
       return data;
     } catch (e) {
       this.logger.error(e);

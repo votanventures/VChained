@@ -45,25 +45,25 @@ export abstract class InventoryController {
     }
   }
 
-//   @Get("/getInventory")
-//   async getUserData(@Headers() header: object) {
-//     try {
-//       const data = await this.service.getInventoryData(
-//         header["x-access-token"]
-//       );
-//       return data;
-//     } catch (e) {
-//       throw new InventoryError(
-//         `Unexpected error occurred. Reason: ${
-//           e.message?.message || e.response?.data || e.message || e
-//         }`,
-//         "Inventory.error"
-//       );
-//     }
-//   }
+  @Get("/getInventory")
+  async getUserData(@Headers() header: object) {
+    try {
+      const data = await this.service.getInventoryData(
+        header["x-access-token"]
+      );
+      return data;
+    } catch (e) {
+      throw new InventoryError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Inventory.error"
+      );
+    }
+  }
 
   @Get("/getInventory/:pid")
-  async getInventoryByPID(@Param('pid') pid: string, header: object) {
+  async getInventoryByPID(@Param('pid') pid: string, @Headers() header: object) {
     try {
       const data = await this.service.getInventoryByPID(
         header["x-access-token"],
@@ -81,7 +81,7 @@ export abstract class InventoryController {
   }
 
   @Get("/getOutgoing/:pid")
-  async getOutgoingByPID(@Headers() pid: string, header: object) {
+  async getOutgoingByPID(pid: string, @Headers() header: object) {
     try {
       const data = await this.service.getOutgoingByPID(
         header["x-access-token"],
@@ -99,7 +99,7 @@ export abstract class InventoryController {
   }
 
   @Get("/getIncoming/:pid")
-  async getIncomingByPID(@Headers() pid: string, header: object) {
+  async getIncomingByPID(pid: string, @Headers() header: object) {
     try {
       const data = await this.service.getIncomingByPID(
         header["x-access-token"],
@@ -117,7 +117,7 @@ export abstract class InventoryController {
   }
 
   @Get("/getParts")
-  async getPartsData(@Headers() body: any, header: object) {
+  async getPartsData(body: any, @Headers() header: object) {
     try {
       const data = await this.service.getPartsData(
         header["x-access-token"],
@@ -135,7 +135,7 @@ export abstract class InventoryController {
   }
 
   @Get("/getAllParts")
-  async getAllParts(@Headers() body: any, header: object) {
+  async getAllParts(body: any, @Headers() header: object) {
     try {
       const data = await this.service.getAllParts(
         header["x-access-token"],
@@ -279,7 +279,7 @@ export abstract class InventoryController {
   }
 
   @Delete("/delete")
-  async deleteData(@Query("id") @Body() id: string, @Headers() header: object) {
+  async deleteData(@Query("id") id: string, @Body() @Headers() header: object) {
     try {
       const data = await this.service.deleteData(header["x-access-token"], id);
       return data;

@@ -46,11 +46,11 @@ export abstract class ParticipantController {
   }
 
   @Get("/getParticipant")
-  async getParticipentData(@Body("id") @Headers('headers') header: object) {
+  async getParticipentData(@Body("id") body:any, @Headers() header: object) {
     try {
-        console.log(header,"head23333323232323233223234567890")
       const data = await this.service.getParticipentData(
-        header["x-access-token"]
+        header["x-access-token"],
+        body
       );
       return data;
     } catch (e) {

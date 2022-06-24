@@ -10,12 +10,13 @@ import {
 } from "@nestjs/common";
 import { IncomingService } from "../services/IncomingService";
 import { IncomingError } from "../dto/IncomingError";
+import { AddIncoming } from "../dto/AddIncoming";
 
 export abstract class IncomingController {
   protected constructor(protected readonly service: IncomingService) {}
 
   @Post("/create")
-  async storeData(@Body() body: any, @Headers() header: object) {
+  async storeData(@Body() body: AddIncoming, @Headers() header: object) {
     try {
       const data = await this.service.storeData(header["x-access-token"], body);
       return data;

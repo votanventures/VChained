@@ -38,6 +38,7 @@
     "class-validator": "^0.13.2",
     "express": "^4.17.2",
     "nestjs-pino": "^2.5.0",
+    "pino-http": "^8.0.1",
     "rxjs": "^7.5.4",
     "supertest": "^6.2.2",
     "ts-jest": "^27.1.3",

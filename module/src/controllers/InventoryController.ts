@@ -153,11 +153,11 @@ export abstract class InventoryController {
   }
 
   @Put("/update")
-  async updateData(@Body("id") productID: string, @Headers() header: object) {
+  async updateData(@Body() body: any, @Headers() header: object) {
     try {
       const data = await this.service.updateData(
         header["x-access-token"],
-        productID
+        body
       );
       return data;
     } catch (e) {

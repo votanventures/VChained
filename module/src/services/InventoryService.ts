@@ -127,10 +127,10 @@ export abstract class InventoryService {
     }
   }
 
-  public async updateData(key: string, data: any): Promise<{ data: string }> {
+  public async updateData(key: string, body: any): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(
-        CONSTANTS.VTraceApi + "/inventory/update",
+        CONSTANTS.VTraceApi + "/inventory/update",body,
         { headers: { "x-access-token": key } }
       );
       return data;

@@ -24,10 +24,10 @@ export abstract class ParticipantService {
     }
   }
 
-  public async getData(id: string, key: string): Promise<{ data: string }> {
+  public async getData(user_id: string, key: string): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + "/participant/id",
+        CONSTANTS.VTraceApi + "/participant/id?user_id=id",
         { headers: { "x-access-token": key } }
       );
       return data;
@@ -37,7 +37,7 @@ export abstract class ParticipantService {
     }
   }
 
-  public async getParticipentData(key: string,data:any): Promise<{ data: string }> {
+  public async getParticipentData(key: string): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + "/participant/getParticipant",
@@ -50,10 +50,11 @@ export abstract class ParticipantService {
     }
   }
 
-  public async updateData(key: string, data: any): Promise<{ data: string }> {
+  public async updateData(key: string, body: any): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/participant/update",
+        body,
         { headers: { "x-access-token": key } }
       );
       return data;

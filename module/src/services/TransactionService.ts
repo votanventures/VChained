@@ -24,10 +24,10 @@ export abstract class TransactionService {
     }
   }
 
-  public async getData(key: string): Promise<{ data: string }> {
+  public async getData(user_id:string, key: string): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + "/transaction/id",
+        CONSTANTS.VTraceApi + "/transaction/id?user_id=id",
         { headers: { "x-access-token": key } }
       );
       return data;
@@ -37,7 +37,7 @@ export abstract class TransactionService {
     }
   }
 
-  public async getMasterData(key: string): Promise<{ data: string }> {
+  public async getTransactionData(key: string): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + "/transaction/getTransaction",
@@ -53,7 +53,6 @@ export abstract class TransactionService {
   public async updateData(
     key: string,
     body: AddTransaction,
-    id: string
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(

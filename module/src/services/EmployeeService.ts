@@ -16,19 +16,19 @@ export abstract class EmployeeService {
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new EmployeeError(`Error occurred. ${e}`, "User.error");
+      throw new EmployeeError(`Error occurred. ${e}`, "Employee.error");
     }
   }
 
-  public async getData(id: string, key: string): Promise<{ data: string }> {
+  public async getData(user_id: string, key: string): Promise<{ data: string }> {
     try {
-      const { data } = await axios.get(CONSTANTS.VTraceApi + "/employee/id", {
+      const { data } = await axios.get(CONSTANTS.VTraceApi + "/employee/id?user_id=id", {
         headers: { "x-access-token": key },
       });
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new EmployeeError(`Error occurred. ${e}`, "User.error");
+      throw new EmployeeError(`Error occurred. ${e}`, "Employee.error");
     }
   }
 
@@ -41,7 +41,7 @@ export abstract class EmployeeService {
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new EmployeeError(`Error occured. ${e}`, "User.error");
+      throw new EmployeeError(`Error occured. ${e}`, "Employee.error");
     }
   }
 
@@ -54,7 +54,7 @@ export abstract class EmployeeService {
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new EmployeeError(`Error occurred. ${e}`, "User.error");
+      throw new EmployeeError(`Error occurred. ${e}`, "Employee.error");
     }
   }
 
@@ -67,7 +67,7 @@ export abstract class EmployeeService {
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new EmployeeError(`Error occurred. ${e}`, "User.error");
+      throw new EmployeeError(`Error occurred. ${e}`, "Employee.error");
     }
   }
 }

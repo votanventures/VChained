@@ -38,7 +38,6 @@ export abstract class UserController {
   async loginData(@Body() body: any) {
     try {
       const data = await this.service.loginData(body);
-      console.log("hihihihih", data);
       return data;
     } catch (e) {
       throw new UserError(

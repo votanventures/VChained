@@ -41,10 +41,10 @@ export abstract class UserService {
     }
   }
 
-  public async getData(id: string, key: string): Promise<{ data: any }> {
+  public async getData(user_id: string, key: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + "/user/id?user_id=id",
+        CONSTANTS.VTraceApi + `/user/id?user_id=id`,
         { headers: { "x-access-token": key } }
       );
       return data;

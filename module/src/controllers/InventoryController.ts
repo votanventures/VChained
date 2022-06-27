@@ -31,9 +31,9 @@ export abstract class InventoryController {
   }
 
   @Get("/id")
-  async getData(@Query("id") id: string, @Headers() header: object) {
+  async getData(@Query("user_id") user_id: string, @Headers() header: object) {
     try {
-      const data = await this.service.getData(header["x-access-token"], id);
+      const data = await this.service.getData(header["x-access-token"], user_id);
       return data;
     } catch (e) {
       throw new InventoryError(
@@ -81,7 +81,7 @@ export abstract class InventoryController {
   }
 
   @Get("/getOutgoing/:pid")
-  async getOutgoingByPID(pid: string, @Headers() header: object) {
+  async getOutgoingByPID(@Param('pid') pid: string, @Headers() header: object) {
     try {
       const data = await this.service.getOutgoingByPID(
         header["x-access-token"],
@@ -99,7 +99,7 @@ export abstract class InventoryController {
   }
 
   @Get("/getIncoming/:pid")
-  async getIncomingByPID(pid: string, @Headers() header: object) {
+  async getIncomingByPID(@Param('pid') pid: string, @Headers() header: object) {
     try {
       const data = await this.service.getIncomingByPID(
         header["x-access-token"],
@@ -135,7 +135,7 @@ export abstract class InventoryController {
   }
 
   @Get("/getAllParts")
-  async getAllParts(body: any, @Headers() header: object) {
+  async getAllParts(@Body() body: any, @Headers() header: object) {
     try {
       const data = await this.service.getAllParts(
         header["x-access-token"],
@@ -171,11 +171,11 @@ export abstract class InventoryController {
   }
 
   @Put("/addSubPart")
-  async addSubPartData(@Body("id") id: string, @Headers() header: object) {
+  async addSubPartData(@Body() body:any, @Headers() header: object) {
     try {
       const data = await this.service.addSubPartData(
         header["x-access-token"],
-        id
+        body
       );
       return data;
     } catch (e) {
@@ -189,11 +189,11 @@ export abstract class InventoryController {
   }
 
   @Put("/removeSubPart")
-  async removeSubPartData(@Body("id") id: string, @Headers() header: object) {
+  async removeSubPartData(@Body() body:any, @Headers() header: object) {
     try {
       const data = await this.service.removeSubPartData(
         header["x-access-token"],
-        id
+        body
       );
       return data;
     } catch (e) {
@@ -207,11 +207,11 @@ export abstract class InventoryController {
   }
 
   @Put("/claim/reject")
-  async claimRejectData(@Body("id") id: string, @Headers() header: object) {
+  async claimRejectData(@Body() body:any, @Headers() header: object) {
     try {
       const data = await this.service.claimRejectData(
         header["x-access-token"],
-        id
+        body
       );
       return data;
     } catch (e) {
@@ -225,11 +225,11 @@ export abstract class InventoryController {
   }
 
   @Put("/claim/accept")
-  async claimAcceptData(@Body("id") id: string, @Headers() header: object) {
+  async claimAcceptData(@Body() body:any, @Headers() header: object) {
     try {
       const data = await this.service.claimAcceptData(
         header["x-access-token"],
-        id
+        body
       );
       return data;
     } catch (e) {
@@ -243,11 +243,11 @@ export abstract class InventoryController {
   }
 
   @Put("/update/batch")
-  async updateBatchData(@Body("id") id: string, @Headers() header: object) {
+  async updateBatchData(@Body() body:any, @Headers() header: object) {
     try {
       const data = await this.service.updateBatchData(
         header["x-access-token"],
-        id
+        body
       );
       return data;
     } catch (e) {
@@ -261,11 +261,11 @@ export abstract class InventoryController {
   }
 
   @Put("/insert/batch")
-  async insertBatchData(@Body("id") id: string, @Headers() header: object) {
+  async insertBatchData(@Body() body:any, @Headers() header: object) {
     try {
       const data = await this.service.insertBatchData(
         header["x-access-token"],
-        id
+        body
       );
       return data;
     } catch (e) {
@@ -284,7 +284,7 @@ export abstract class InventoryController {
       const data = await this.service.deleteData(header["x-access-token"], id);
       return data;
     } catch (e) {
-      throw new InventoryError(`Incompatible chain`, "deleteUser.error");
+      throw new InventoryError(`Incompatible chain`, "deleteInventory.error");
     }
   }
 }

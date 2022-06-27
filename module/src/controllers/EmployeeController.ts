@@ -32,9 +32,9 @@ export abstract class EmployeeController {
   }
 
   @Get("/id")
-  async getData(@Query("id") id: string, body: any, @Headers() header: object) {
+  async getData(@Query("user_id") user_id: string, body: any, @Headers() header: object) {
     try {
-      const data = await this.service.getData(header["x-access-token"], id);
+      const data = await this.service.getData(header["x-access-token"], user_id);
       return data;
     } catch (e) {
       throw new EmployeeError(
@@ -47,7 +47,7 @@ export abstract class EmployeeController {
   }
 
   @Get("/getEmployee")
-  async getEmployeeData(@Body("id") @Headers() header: object) {
+  async getEmployeeData(@Headers() header: object) {
     try {
       const data = await this.service.getEmployeeData(header["x-access-token"]);
       return data;
@@ -62,9 +62,9 @@ export abstract class EmployeeController {
   }
 
   @Put("/update")
-  async updateData(@Body("id") id: string, @Headers() header: object) {
+  async updateData(@Body() body:any, @Headers() header: object) {
     try {
-      const data = await this.service.updateData(header["x-access-token"], id);
+      const data = await this.service.updateData(header["x-access-token"], body);
       return data;
     } catch (e) {
       throw new EmployeeError(

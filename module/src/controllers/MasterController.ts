@@ -18,7 +18,6 @@ export abstract class MasterController {
   @Post("/create")
   async storeData(@Body() body: AddMasterData, @Headers() header: object) {
     try {
-      console.log(header,"master data body /************************************************/")
       const data = await this.service.storeData(header["x-access-token"],body);
       return data;
     } catch (e) {
@@ -32,12 +31,11 @@ export abstract class MasterController {
   }
 
   @Get("/id")
-  async getData(@Query("id") id: string, body: any, @Headers() header: object) {
+  async getData(@Query("user_id") user_id: string, @Headers() header: object) {
     try {
       const data = await this.service.getData(
         header["x-access-token"],
-        id,
-        body
+        user_id,
       );
       return data;
     } catch (e) {
@@ -51,16 +49,12 @@ export abstract class MasterController {
   }
 
   @Get("/getMasterData")
-  async getUserData(
-    @Body("id") id: string,
-    body: any,
+  async getMasterData(
     @Headers() header: object
   ) {
     try {
       const data = await this.service.getMasterData(
         header["x-access-token"],
-        id,
-        body
       );
       return data;
     } catch (e) {
@@ -74,11 +68,11 @@ export abstract class MasterController {
   }
 
   @Put("/update")
-  async updateData(@Body("id") body: any, @Headers() header: object) {
+  async updateData(@Body() body:any, @Headers() header: object) {
     try {
       const data = await this.service.updateData(
-        body,
-        header["x-access-token"]
+        header["x-access-token"],
+        body
       );
       return data;
     } catch (e) {
@@ -112,7 +106,6 @@ export abstract class MasterController {
   @Delete("/delete")
   async deleteData(@Body('query') body:any, @Headers() header: object) {
     try {
-      console.log(body,'##############################')
       const data = await this.service.deleteData(header["x-access-token"],body);
       return data;
     } catch (e) {

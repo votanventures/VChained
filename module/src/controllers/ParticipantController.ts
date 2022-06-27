@@ -31,9 +31,9 @@ export abstract class ParticipantController {
   }
 
   @Get("/id")
-  async getData(@Query("id") id: string, @Headers() header: object) {
+  async getData(@Query("user_id") user_id: string, @Headers() header: object) {
     try {
-      const data = await this.service.getData(header["x-access-token"], id);
+      const data = await this.service.getData(header["x-access-token"], user_id);
       return data;
     } catch (e) {
       throw new ParticipantError(
@@ -46,11 +46,10 @@ export abstract class ParticipantController {
   }
 
   @Get("/getParticipant")
-  async getParticipentData(@Body("id") body:any, @Headers() header: object) {
+  async getParticipentData(@Headers() header: object) {
     try {
       const data = await this.service.getParticipentData(
-        header["x-access-token"],
-        body
+        header["x-access-token"]
       );
       return data;
     } catch (e) {
@@ -65,13 +64,13 @@ export abstract class ParticipantController {
 
   @Put("/update")
   async updateData(
-    @Body("user_id") user_id: string,
+    @Body() body:any,
     @Headers() header: object
   ) {
     try {
       const data = await this.service.updateData(
         header["x-access-token"],
-        user_id
+        body
       );
       return data;
     } catch (e) {

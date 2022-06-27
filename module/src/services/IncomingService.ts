@@ -20,9 +20,9 @@ export abstract class IncomingService {
     }
   }
 
-  public async getData(id: string, key: string): Promise<{ data: string }> {
+  public async getData(user_id: string, key: string): Promise<{ data: string }> {
     try {
-      const { data } = await axios.get(CONSTANTS.VTraceApi + "/incoming/id", {
+      const { data } = await axios.get(CONSTANTS.VTraceApi + "/incoming/id?user_id=id", {
         headers: { "x-access-token": key },
       });
       return data;
@@ -45,10 +45,11 @@ export abstract class IncomingService {
     }
   }
 
-  public async updateData(key: string, data: any): Promise<{ data: string }> {
+  public async updateData(key: string, body: any): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/incoming/update",
+        body,
         { headers: { "x-access-token": key } }
       );
       return data;

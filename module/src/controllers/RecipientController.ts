@@ -31,9 +31,9 @@ export abstract class RecipientController {
   }
 
   @Get("/id")
-  async getData(@Query("id") id: string, body: any, @Headers() header: object) {
+  async getData(@Param("user_id") user_id: string, body: any, @Headers() header: object) {
     try {
-      const data = await this.service.getData(header["x-access-token"], body);
+      const data = await this.service.getData(header["x-access-token"], user_id);
       return data;
     } catch (e) {
       throw new RecipientError(
@@ -47,15 +47,11 @@ export abstract class RecipientController {
 
   @Get("/getRecipient")
   async getRecipientData(
-    @Body("id") id: string,
-    body: any,
     @Headers() header: object
   ) {
     try {
       const data = await this.service.getRecipientData(
         header["x-access-token"],
-        id,
-        body
       );
       return data;
     } catch (e) {
@@ -69,12 +65,11 @@ export abstract class RecipientController {
   }
 
   @Put("/update")
-  async updateData(user_id: string, body: any, @Headers() header: object) {
+  async updateData(@Body() body: any, @Headers() header: object) {
     try {
       const data = await this.service.updateData(
         header["x-access-token"],
-        body,
-        user_id
+        body
       );
       return data;
     } catch (e) {
@@ -89,7 +84,7 @@ export abstract class RecipientController {
 
   @Delete("/delete")
   async deleteData(
-    @Query("user_id") @Body() user_id: string,
+    @Query("user_id") user_id: string, @Body() body:any,
     @Headers() header: object
   ) {
     try {

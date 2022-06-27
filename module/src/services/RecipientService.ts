@@ -24,9 +24,9 @@ export abstract class RecipientService {
     }
   }
 
-  public async getData(id: string, key: string): Promise<{ data: string }> {
+  public async getData(user_id: string, key: string): Promise<{ data: string }> {
     try {
-      const { data } = await axios.get(CONSTANTS.VTraceApi + "/recipient/id", {
+      const { data } = await axios.get(CONSTANTS.VTraceApi + `/recipient/id/${user_id}`, {
         headers: { "x-access-token": key },
       });
       return data;
@@ -37,9 +37,7 @@ export abstract class RecipientService {
   }
 
   public async getRecipientData(
-    key: string,
-    data: any,
-    id: string
+    key: string
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
@@ -55,8 +53,7 @@ export abstract class RecipientService {
 
   public async updateData(
     key: string,
-    body: AddRecipient,
-    id: string
+    body: AddRecipient
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(

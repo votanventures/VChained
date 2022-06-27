@@ -30,9 +30,9 @@ export abstract class TransactionController {
   }
 
   @Get("/id")
-  async getData(@Query("id") id: string, @Headers() header: object) {
+  async getData(@Query("user_id") user_id: string, @Headers() header: object) {
     try {
-      const data = await this.service.getData(header["x-access-token"]);
+      const data = await this.service.getData(header["x-access-token"],user_id);
       return data;
     } catch (e) {
       throw new TransactionError(
@@ -44,10 +44,10 @@ export abstract class TransactionController {
     }
   }
 
-  @Get("/getInventory")
-  async getUserData(@Body("id") @Headers() header: object) {
+  @Get("/getTransaction")
+  async getUserData(@Headers() header: object) {
     try {
-      const data = await this.service.getMasterData(header["x-access-token"]);
+      const data = await this.service.getTransactionData(header["x-access-token"]);
       return data;
     } catch (e) {
       throw new TransactionError(
@@ -61,15 +61,13 @@ export abstract class TransactionController {
 
   @Put("/update")
   async updateData(
-    @Body("id") id: string,
-    body: any,
+    @Body() body: any,
     @Headers() header: object
   ) {
     try {
       const data = await this.service.updateData(
         header["x-access-token"],
-        body,
-        id
+        body
       );
       return data;
     } catch (e) {

@@ -24,12 +24,11 @@ export abstract class MasterService {
   }
 
   public async getData(
-    id: string,
-    key: string,
-    data: any
+    user_id: string,
+    key: string
   ): Promise<{ data: string }> {
     try {
-      const { data } = await axios.get(CONSTANTS.VTraceApi + "/masterdata/id", {
+      const { data } = await axios.get(CONSTANTS.VTraceApi + "/masterdata/id?user_id=id", {
         headers: { "x-access-token": key },
       });
       return data;
@@ -41,8 +40,6 @@ export abstract class MasterService {
 
   public async getMasterData(
     key: string,
-    data: any,
-    id: string
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
@@ -58,8 +55,8 @@ export abstract class MasterService {
 
   public async updateData(
     key: string,
-    body: AddMasterData
-  ): Promise<{ data: string }> {
+    body:any
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/masterdata/update",

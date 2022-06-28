@@ -70,9 +70,8 @@ export abstract class RecipientService {
 
   public async deleteData(key: string, id: string): Promise<{ data: string }> {
     try {
-      const { data } = await axios.put(
+      const { data } = await axios.delete(
         CONSTANTS.VTraceApi + "/recipient/delete",
-        id,
         { headers: { "x-access-token": key } }
       );
       return data;

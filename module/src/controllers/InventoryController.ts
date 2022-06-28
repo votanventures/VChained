@@ -117,11 +117,10 @@ export abstract class InventoryController {
   }
 
   @Get("/getParts")
-  async getPartsData(body: any, @Headers() header: object) {
+  async getPartsData(@Query("productID") productID:string, @Query("pid") pid:string, @Headers() header: object) {
     try {
       const data = await this.service.getPartsData(
-        header["x-access-token"],
-        body
+        productID,pid, header["x-access-token"]
       );
       return data;
     } catch (e) {
@@ -135,11 +134,11 @@ export abstract class InventoryController {
   }
 
   @Get("/getAllParts")
-  async getAllParts(@Body() body: any, @Headers() header: object) {
+  async getAllParts(@Headers() header: object, @Query("productID") productID:string) {
     try {
       const data = await this.service.getAllParts(
         header["x-access-token"],
-        body
+        productID
       );
       return data;
     } catch (e) {

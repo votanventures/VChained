@@ -58,7 +58,6 @@ export abstract class InventoryService {
         CONSTANTS.VTraceApi + `/inventory/getInventory/${pid}`,
         { headers: { "x-access-token": key } }
       );
-      console.log(data,"inventory data here 1234578")
       return data;
     } catch (e) {
       this.logger.error(e);
@@ -99,12 +98,13 @@ export abstract class InventoryService {
   }
 
   public async getPartsData(
-    id: string,
+    productID: string,
+    pid:string,
     key: string
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + "/inventory/getParts",
+        CONSTANTS.VTraceApi + `/inventory/getParts?productID=${productID}&&pid=${pid}`,
         { headers: { "x-access-token": key } }
       );
       return data;
@@ -114,10 +114,10 @@ export abstract class InventoryService {
     }
   }
 
-  public async getAllParts(id: string, key: string): Promise<{ data: string }> {
+  public async getAllParts(key: string, productID: string): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + "/inventory/getAllParts",
+        CONSTANTS.VTraceApi + `/inventory/getAllParts?productID=${productID}`,
         { headers: { "x-access-token": key } }
       );
       return data;
@@ -150,6 +150,7 @@ export abstract class InventoryService {
         body,
         { headers: { "x-access-token": key } }
       );
+
       return data;
     } catch (e) {
       this.logger.error(e);
@@ -244,7 +245,7 @@ export abstract class InventoryService {
 
   public async deleteData(key: string, data: any): Promise<{ data: any }> {
     try {
-      const { data } = await axios.put(
+      const { data } = await axios.delete(
         CONSTANTS.VTraceApi + "/inventory/delete",
         { headers: { "x-access-token": key } }
       );

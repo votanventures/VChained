@@ -33,7 +33,6 @@ export abstract class UserService {
         CONSTANTS.VTraceApi + "/user/login",
         body
       );
-      console.log("hello", data);
       return data;
     } catch (e) {
       this.logger.error(e);
@@ -44,7 +43,7 @@ export abstract class UserService {
   public async getData(user_id: string, key: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + `/user/id?user_id=id`,
+        CONSTANTS.VTraceApi + `/user/id?user_id=${user_id}`,
         { headers: { "x-access-token": key } }
       );
       return data;
@@ -106,10 +105,10 @@ export abstract class UserService {
     }
   }
 
-  public async deleteData(key: string, data: any): Promise<{ data: any }> {
+  public async deleteData(key: string, user_id:string): Promise<{ data: any }> {
     try {
-      const { data } = await axios.put(
-        CONSTANTS.VTraceApi + "/user/delete/id?user_id=id",
+      const { data } = await axios.delete(
+        CONSTANTS.VTraceApi + `/user/delete/id?user_id=${user_id}`,
         { headers: { "x-access-token": key } }
       );
       return data;

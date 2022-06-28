@@ -31,9 +31,9 @@ export abstract class ParticipantController {
   }
 
   @Get("/id")
-  async getData(@Query("user_id") user_id: string, @Headers() header: object) {
+  async getData(@Query("PID") PID: string, @Headers() header: object) {
     try {
-      const data = await this.service.getData(header["x-access-token"], user_id);
+      const data = await this.service.getData(header["x-access-token"], PID);
       return data;
     } catch (e) {
       throw new ParticipantError(

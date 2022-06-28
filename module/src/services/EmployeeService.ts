@@ -22,7 +22,7 @@ export abstract class EmployeeService {
 
   public async getData(user_id: string, key: string): Promise<{ data: string }> {
     try {
-      const { data } = await axios.get(CONSTANTS.VTraceApi + "/employee/id?user_id=id", {
+      const { data } = await axios.get(CONSTANTS.VTraceApi + `/employee/id?user_id=${user_id}`, {
         headers: { "x-access-token": key },
       });
       return data;
@@ -60,7 +60,7 @@ export abstract class EmployeeService {
 
   public async deleteData(key: string, data: any): Promise<{ data: string }> {
     try {
-      const { data } = await axios.put(
+      const { data } = await axios.delete(
         CONSTANTS.VTraceApi + "/employee/delete",
         { headers: { "x-access-token": key } }
       );

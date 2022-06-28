@@ -81,7 +81,7 @@ export abstract class TransactionController {
   }
 
   @Delete("/delete")
-  async deleteData(@Query("id") @Body() id: string, @Headers() header: object) {
+  async deleteData(@Headers() header: object, @Query("id") id: string) {
     try {
       const data = await this.service.deleteData(header["x-access-token"], id);
       return data;

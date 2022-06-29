@@ -9,14 +9,12 @@ export abstract class UserService {
 
   
   public async signupData(
-    key: string,
     body: CreateUser
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/user/register",
         body,
-        { headers: { "x-api-key": key } }
       );
       return data;
     } catch (e) {

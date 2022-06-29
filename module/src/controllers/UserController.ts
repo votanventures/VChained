@@ -16,12 +16,11 @@ export abstract class UserController {
   protected constructor(protected readonly service: UserService) {}
 
   
-  @Post("/signup")
-  async signupData(@Body() body: any, @Headers() header: object) {
+  @Post("/register")
+  async signupData(@Body() body: any) {
     try {
       const data = await this.service.signupData(
         body,
-        header["x-access-token"]
       );
       return data;
     } catch (e) {

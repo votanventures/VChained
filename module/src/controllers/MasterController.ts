@@ -104,9 +104,9 @@ export abstract class MasterController {
   }
 
   @Delete("/delete")
-  async deleteData(@Body('query') body:any, @Headers() header: object) {
+  async deleteData(@Headers() header: object, @Query("productId") productId:string) {
     try {
-      const data = await this.service.deleteData(header["x-access-token"],body);
+      const data = await this.service.deleteData(header["x-access-token"],productId);
       return data;
     } catch (e) {
       throw e;

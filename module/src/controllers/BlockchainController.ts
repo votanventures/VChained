@@ -15,10 +15,11 @@ import { BlockchainError } from "../dto/BlockchainError";
 export abstract class BlockchainController {
   protected constructor(protected readonly service: BlockchainService) {}
 
-  @Get("/deploy")
-  async deploy(@Headers() header: object) {
+  @Get("/deploy/:user_id")
+  async deploy(@Headers() header: object, @Param('user_id') p) {
     try {
-      const { data } = await this.service.deploy();
+      console.log(header)
+      const data = await this.service.deploy(header["x-api-key"],p);
       return data;
     } catch (e) {
       throw new BlockchainError(

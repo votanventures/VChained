@@ -35,53 +35,44 @@ export class BlockchainService {
   }
 
   //deploy function
-  public async deploy(): Promise<{ data: any }> {
+  public async deploy(key:string, user_id: string): Promise<{ data: any }> {
     // async function deploy() {
     const tezos = new TezosToolkit(CONSTANTS.RPC_URL);
     await importKey(
       tezos,
-      "qcpqedqq.bgoxbsct@teztnets.xyz", //mail
-      "oCuMptn7sq", //password
-      [
-        "jacket", //passphrase
-        "fire",
-        "sample",
-        "filter",
-        "there",
-        "ship",
-        "pistol",
-        "swarm",
-        "infant",
-        "sand",
-        "degree",
-        "replace",
-        "soup",
-        "gossip",
-        "hood",
-      ].join(" "),
+      CONSTANTS.wallet.email,
+      CONSTANTS.wallet.password,
+      CONSTANTS.wallet.mnemonic.join(" "),
       "57a58ba2e1cfa419ea4c4e7636b47e2ffd1e3527" //private key
     );
 
     try {
+      console.log('i am here', user_id)
       const op = await tezos.contract.originate({
         code: CONSTANTS.code,
         init: CONSTANTS.init,
       });
+      console.log('i am here2')
+
       //beginning to deploy
       console.log("Awaiting confirmation...", op);
+      console.log('i am here3')
       const contract = await op.contract();
       //deployment report: amount of used gas, storage state
+      console.log('i am here4')
       console.log("Gas Used", op.consumedGas);
       console.log("Storage", await contract.storage());
       //operation hash one can use to find the contract in the explorer
       console.log("Operation hash:", op.hash);
       console.log("Contract here:", contract.address);
       // return {data:op.hash};
-      return await op.confirmation(1).then(async () => {
+      const x= await op.confirmation(1).then(async () => {
         const UpdateContract = await updateContract(
+          user_id,
           contract.address,
           CONSTANTS.wallet.address,
-          "1"
+          "1",
+          key
         );
         console.log(UpdateContract);
         if (!UpdateContract) {
@@ -92,6 +83,8 @@ export class BlockchainService {
         }
         return { data: op.hash, contract: contract.address };
       });
+      console.log('this is x',x)
+      return x;
     } catch (ex) {
       console.error(ex);
       return { data: ex };

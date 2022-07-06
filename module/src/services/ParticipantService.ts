@@ -50,6 +50,19 @@ export abstract class ParticipantService {
     }
   }
 
+  public async getBlockchainData(key: string): Promise<{ data:string }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + "/participant/getData", {
+          headers : { "x-access-token": key },
+        });
+        return data;
+    } catch(e) {
+      this.logger.error(e);
+      throw new ParticipantError(`Error occurred ${e}`, "Participant.error");
+    }
+  }
+
   public async updateData(key: string, body: any): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(
@@ -60,6 +73,22 @@ export abstract class ParticipantService {
       return data;
     } catch (e) {
       this.logger.error(e);
+      throw new ParticipantError(`Error occurred. ${e}`, "Participant.error");
+    }
+  }
+
+  public async updateBlockchainData(
+    key:string,
+    data:any
+  ): Promise<{ data:any }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + "/participant/updateData",
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch(e) {
+      this.logger.error(e)
       throw new ParticipantError(`Error occurred. ${e}`, "Participant.error");
     }
   }

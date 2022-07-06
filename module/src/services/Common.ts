@@ -1,16 +1,17 @@
 import axios from "axios";
+// import Api Url
 import { CONSTANTS } from "../constants";
 
 export const updateContract = async (
-  user_id: string,
+  PID: string,
   contract: string,
   address: string,
   Id: string,
   key: string,
 ) => {
   try {
-    const response = await axios.put(CONSTANTS.VTraceApi + "/user/updateData", {
-      user_id: user_id,
+    const response = await axios.put(CONSTANTS.VTraceApi + "/participant/updateData", {
+      PID: PID,
       contractAddress: contract,
       Wallet: CONSTANTS,
       Address: address,

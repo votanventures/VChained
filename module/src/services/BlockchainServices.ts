@@ -53,7 +53,6 @@ export class BlockchainService {
         init: CONSTANTS.init,
       });
       console.log('i am here2')
-
       //beginning to deploy
       console.log("Awaiting confirmation...", op);
       console.log('i am here3')

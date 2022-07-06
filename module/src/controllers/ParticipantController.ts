@@ -62,6 +62,23 @@ export abstract class ParticipantController {
     }
   }
 
+  @Get("/getData")
+  async getBlockchainData(@Body("PID") @Headers() header: object) {
+    try {
+      const data = await this.service.getBlockchainData(
+        header["x-access-token"]
+      );
+      return data;
+    } catch(e) {
+      throw new ParticipantError(
+        `Unexpected error occured. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Participant error"
+      )
+    }
+  }
+
   @Put("/update")
   async updateData(
     @Body() body:any,
@@ -72,6 +89,21 @@ export abstract class ParticipantController {
         header["x-access-token"],
         body
       );
+      return data;
+    } catch (e) {
+      throw new ParticipantError(
+        `Unexpected error occured. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Participant.error"
+      );
+    }
+  }
+
+  @Put("/updateData")
+  async updateBlockchainData(@Body("PID") PID:string, @Headers() header:object) {
+    try{
+      const data = await this.service.updateBlockchainData(header["x-access-token"], PID);
       return data;
     } catch (e) {
       throw new ParticipantError(

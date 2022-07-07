@@ -9,20 +9,20 @@ import {
   UseGuards,
   Query,
 } from "@nestjs/common";
-import { EmployeeService } from "../services/EmployeeService";
-import { EmployeeError } from "../dto/EmployeeError";
-import { AddEmployee } from "../dto/AddEmployee";
+import { NetworkService } from "../services/NetworkService";
+import { NetworkError } from "../dto/NetworkError";
+import { AddNetwork } from "../dto/AddNetwork";
 
-export abstract class EmployeeController {
-  protected constructor(protected readonly service: EmployeeService) {}
+export abstract class NetworkController {
+  protected constructor(protected readonly service: NetworkService) {}
 
   @Post("/create")
-  async storeData(@Body() body: AddEmployee, @Headers() header: object) {
+  async storeData(@Body() body: AddNetwork, @Headers() header: object) {
     try {
       const data = await this.service.storeData(header["x-access-token"], body);
       return data;
     } catch (e) {
-      throw new EmployeeError(
+      throw new NetworkError(
         `Unexpected error occurred. Reason: ${
           e.message?.message || e.response?.data || e.message || e
         }`,
@@ -37,7 +37,7 @@ export abstract class EmployeeController {
       const data = await this.service.getData(header["x-access-token"], user_id);
       return data;
     } catch (e) {
-      throw new EmployeeError(
+      throw new NetworkError(
         `Unexpected error occurred. Reason: ${
           e.message?.message || e.response?.data || e.message || e
         }`,
@@ -52,7 +52,7 @@ export abstract class EmployeeController {
       const data = await this.service.getEmployeeData(header["x-access-token"]);
       return data;
     } catch (e) {
-      throw new EmployeeError(
+      throw new NetworkError(
         `Unexpected error occurred. Reason: ${
           e.message?.message || e.response?.data || e.message || e
         }`,
@@ -67,7 +67,7 @@ export abstract class EmployeeController {
       const data = await this.service.updateData(header["x-access-token"], body);
       return data;
     } catch (e) {
-      throw new EmployeeError(
+      throw new NetworkError(
         `Unexpected error occured. Reason: ${
           e.message?.message || e.response?.data || e.message || e
         }`,

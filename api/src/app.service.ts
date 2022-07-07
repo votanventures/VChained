@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PinoLogger } from 'pino-logger';
 import { InjectPinoLogger } from 'nestjs-pino';
-import { EmployeeService } from '../../module/src/services/EmployeeService';
+import { NetworkService } from '../../module/src/services/NetworkService';
 import { IncomingService } from '../../module/src/services/IncomingService';
 import { InventoryService } from '../../module/src/services/InventoryService';
 import { MasterService } from '../../module/src/services/MasterService';
@@ -12,8 +12,8 @@ import { UserService } from '../../module/src/services/UserService';
 import { BlockchainService } from '../../module/src/services/BlockchainServices';
 
 @Injectable()
-export class EmpService extends EmployeeService {
-  constructor(@InjectPinoLogger(EmpService.name) logger: PinoLogger) {
+export class NetService extends NetworkService {
+  constructor(@InjectPinoLogger(NetService.name) logger: PinoLogger) {
     super(logger);
   }
 }

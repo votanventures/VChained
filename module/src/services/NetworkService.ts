@@ -1,13 +1,13 @@
 import { PinoLogger } from "nestjs-pino";
 import axios from "axios";
-import { EmployeeError } from "../dto/EmployeeError";
+import { NetworkError } from "../dto/NetworkError";
 import { CONSTANTS } from "../constants";
-import { AddEmployee } from "../dto/AddEmployee";
+import { AddNetwork } from "../dto/AddNetwork";
 
-export abstract class EmployeeService {
+export abstract class NetworkService {
   protected constructor(protected readonly logger: PinoLogger) {}
 
-  public async storeData(key: string, body:AddEmployee): Promise<{ data: string }> {
+  public async storeData(key: string, body:AddNetwork): Promise<{ data: string }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/employee/create",body,
@@ -16,7 +16,7 @@ export abstract class EmployeeService {
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new EmployeeError(`Error occurred. ${e}`, "Employee.error");
+      throw new NetworkError(`Error occurred. ${e}`, "Employee.error");
     }
   }
 
@@ -28,7 +28,7 @@ export abstract class EmployeeService {
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new EmployeeError(`Error occurred. ${e}`, "Employee.error");
+      throw new NetworkError(`Error occurred. ${e}`, "Employee.error");
     }
   }
 
@@ -41,7 +41,7 @@ export abstract class EmployeeService {
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new EmployeeError(`Error occured. ${e}`, "Employee.error");
+      throw new NetworkError(`Error occured. ${e}`, "Employee.error");
     }
   }
 
@@ -54,7 +54,7 @@ export abstract class EmployeeService {
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new EmployeeError(`Error occurred. ${e}`, "Employee.error");
+      throw new NetworkError(`Error occurred. ${e}`, "Employee.error");
     }
   }
 
@@ -67,7 +67,7 @@ export abstract class EmployeeService {
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new EmployeeError(`Error occurred. ${e}`, "Employee.error");
+      throw new NetworkError(`Error occurred. ${e}`, "Employee.error");
     }
   }
 }

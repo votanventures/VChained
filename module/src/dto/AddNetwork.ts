@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class AddEmployee {
+export class AddNetwork {
     @IsNotEmpty()
     public productId: string;
     @IsNotEmpty()

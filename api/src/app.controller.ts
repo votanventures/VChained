@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
-import { EmpService, IncService, InvService, MasService, ParService, RecService, TransService, UsrService, BlckService } from './app.service';
-import { EmployeeController } from '../../module/src/controllers/EmployeeController';
+import { NetService, IncService, InvService, MasService, ParService, RecService, TransService, UsrService, BlckService } from './app.service';
+import { NetworkController } from '../../module/src/controllers/NetworkController';
 import { IncomingController } from '../../module/src/controllers/IncomingController';
 import { InventoryController } from '../../module/src/controllers/InventoryController';
 import { MasterController } from '../../module/src/controllers/MasterController';
@@ -10,9 +10,9 @@ import { TransactionController } from '../../module/src/controllers/TransactionC
 import { UserController } from '../../module/src/controllers/UserController';
 import { BlockchainController } from '../../module/src/controllers/BlockchainController';
 
-@Controller('/api/employee')
-export class EmpController extends EmployeeController {
-  constructor(private readonly quorumService: EmpService) {
+@Controller('/api/network')
+export class NetController extends NetworkController {
+  constructor(private readonly quorumService: NetService) {
     super(quorumService);
   }
 }

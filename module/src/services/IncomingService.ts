@@ -59,10 +59,10 @@ export abstract class IncomingService {
     }
   }
 
-  public async deleteData(key: string, data: any): Promise<{ data: string }> {
+  public async deleteData(key: string, productId:string): Promise<{ data: string }> {
     try {
       const { data } = await axios.delete(
-        CONSTANTS.VTraceApi + "/incoming/delete",
+        CONSTANTS.VTraceApi + `/incoming/delete/id?productId=${productId}`,
         { headers: { "x-access-token": key } }
       );
       return data;

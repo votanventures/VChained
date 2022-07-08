@@ -1,20 +1,16 @@
 import { IsNotEmpty } from 'class-validator';
 
+// NID, BackendUrl, SecretKey, Status, TezosAppId
+
 export class AddNetwork {
     @IsNotEmpty()
-    public productId: string;
+    public NID: string;
     @IsNotEmpty()
-    public budget: string;
+    public BackendUrl: string;
     @IsNotEmpty()
-    public number: string;
+    public SecretKey: string;
     @IsNotEmpty()
-    public PID: string;
+    public Status: string;
     @IsNotEmpty()
-    public model: string;
-    @IsNotEmpty()
-    public name: string;
-    @IsNotEmpty()
-    public description: string;
-    @IsNotEmpty()
-    public action: string;
+    public TezosAppId: string;
 }

@@ -24,9 +24,9 @@ export * from "./services/RecipientService";
 export * from "./controllers/RecipientController";
 export * from "./dto/RecipientError";
 // employee data services
-export * from "./services/EmployeeService";
-export * from "./controllers/EmployeeController";
-export * from "./dto/EmployeeError";
+export * from "./services/NetworkService";
+export * from "./controllers/NetworkController";
+export * from "./dto/NetworkError";
 // participent data services
 export * from "./services/ParticipantService";
 export * from "./controllers/ParticipantController";

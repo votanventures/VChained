@@ -26,37 +26,67 @@ export abstract class NetworkController {
         `Unexpected error occurred. Reason: ${
           e.message?.message || e.response?.data || e.message || e
         }`,
-        "Employee.error"
+        "Network.error"
+      );
+    }
+  }
+
+  @Post("/connect")
+  async connectData(@Body() body: AddNetwork, @Headers() header: object) {
+    try {
+      const data = await this.service.connectData(header["x-access-token"], body);
+      return data;
+    } catch (e) {
+      throw new NetworkError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Network.error"
       );
     }
   }
 
   @Get("/id")
-  async getData(@Query("user_id") user_id: string, body: any, @Headers() header: object) {
+  async getData(@Query("NID") NID: string, body: any, @Headers() header: object) {
     try {
-      const data = await this.service.getData(header["x-access-token"], user_id);
+      const data = await this.service.getData(header["x-access-token"], NID);
       return data;
     } catch (e) {
       throw new NetworkError(
         `Unexpected error occurred. Reason: ${
           e.message?.message || e.response?.data || e.message || e
         }`,
-        "Employee.error"
+        "Network.error"
       );
     }
   }
 
-  @Get("/getEmployee")
-  async getEmployeeData(@Headers() header: object) {
+  @Get("/getNetwork")
+  async getNetworkData(@Headers() header: object) {
     try {
-      const data = await this.service.getEmployeeData(header["x-access-token"]);
+      const data = await this.service.getNetworkData(header["x-access-token"]);
       return data;
     } catch (e) {
       throw new NetworkError(
         `Unexpected error occurred. Reason: ${
           e.message?.message || e.response?.data || e.message || e
         }`,
-        "Employee.error"
+        "Network.error"
+      );
+    }
+  }
+
+  @Get("/checkStatus")
+  async getcheckStatusData(@Query("NID") NID: string, @Headers() header: object) {
+    try {
+      const data = await this.service.getcheckStatusData(header["x-access-token"], NID);
+      return data;
+    } catch (e) {
+      throw new NetworkError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Network.error"
       );
     }
   }
@@ -71,18 +101,23 @@ export abstract class NetworkController {
         `Unexpected error occured. Reason: ${
           e.message?.message || e.response?.data || e.message || e
         }`,
-        "Employee.error"
+        "Network.error"
       );
     }
   }
 
   @Delete("/delete")
-  async deleteData(@Body() id: string, @Headers() header: object) {
+  async deleteData(@Query("NID") NID: string, @Headers() header: object) {
     try {
-      const data = await this.service.deleteData(header["x-access-token"], id);
+      const data = await this.service.deleteData(header["x-access-token"], NID);
       return data;
     } catch (e) {
-      throw e;
+      throw new NetworkError(
+        `Unexpected error occured. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Network.error"
+      )
     }
   }
 }

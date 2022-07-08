@@ -10,64 +10,89 @@ export abstract class NetworkService {
   public async storeData(key: string, body:AddNetwork): Promise<{ data: string }> {
     try {
       const { data } = await axios.post(
-        CONSTANTS.VTraceApi + "/employee/create",body,
+        CONSTANTS.VTraceApi + "/network/create",body,
         { headers: { "x-access-token": key } }
       );
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new NetworkError(`Error occurred. ${e}`, "Employee.error");
+      throw new NetworkError(`Error occurred. ${e}`, "Network.error");
+    }
+  }
+
+  public async connectData(key: string, body:AddNetwork): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.post(
+        CONSTANTS.VTraceApi + "/network/connect",body,
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new NetworkError(`Error occurred. ${e}`, "Network.error");
     }
   }
 
   public async getData(user_id: string, key: string): Promise<{ data: string }> {
     try {
-      const { data } = await axios.get(CONSTANTS.VTraceApi + `/employee/id?user_id=${user_id}`, {
+      const { data } = await axios.get(CONSTANTS.VTraceApi + `/network/id?user_id=${user_id}`, {
         headers: { "x-access-token": key },
       });
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new NetworkError(`Error occurred. ${e}`, "Employee.error");
+      throw new NetworkError(`Error occurred. ${e}`, "Network.error");
     }
   }
 
-  public async getEmployeeData(key: string): Promise<{ data: string }> {
+  public async getNetworkData(key: string): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + "/employee/getEmployee",
+        CONSTANTS.VTraceApi + "/network/getNetwork",
         { headers: { "x-access-token": key } }
       );
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new NetworkError(`Error occured. ${e}`, "Employee.error");
+      throw new NetworkError(`Error occured. ${e}`, "Network.error");
+    }
+  }
+
+  public async getcheckStatusData(NID: string, key: string): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(CONSTANTS.VTraceApi + `/network/id?NID=${NID}`, {
+        headers: { "x-access-token": key },
+      });
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new NetworkError(`Error occurred. ${e}`, "Network.error");
     }
   }
 
   public async updateData(key: string, data: any): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(
-        CONSTANTS.VTraceApi + "/employee/update",
+        CONSTANTS.VTraceApi + "/network/update",
         { headers: { "x-access-token": key } }
       );
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new NetworkError(`Error occurred. ${e}`, "Employee.error");
+      throw new NetworkError(`Error occurred. ${e}`, "Network.error");
     }
   }
 
-  public async deleteData(key: string, data: any): Promise<{ data: string }> {
+  public async deleteData(key: string, NID:string): Promise<{ data: string }> {
     try {
       const { data } = await axios.delete(
-        CONSTANTS.VTraceApi + "/employee/delete",
+        CONSTANTS.VTraceApi + `/network/delete/id?NId=${NID}`,
         { headers: { "x-access-token": key } }
       );
       return data;
     } catch (e) {
       this.logger.error(e);
-      throw new NetworkError(`Error occurred. ${e}`, "Employee.error");
+      throw new NetworkError(`Error occurred. ${e}`, "Network.error");
     }
   }
 }

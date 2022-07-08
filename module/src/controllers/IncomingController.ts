@@ -76,9 +76,9 @@ export abstract class IncomingController {
   }
 
   @Delete("/delete")
-  async deleteData(@Query("id") @Body() id: string, @Headers() header: object) {
+  async deleteData(@Query("productId") productId: string, @Headers() header: object) {
     try {
-      const data = await this.service.deleteData(header["x-access-token"], id);
+      const data = await this.service.deleteData(header["x-access-token"], productId);
       return data;
     } catch (e) {
       throw new IncomingError(`Incompatible chain`, "deleteIncoming.error");

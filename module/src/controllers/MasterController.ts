@@ -109,8 +109,12 @@ export abstract class MasterController {
       const data = await this.service.deleteData(header["x-access-token"],productId);
       return data;
     } catch (e) {
-      throw e;
-      // throw new MasterError(`Incompatible chain`, "deleteUser.error");
+      throw new MasterError(
+        `Unexpected error occured. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Master.error"
+      )
     }
   }
 }

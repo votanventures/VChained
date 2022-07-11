@@ -7,11 +7,10 @@ import { AddNetwork } from "../dto/AddNetwork";
 export abstract class NetworkService {
   protected constructor(protected readonly logger: PinoLogger) {}
 
-  public async storeData(key: string, body:AddNetwork): Promise<{ data: string }> {
+  public async storeData(body:AddNetwork): Promise<{ data: string }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/network/create",body,
-        { headers: { "x-access-token": key } }
       );
       return data;
     } catch (e) {
@@ -45,11 +44,10 @@ export abstract class NetworkService {
     }
   }
 
-  public async getNetworkData(key: string): Promise<{ data: string }> {
+  public async getNetworkData(): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + "/network/getNetwork",
-        { headers: { "x-access-token": key } }
+        CONSTANTS.VTraceApi + "/network/getNetwork"
       );
       return data;
     } catch (e) {

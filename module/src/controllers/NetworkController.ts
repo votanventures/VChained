@@ -17,9 +17,9 @@ export abstract class NetworkController {
   protected constructor(protected readonly service: NetworkService) {}
 
   @Post("/create")
-  async storeData(@Body() body: AddNetwork, @Headers() header: object) {
+  async storeData(@Body() body: AddNetwork) {
     try {
-      const data = await this.service.storeData(header["x-access-token"], body);
+      const data = await this.service.storeData(body);
       return data;
     } catch (e) {
       throw new NetworkError(
@@ -62,9 +62,9 @@ export abstract class NetworkController {
   }
 
   @Get("/getNetwork")
-  async getNetworkData(@Headers() header: object) {
+  async getNetworkData() {
     try {
-      const data = await this.service.getNetworkData(header["x-access-token"]);
+      const data = await this.service.getNetworkData();
       return data;
     } catch (e) {
       throw new NetworkError(

@@ -32,11 +32,13 @@ export abstract class NetworkController {
   }
 
   @Post("/connect")
-  async connectData(@Body() body: AddNetwork, @Headers() header: object) {
+  async connectData(@Body() body: AddNetwork) {
     try {
-      const data = await this.service.connectData(header["x-access-token"], body);
+      console.log(body,"body heer")
+      const data = await this.service.connectData(body);
       return data;
     } catch (e) {
+      console.log(e,"error here")
       throw new NetworkError(
         `Unexpected error occurred. Reason: ${
           e.message?.message || e.response?.data || e.message || e
@@ -47,9 +49,9 @@ export abstract class NetworkController {
   }
 
   @Get("/id")
-  async getData(@Query("NID") NID: string, body: any, @Headers() header: object) {
+  async getData(@Query("NID") NID: string) {
     try {
-      const data = await this.service.getData(header["x-access-token"], NID);
+      const data = await this.service.getData(NID);
       return data;
     } catch (e) {
       throw new NetworkError(
@@ -77,9 +79,9 @@ export abstract class NetworkController {
   }
 
   @Get("/checkStatus")
-  async getcheckStatusData(@Query("NID") NID: string, @Headers() header: object) {
+  async getcheckStatusData(@Query("NID") NID: string) {
     try {
-      const data = await this.service.getcheckStatusData(header["x-access-token"], NID);
+      const data = await this.service.getcheckStatusData(NID);
       return data;
     } catch (e) {
       throw new NetworkError(
@@ -92,9 +94,9 @@ export abstract class NetworkController {
   }
 
   @Put("/update")
-  async updateData(@Body() body:any, @Headers() header: object) {
+  async updateData(@Body() body:any) {
     try {
-      const data = await this.service.updateData(header["x-access-token"], body);
+      const data = await this.service.updateData(body);
       return data;
     } catch (e) {
       throw new NetworkError(
@@ -107,9 +109,9 @@ export abstract class NetworkController {
   }
 
   @Delete("/delete")
-  async deleteData(@Query("NID") NID: string, @Headers() header: object) {
+  async deleteData(@Query("NID") NID: string) {
     try {
-      const data = await this.service.deleteData(header["x-access-token"], NID);
+      const data = await this.service.deleteData(NID);
       return data;
     } catch (e) {
       throw new NetworkError(

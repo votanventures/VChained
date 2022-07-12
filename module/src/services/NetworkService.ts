@@ -19,12 +19,12 @@ export abstract class NetworkService {
     }
   }
 
-  public async connectData(key: string, body:AddNetwork): Promise<{ data: string }> {
+  public async connectData(body:AddNetwork): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
-        CONSTANTS.VTraceApi + "/network/connect",body,
-        { headers: { "x-access-token": key } }
+        CONSTANTS.VTraceApi + "/network/connect",body
       );
+      console.log(data,"data here")
       return data;
     } catch (e) {
       this.logger.error(e);
@@ -32,11 +32,10 @@ export abstract class NetworkService {
     }
   }
 
-  public async getData(user_id: string, key: string): Promise<{ data: string }> {
+  public async getData(user_id: string): Promise<{ data: string }> {
     try {
-      const { data } = await axios.get(CONSTANTS.VTraceApi + `/network/id?user_id=${user_id}`, {
-        headers: { "x-access-token": key },
-      });
+      const { data } = await axios.get(CONSTANTS.VTraceApi + `/network/id?user_id=${user_id}`
+      );
       return data;
     } catch (e) {
       this.logger.error(e);
@@ -56,23 +55,9 @@ export abstract class NetworkService {
     }
   }
 
-  public async getcheckStatusData(NID: string, key: string): Promise<{ data: string }> {
+  public async getcheckStatusData(NID: string): Promise<{ data: string }> {
     try {
-      const { data } = await axios.get(CONSTANTS.VTraceApi + `/network/id?NID=${NID}`, {
-        headers: { "x-access-token": key },
-      });
-      return data;
-    } catch (e) {
-      this.logger.error(e);
-      throw new NetworkError(`Error occurred. ${e}`, "Network.error");
-    }
-  }
-
-  public async updateData(key: string, data: any): Promise<{ data: string }> {
-    try {
-      const { data } = await axios.put(
-        CONSTANTS.VTraceApi + "/network/update",
-        { headers: { "x-access-token": key } }
+      const { data } = await axios.get(CONSTANTS.VTraceApi + `/network/id?NID=${NID}`
       );
       return data;
     } catch (e) {
@@ -81,11 +66,22 @@ export abstract class NetworkService {
     }
   }
 
-  public async deleteData(key: string, NID:string): Promise<{ data: string }> {
+  public async updateData(data: any): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.put(
+        CONSTANTS.VTraceApi + "/network/update",
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new NetworkError(`Error occurred. ${e}`, "Network.error");
+    }
+  }
+
+  public async deleteData(NID:string): Promise<{ data: string }> {
     try {
       const { data } = await axios.delete(
         CONSTANTS.VTraceApi + `/network/delete/id?NId=${NID}`,
-        { headers: { "x-access-token": key } }
       );
       return data;
     } catch (e) {

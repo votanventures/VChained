@@ -4,11 +4,8 @@ import { IsNotEmpty } from 'class-validator';
 
 export class AddNetwork {
     @IsNotEmpty()
-    public Name: string;
-    @IsNotEmpty()
-    public BackendUrl: string;
+    public NID: string;
     @IsNotEmpty()
     public SecretKey: string;
-    @IsNotEmpty()
     public TezosAppId: string;
 }

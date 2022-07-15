@@ -125,8 +125,8 @@ let update_owner = ([parameter, storage]: [update_owner, storage]) : storage => 
       None: () => (failwith("This ID does not exist.") as id_details)
     });
 
-  if (sender != current_id_details.owner)
-    { failwith("You are not the owner of this ID."); }
+  if (Tezos.get_sender() != current_id_details.owner)
+    { return failwith("You are not the owner of this ID."); }
 
   let updated_id_details: id_details = {
     owner : new_owner,
@@ -147,8 +147,8 @@ let update_owner = ([parameter, storage]: [update_owner, storage]) : storage => 
 };
 
 let update_details = ([parameter, storage]: [update_details, storage]) : storage => {
-  if (amount != (0 as mutez)) {
-    failwith("Updating details doesn't cost anything.");
+  if (Tezos.get_amount() != (0 as mutez)) {
+    return failwith("Updating details doesn't cost anything.");
   }
   let id = parameter.id;
   let new_profile = parameter.new_profile;
@@ -160,9 +160,9 @@ let update_details = ([parameter, storage]: [update_details, storage]) : storage
       None: () => (failwith("This ID does not exist.") as id_details)
     });
 
-  if ((sender != current_id_details.controller) &&
-        (sender != current_id_details.owner)) {
-      failwith ("You are not the owner or controller of this ID.");
+  if ((Tezos.get_sender() != current_id_details.controller) &&
+        (Tezos.get_sender() != current_id_details.owner)) {
+      return failwith ("You are not the owner or controller of this ID.");
   }
 
   let owner: address = current_id_details.owner;

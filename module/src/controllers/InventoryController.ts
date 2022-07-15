@@ -154,6 +154,7 @@ export abstract class InventoryController {
   @Put("/update")
   async updateData(@Body() body: any, @Headers() header: object) {
     try {
+      console.log(body,"body here")
       const data = await this.service.updateData(
         header["x-access-token"],
         body

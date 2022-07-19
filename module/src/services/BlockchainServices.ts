@@ -91,16 +91,17 @@ export class BlockchainService {
   }
   // create details function starting here
   public async create(body: {
-    id: number;
-    owner: string;
-    controller: string;
-    profile: string;
-    name: string;
-    model: string;
-    category: string;
-    description: string;
-    createdAt: string;
-    manufacturedIn: string;
+    id: string,
+    name: string,
+    user_id: string,
+    PID: string,
+    owner: string,
+    category: string,
+    model: string,
+    manufactureIn: string,
+    createdIn: string,
+    description: string,
+    action: string,
     contract?: string;
   }): Promise<{ data: any }> {
     try {
@@ -119,17 +120,18 @@ export class BlockchainService {
         return contract;
       }
       const op = await ctrct.methodsObject
-        .create_details({
-          category: body.category,
-          controller: body.controller,
-          createdAt: body.createdAt,
-          description: body.description,
+        .create_product({
           id: body.id,
-          manufacturedIn: body.manufacturedIn,
-          model: body.model,
           name: body.name,
+          user_id: body.user_id,
+          pid: body.PID,
           owner: body.owner,
-          profile: body.profile,
+          category: body.category,
+          model: body.model,
+          manufactureIn: body.manufactureIn,
+          createdIn: body.createdIn,
+          description: body.description,
+          action: body.action
         })
         .send();
       return { data: await op.confirmation(1).then(() => op.hash) };
@@ -140,16 +142,21 @@ export class BlockchainService {
   }
   //  update function starting here
   public async update(body: {
-    id: number;
-    owner: string;
-    controller: string;
-    profile: string;
-    name: string;
-    model: string;
-    category: string;
-    description: string;
-    createdAt: string;
-    manufacturedIn: string;
+    id: string,
+    name: string,
+    user_id: string,
+    PID: string,
+    owner: string,
+    claimRequest: string,
+    category: string,
+    model: string,
+    manufactureIn: string,
+    createdIn: string,
+    description: string,
+    action: string,
+    parentID: string,
+    partComposition: Array<string>,
+    subParts: Array<string>
     contract: string;
   }): Promise<{ data: any }> {
     try {
@@ -159,17 +166,22 @@ export class BlockchainService {
         return contract;
       }
       const op = await ctrct.methodsObject
-        .update_details({
-          new_category: body.category,
-          new_controller: body.controller,
-          new_createdAt: body.createdAt,
-          new_description: body.description,
+        .update_product({
           id: body.id,
-          new_manufacturedIn: body.manufacturedIn,
-          new_model: body.model,
-          new_name: body.name,
-          new_owner: body.owner,
-          new_profile: body.profile,
+          name: body.name,
+          user_id: body.user_id,
+          pid: body.PID,
+          owner: body.owner,
+          claimRequest: body.claimRequest,
+          category: body.category,
+          model: body.model,
+          manufactureIn: body.manufactureIn,
+          createdIn: body.createdIn,
+          description: body.description,
+          action: body.action,
+          parentID: body.parentID,
+          partComposition: body.partComposition,
+          subParts: body.subParts
         })
         .send();
       return { data: await op.confirmation(1).then(() => op.hash) };

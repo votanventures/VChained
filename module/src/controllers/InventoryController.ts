@@ -62,6 +62,24 @@ export abstract class InventoryController {
     }
   }
 
+  @Get("/getProducts/:PID")
+  async getAllProducts(@Param('PID') PID: string,  @Headers() header: object) {
+    try {
+      const data = await this.service.getAllProducts(
+        header["x-access-token"],      
+        PID
+      );
+      return data;
+    } catch (e) {
+      throw new InventoryError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Inventory.error"
+      );
+    }
+  }
+
   @Get("/getInventory/:pid")
   async getInventoryByPID(@Param('pid') pid: string, @Headers() header: object) {
     try {

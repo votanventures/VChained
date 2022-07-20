@@ -49,6 +49,22 @@ export abstract class InventoryService {
     }
   }
 
+  public async getAllProducts(
+    key: string,
+    PID: string,
+  ): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/inventory/getProducts/${PID}`,
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new InventoryError(`Error occurred ${e}`, "Inventory.error");
+    }
+  }
+
   public async getInventoryByPID(
     key: string,
     pid: string,

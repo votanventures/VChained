@@ -5,12 +5,6 @@ type user_details = {
   uid: string,
   pid: string
 };
-type p_details ={
-  productID: string,
-  percentageUsed: string
-};
-
-type p_map = big_map<id, p_details>; // for partsComposition, details and subparts
 
 type product_details_inputs = {
   id: string,
@@ -38,11 +32,9 @@ type product_details = {
   createdIn: string,
   description: string,
   action: string,
-  parentID: string,
-  // add three new fields
-  partComposition: list<string>,
-  subParts: list<string>,
-  // part_details: big_map<id, p_details>,
+  parentIDs: list<string>,
+  percentageUsed: list<string>,
+  subParts: list<string>
 };
 
 type transfer = {
@@ -53,7 +45,6 @@ type product_details_map = big_map<id, product_details>;
 
 type storage = {
   users: big_map<id, user_details>,
-  list: big_map<id, p_details>,
   products: big_map<id, product_details>
 };
 
@@ -62,6 +53,18 @@ type action =
 | ["Update_product", product_details]
 | ["Get_details"];
 
+let create_user = ([parameter, storage]: [user_details, storage]) : storage => {
+  let user = {
+    address: parameter.address,
+    uid: parameter.uid,
+    pid: parameter.pid
+  };
+  let updated_users = Big_map.update(parameter.uid, Some(user), storage.users);
+    return  {
+                users: updated_users,
+                products : storage.products,
+              };
+}
 let create_product = ([parameter, storage]: [product_details_inputs, storage]) : storage => {
     let temp: list<string> = list([]);
     let id = parameter.id;
@@ -79,15 +82,14 @@ let create_product = ([parameter, storage]: [product_details_inputs, storage]) :
       createdIn: parameter.createdIn,
       description: parameter.description,
       action: "Created object successfully",
-      parentID: "",
-      partComposition: temp,
+      parentIDs: temp,
+      percentageUsed: temp,
       subParts: temp,
       // part_details: Big_map.empty,
     };
-    let updated_products = Big_map.update(id, Some(create_product_obj), products);
+    let updated_products = Big_map.update(id, Some(create_product_obj), storage.products);
       return  {
                 users: storage.users,
-                list : storage.list,
                 products : updated_products,
               };
 };
@@ -109,15 +111,13 @@ let update_product = ([parameter, storage]: [product_details, storage]) : storag
     createdIn: parameter.createdIn,
     description: parameter.description,
     action: parameter.action,
-    parentID: parameter.parentID,
-    // add three new fields
-    partComposition: parameter.partComposition,
+    parentIDs: parameter.parentIDs,
+    percentageUsed: parameter.percentageUsed,
     subParts: parameter.subParts
   };
   let updated_products = Big_map.update(id, Some(updated_id_details), products);
   return    {
                 users: storage.users,
-                list : storage.list,
                 products : updated_products
             };
 };

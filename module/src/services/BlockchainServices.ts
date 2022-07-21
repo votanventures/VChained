@@ -154,10 +154,10 @@ export class BlockchainService {
     createdIn: string,
     description: string,
     action: string,
-    parentID: string,
-    partComposition: Array<string>,
+    contract: string,
+    parentIDs: Array<string>,
+    percentageUsed: Array<string>,
     subParts: Array<string>
-    contract: string;
   }): Promise<{ data: any }> {
     try {
       const ctrct = await this.tezos.contract.at(body.contract);
@@ -179,9 +179,34 @@ export class BlockchainService {
           createdIn: body.createdIn,
           description: body.description,
           action: body.action,
-          parentID: body.parentID,
-          partComposition: body.partComposition,
+          parentIDs: body.parentIDs,
+          percentageUsed: body.percentageUsed,
           subParts: body.subParts
+        })
+        .send();
+      return { data: await op.confirmation(1).then(() => op.hash) };
+    } catch (e) {
+      return { data: e };
+    }
+  }
+  //  modify user
+  public async updateUser(body: {
+    address: string,
+    UID: string,
+    PID: string,
+    contract: string
+  }): Promise<{ data: any }> {
+    try {
+      const ctrct = await this.tezos.contract.at(body.contract);
+      const contract = await axios.get(CONSTANTS.VTraceApi + "/user/getUser");
+      if (!body.contract) {
+        return contract;
+      }
+      const op = await ctrct.methodsObject
+        .create_user({
+          address: body.address,
+          uid: body.UID,
+          pid: body.PID
         })
         .send();
       return { data: await op.confirmation(1).then(() => op.hash) };

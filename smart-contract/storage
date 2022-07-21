@@ -1,28 +1,24 @@
 {
-users:(Big_map.empty as big_map<string,{
-  address: address,
-  uid: string,
-  pid: string
-}>),
-list:(Big_map.empty as big_map<string,{
-  productID: string,
-  percentageUsed: string
-}>),
-products:(Big_map.empty as big_map<string,{
-  id: string,
-  name: string,
-  user_id: string,
-  pid: string,
-  owner: string,
-  claimRequest: string,
-  category: string,
-  model: string,
-  manufactureIn: string,
-  createdIn: string,
-  description: string,
-  action: string,
-  parentID: string,
-  partComposition: list<string>,
-  subParts: list<string>
-}>)
-}
+  users:(Big_map.empty as big_map<string,{
+    address: address,
+    uid: string,
+    pid: string
+  }>),
+  products:(Big_map.empty as big_map<string,{
+    id: string,
+    name: string,
+    user_id: string,
+    pid: string,
+    owner: string,
+    claimRequest: string,
+    category: string,
+    model: string,
+    manufactureIn: string,
+    createdIn: string,
+    description: string,
+    action: string,
+    parentIDs: list<string>,
+    percentageUsed: list<string>,
+    subParts: list<string>
+  }>)
+  }

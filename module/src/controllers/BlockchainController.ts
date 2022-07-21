@@ -66,12 +66,26 @@ export abstract class BlockchainController {
       );
     }
   }
-
+  // user
+  @Post("/user")
+  async createUser(@Body() body: any, @Headers() header: object) {
+    try {
+      const data = await this.service.updateUser(body);
+      return data;
+    } catch (e) {
+      throw new BlockchainError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Blockchain.error"
+      );
+    }
+  }
   // create
   @Post("/create")
   async create(@Body() body: any, @Headers() header: object) {
     try {
-      const { data } = await this.service.create(body);
+      const data = await this.service.create(body);
       return data;
     } catch (e) {
       throw new BlockchainError(
@@ -87,7 +101,7 @@ export abstract class BlockchainController {
   @Put("/update")
   async update(@Body() body: any, @Headers() header: object) {
     try {
-      const { data } = await this.service.update(body);
+      const data = await this.service.update(body);
       return data;
     } catch (e) {
       throw new BlockchainError(

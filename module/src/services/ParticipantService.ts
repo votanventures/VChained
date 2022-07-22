@@ -24,10 +24,11 @@ export abstract class ParticipantService {
     }
   }
 
-  public async getData(user_id: string, key: string): Promise<{ data: string }> {
+  public async getData(key: string, PID: string): Promise<{ data: string }> {
     try {
+
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + `/participant/id?user_id=${user_id}`,
+        CONSTANTS.VTraceApi + `/participant/id?PID=${PID}`,
         { headers: { "x-access-token": key } }
       );
       return data;

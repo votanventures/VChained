@@ -7,7 +7,7 @@ import { AddNetwork } from "../dto/AddNetwork";
 export abstract class NetworkService {
   protected constructor(protected readonly logger: PinoLogger) {}
 
-  public async storeData(body:AddNetwork): Promise<{ data: string }> {
+  public async storeData(body:any): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/network/create",body,
@@ -19,12 +19,13 @@ export abstract class NetworkService {
     }
   }
 
-  public async connectData(body:AddNetwork): Promise<{ data: any }> {
+  public async connectData(body:AddNetwork): Promise<{ data: string }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/network/connect",body
       );
-      console.log(data,"data here")
+      console.log(data,"data here...")
+      console.log()
       return data;
     } catch (e) {
       this.logger.error(e);

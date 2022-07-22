@@ -17,7 +17,7 @@ export abstract class NetworkController {
   protected constructor(protected readonly service: NetworkService) {}
 
   @Post("/create")
-  async storeData(@Body() body: AddNetwork) {
+  async storeData(@Body() body: any) {
     try {
       const data = await this.service.storeData(body);
       return data;
@@ -32,13 +32,11 @@ export abstract class NetworkController {
   }
 
   @Post("/connect")
-  async connectData(@Body() body: AddNetwork) {
+  async connectData(@Body() body: any) {
     try {
-      console.log(body,"body heer")
       const data = await this.service.connectData(body);
       return data;
     } catch (e) {
-      console.log(e,"error here")
       throw new NetworkError(
         `Unexpected error occurred. Reason: ${
           e.message?.message || e.response?.data || e.message || e

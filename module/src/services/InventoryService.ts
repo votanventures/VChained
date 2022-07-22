@@ -24,6 +24,23 @@ export abstract class InventoryService {
     }
   }
 
+  public async clubData(
+    key: string,
+    body: AddInventory
+  ): Promise<{ data: any }> {
+    try {
+      const { data } = await axios.post(
+        CONSTANTS.VTraceApi + "/inventory/club",
+        body,
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new InventoryError(`Error occurred. ${e}`, "Inventory.error");
+    }
+  }
+
   public async getData(id: string, key: string): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(CONSTANTS.VTraceApi + "/inventory/id?user_id=id", {

@@ -30,6 +30,21 @@ export abstract class InventoryController {
     }
   }
 
+  @Post("/club")
+  async clubData(@Body() body: AddInventory, @Headers() header: object) {
+    try {
+      const data = await this.service.clubData(header["x-access-token"], body);
+      return data;
+    } catch (e) {
+      throw new InventoryError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Inventory.error"
+      );
+    }
+  }
+
   @Get("/id")
   async getData(@Query("user_id") user_id: string, @Headers() header: object) {
     try {

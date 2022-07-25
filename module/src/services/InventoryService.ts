@@ -26,7 +26,7 @@ export abstract class InventoryService {
 
   public async clubData(
     key: string,
-    body: AddInventory
+    body: any
   ): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(

@@ -31,7 +31,7 @@ export abstract class InventoryController {
   }
 
   @Post("/club")
-  async clubData(@Body() body: AddInventory, @Headers() header: object) {
+  async clubData(@Body() body: any, @Headers() header: object) {
     try {
       const data = await this.service.clubData(header["x-access-token"], body);
       return data;

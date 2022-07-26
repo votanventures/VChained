@@ -40,10 +40,25 @@ export abstract class MasterService {
 
   public async getMasterData(
     key: string,
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + "/masterdata/getMasterData",
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new MasterError(`Error occurred ${e}`, "Master.error");
+    }
+  }
+  public async getMasterDataPid(
+    key: string,
+    PID: string,
+  ): Promise<{ data: any }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/masterdata/getMasterData/${PID}`,
         { headers: { "x-access-token": key } }
       );
       return data;

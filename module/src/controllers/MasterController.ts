@@ -66,7 +66,23 @@ export abstract class MasterController {
       );
     }
   }
-
+  @Get("/getMasterData/:PID")
+  async getAllProducts(@Param('PID') PID: string,  @Headers() header: object) {
+    try {
+      const data = await this.service.getMasterDataPid(
+        header["x-access-token"],      
+        PID
+      );
+      return data;
+    } catch (e) {
+      throw new MasterError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Inventory.error"
+      );
+    }
+  }
   @Put("/update")
   async updateData(@Body() body:any, @Headers() header: object) {
     try {

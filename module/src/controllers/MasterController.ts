@@ -7,10 +7,18 @@ import {
   Put,
   Delete,
   Query,
+  UseInterceptors,
+  UploadedFile 
 } from "@nestjs/common";
 import { MasterService } from "../services/MasterService";
 import { MasterError } from "../dto/MasterError";
 import { AddMasterData } from "../dto/AddMasterData";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { storage } from "../constants";
+// import csv  from "csvtojson";
+// import csv=require('csvtojson')
+// import csv = require("csvtojson")
+// const csv=require('csvtojson')
 
 export abstract class MasterController {
   protected constructor(protected readonly service: MasterService) {}
@@ -66,6 +74,7 @@ export abstract class MasterController {
       );
     }
   }
+
   @Get("/getMasterData/:PID")
   async getAllProducts(@Param('PID') PID: string,  @Headers() header: object) {
     try {
@@ -83,6 +92,7 @@ export abstract class MasterController {
       );
     }
   }
+
   @Put("/update")
   async updateData(@Body() body:any, @Headers() header: object) {
     try {
@@ -118,6 +128,50 @@ export abstract class MasterController {
       );
     }
   }
+
+  @Put("insert/csv") // API path
+  @UseInterceptors(
+    FileInterceptor(
+      "file", // name of the field being passed
+      { storage }
+    )
+  )
+  async upload(@UploadedFile() file) {
+    try{
+    if(file.mimetype === "text/csv"){
+      const csvFilePath=file.path
+      const csv=require('csvtojson')
+        csv()
+        .fromFile(csvFilePath)
+        .then((jsonObj)=>{
+          console.log(jsonObj);
+          /**
+           * [
+           * 	{a:"1", b:"2", c:"3"},
+           * 	{a:"4", b:"5". c:"6"}
+           * ]
+           */ 
+        })
+      // Async / await usage
+      const jsonArray = await csv().fromFile(csvFilePath);
+      console.log(jsonArray,"json Array")  
+      return file;
+    } else{
+      return {
+        error: "Format not valid, please use csv files only"
+      }
+    }
+    
+    } catch(e){
+      throw new MasterError(
+        `Unexpected error occured. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Master.error"
+      );
+    }
+  }
+
 
   @Delete("/delete")
   async deleteData(@Headers() header: object, @Query("productId") productId:string) {

@@ -25,6 +25,7 @@
   "dependencies": {
     "@airgap/beacon-sdk": "^2.3.9",
     "@nestjs/common": "^8.2.6",
+    "@nestjs/platform-express": "^9.0.6",
     "@taquito/remote-signer": "^11.2.0",
     "@taquito/signer": "^11.2.0",
     "@taquito/taquito": "^11.2.0",
@@ -36,7 +37,10 @@
     "axios": "^0.25.0",
     "big-number": "^2.0.0",
     "class-validator": "^0.13.2",
+    "csvjson": "^5.1.0",
+    "csvtojson": "^2.0.10",
     "express": "^4.17.2",
+    "multer": "^1.4.5-lts.1",
     "nestjs-pino": "^2.5.0",
     "pino-http": "^8.0.1",
     "rxjs": "^7.5.4",

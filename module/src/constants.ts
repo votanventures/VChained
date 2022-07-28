@@ -1,3 +1,5 @@
+import { diskStorage } from "multer";
+
 export const CONSTANTS = {
   code: `{ parameter (or (or (pair %create_product (pair (pair (pair (string %action) (string %category)) (string %createdIn) (string %description)) (pair (string %id) (string %manufactureIn)) (string %model) (string %name)) (pair (string %owner) (string %pid)) (string %user_id)) (unit %get_details)) (pair %update_product (pair (pair (pair (string %action) (string %category)) (string %claimRequest) (string %createdIn)) (pair (string %description) (string %id)) (string %manufactureIn) (string %model)) (pair (pair (string %name) (string %owner)) (list %parentIDs string) (list %percentageUsed string)) (pair (string %pid) (list %subParts string)) (string %user_id))) ; storage (pair (big_map %products string (pair (pair (pair (pair (string %action) (string %category)) (string %claimRequest) (string %createdIn)) (pair (string %description) (string %id)) (string %manufactureIn) (string %model)) (pair (pair (string %name) (string %owner)) (list %parentIDs string) (list %percentageUsed string)) (pair (string %pid) (list %subParts string)) (string %user_id))) (big_map %users string (pair (pair (address %address) (string %pid)) (string %uid)))) ; code { UNPAIR ; IF_LEFT { IF_LEFT { NIL string ; DUP 3 ; CDR ; DIG 3 ; CAR ; DUP 4 ; CDR ; CDR ; DUP 4 ; DUP 6 ; CDR ; CAR ; CDR ; PAIR ; PAIR ; DUP 4 ; DIG 4 ; PAIR ; DUP 5 ; CDR ; CAR ; CAR ; DUP 6 ; CAR ; CDR ; CDR ; CDR ; PAIR ; PAIR ; PAIR ; DUP 4 ; CAR ; CDR ; CDR ; CAR ; DUP 5 ; CAR ; CDR ; CAR ; CDR ; PAIR ; DUP 5 ; CAR ; CDR ; CAR ; CAR ; DUP 6 ; CAR ; CAR ; CDR ; CDR ; PAIR ; PAIR ; DUP 5 ; CAR ; CAR ; CDR ; CAR ; PUSH string "" ; PAIR ; DUP 6 ; CAR ; CAR ; CAR ; CDR ; PUSH string "Created object successfully" ; PAIR ; PAIR ; PAIR ; PAIR ; SOME ; DIG 3 ; CAR ; CDR ; CAR ; CAR ; UPDATE ; PAIR } { DROP } } { DUP ; CAR ; CDR ; CAR ; CDR ; DUP 3 ; CDR ; DIG 3 ; CAR ; DUP 4 ; CDR ; CDR ; CDR ; DUP 5 ; CDR ; CDR ; CAR ; CDR ; DUP 6 ; CDR ; CDR ; CAR ; CAR ; PAIR ; PAIR ; DUP 5 ; CDR ; CAR ; CDR ; CDR ; DUP 6 ; CDR ; CAR ; CDR ; CAR ; PAIR ; DUP 6 ; CDR ; CAR ; CAR ; CDR ; DUP 7 ; CDR ; CAR ; CAR ; CAR ; PAIR ; PAIR ; PAIR ; DUP 5 ; CAR ; CDR ; CDR ; CDR ; DUP 6 ; CAR ; CDR ; CDR ; CAR ; PAIR ; DUP 5 ; DUP 7 ; CAR ; CDR ; CAR ; CAR ; PAIR ; PAIR ; DUP 6 ; CAR ; CAR ; CDR ; CDR ; DUP 7 ; CAR ; CAR ; CDR ; CAR ; PAIR ; DUP 7 ; CAR ; CAR ; CAR ; CDR ; DIG 7 ; CAR ; CAR ; CAR ; CAR ; PAIR ; PAIR ; PAIR ; PAIR ; SOME ; DIG 3 ; UPDATE ; PAIR } ; NIL operation ; PAIR } }`,
   init: `(Pair {} {})`,
@@ -30,3 +32,14 @@ export const CONSTANTS = {
   VTraceApi: "https://vtracy.herokuapp.com/api",
 };
 // VTraceApi: "http://localhost:7000/api",
+
+export const storage = diskStorage({
+  destination: __dirname+"/../../../../uploads",
+  filename: (req, file, callback) => {
+    callback(null, generateFilename(file));
+  }
+});
+
+function generateFilename(file) {
+  return `${file.originalname}`;
+}

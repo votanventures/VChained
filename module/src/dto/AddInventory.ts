@@ -23,4 +23,6 @@ export class AddInventory {
     public description: string; 
     @IsNotEmpty()
     public action: string;
+    
+    public productAttributes:object;
 }

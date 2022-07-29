@@ -24,8 +24,9 @@ export class IncController extends IncomingController {
 }
 @Controller('/api/inventory')
 export class InvController extends InventoryController {
-  constructor(private readonly quorumService: InvService) {
-    super(quorumService);
+  constructor(private readonly quorumService: InvService, 
+    private readonly BlockchainService: BlckService) {
+    super(quorumService, BlockchainService);
   }
 }
 @Controller('/api/masterdata')

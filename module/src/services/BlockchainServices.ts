@@ -86,7 +86,7 @@ export class BlockchainService {
       return x;
     } catch (ex) {
       console.error(ex);
-      return { data: ex };
+      return { data: { error: ex} };
     }
   }
   // create details function starting here
@@ -137,7 +137,7 @@ export class BlockchainService {
       return { data: await op.confirmation(1).then(() => op.hash) };
     } catch (e) {
       console.log(`Error in Test function: ${JSON.stringify(e, null, 2)}`);
-      return { data: e };
+      return { data: { error: e} };
     }
   }
   //  update function starting here
@@ -186,7 +186,7 @@ export class BlockchainService {
         .send();
       return { data: await op.confirmation(1).then(() => op.hash) };
     } catch (e) {
-      return { data: e };
+      return { data: { error: e} };
     }
   }
   //  modify user
@@ -211,7 +211,7 @@ export class BlockchainService {
         .send();
       return { data: await op.confirmation(1).then(() => op.hash) };
     } catch (e) {
-      return { data: e };
+      return { data: { error: e} };
     }
   }
 }

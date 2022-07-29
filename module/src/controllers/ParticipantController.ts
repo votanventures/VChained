@@ -62,6 +62,24 @@ export abstract class ParticipantController {
     }
   }
 
+  @Get("/getParticipant/:NID")
+  async getAllParticipantByNid(@Param('NID') NID: string,  @Headers() header: object) {
+    try {
+      const data = await this.service.getAllParticipantByNid(
+        header["x-access-token"],      
+        NID
+      );
+      return data;
+    } catch (e) {
+      throw new ParticipantError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Participant.error"
+      );
+    }
+  }
+
   @Get("/getData")
   async getBlockchainData(@Body("PID") @Headers() header: object) {
     try {

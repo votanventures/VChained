@@ -51,6 +51,22 @@ export abstract class ParticipantService {
     }
   }
 
+  public async getAllParticipantByNid(
+    key: string,
+    NID: string,
+  ): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/participant/getParticipant/${NID}`,
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new ParticipantError(`Error occurred ${e}`, "Participant.error");
+    }
+  }
+
   public async getBlockchainData(key: string): Promise<{ data:string }> {
     try {
       const { data } = await axios.get(

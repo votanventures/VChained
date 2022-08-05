@@ -30,7 +30,6 @@ export abstract class NetworkController {
       );
     }
   }
-
   @Post("/connect")
   async connectData(@Body() body: any) {
     try {
@@ -88,6 +87,22 @@ export abstract class NetworkController {
         }`,
         "Network.error"
       );
+    }
+  }
+  @Get("/forgot")
+  async forget(@Query("NID") NID: string) {
+    try {
+      const data = await this.service.forgot(NID);
+      return data;
+    } catch (e) {
+      console.log(e)
+      return e
+      // throw new NetworkError(
+      //   `Unexpected error occurred. Reason: ${
+      //     e.message?.message || e.response?.data || e.message || e
+      //   }`,
+      //   "Network.error"
+      // );
     }
   }
 

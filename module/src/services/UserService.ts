@@ -50,6 +50,17 @@ export abstract class UserService {
       throw new UserError(`Error occurred. ${e}`, "User.error");
     }
   }
+  public async resetPassword(email: string): Promise<{ data: any }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/user/reset?emai;=${email}`,
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new UserError(`Error occurred. ${e}`, "User.error");
+    }
+  }
 
   public async getUserData(key: string): Promise<{ data: any }> {
     try {

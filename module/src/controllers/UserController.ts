@@ -155,4 +155,18 @@ export abstract class UserController {
       throw new UserError(`Incompatible chain`, "deleteUser.error");
     }
   }
+  @Get("/reset")
+  async resetPassword(
+    @Query("email") email: string
+  ) {
+    try {
+      const data = await this.service.resetPassword(
+        email
+      );
+      return data;
+    } catch (e) {
+      console.log(e)
+      throw new UserError(`Unable to reach servers, please try again later`, "user.error");
+    }
+  }
 }

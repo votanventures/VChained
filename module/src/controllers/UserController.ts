@@ -163,6 +163,7 @@ export abstract class UserController {
       const data = await this.service.resetPassword(
         email
       );
+      console.log(data,"data from user controller")
       return data;
     } catch (e) {
       console.log(e)

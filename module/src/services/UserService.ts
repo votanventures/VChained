@@ -53,8 +53,9 @@ export abstract class UserService {
   public async resetPassword(email: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + `/user/reset?emai;=${email}`,
+        CONSTANTS.VTraceApi + `/user/reset?email=${email}`,
       );
+      console.log(data,"data from user service")
       return data;
     } catch (e) {
       this.logger.error(e);

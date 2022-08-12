@@ -37,7 +37,21 @@ export abstract class MasterController {
       );
     }
   }
-
+  @Post("/insertInventory")
+  async insertInventory(@Body() body: any, @Headers() header: object) {
+    try {
+      const data = await this.service.insertInventory(header["x-access-token"],body);
+      return data;
+    } catch (e) {
+      console.log(e)
+      throw new Error(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`
+      );
+    }
+  }
+  
   @Get("/id")
   async getData(@Query("user_id") user_id: string, @Headers() header: object) {
     try {
@@ -56,24 +70,24 @@ export abstract class MasterController {
     }
   }
 
-  @Get("/getMasterData")
-  async getMasterData(
-    @Headers() header: object
-  ) {
-    try {
-      const data = await this.service.getMasterData(
-        header["x-access-token"],
-      );
-      return data;
-    } catch (e) {
-      throw new MasterError(
-        `Unexpected error occurred. Reason: ${
-          e.message?.message || e.response?.data || e.message || e
-        }`,
-        "Master.error"
-      );
-    }
-  }
+  // @Get("/getMasterData")
+  // async getMasterData(
+  //   @Headers() header: object
+  // ) {
+  //   try {
+  //     const data = await this.service.getMasterData(
+  //       header["x-access-token"],
+  //     );
+  //     return data;
+  //   } catch (e) {
+  //     throw new MasterError(
+  //       `Unexpected error occurred. Reason: ${
+  //         e.message?.message || e.response?.data || e.message || e
+  //       }`,
+  //       "Master.error"
+  //     );
+  //   }
+  // }
 
   @Get("/getMasterData/:PID")
   async getAllProducts(@Param('PID') PID: string,  @Headers() header: object) {

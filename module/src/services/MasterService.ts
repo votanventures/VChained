@@ -22,7 +22,22 @@ export abstract class MasterService {
       throw new MasterError(`Error occurred. ${e}`, "Master.error");
     }
   }
-
+  public async insertInventory(
+    key: string,
+    body: any
+  ): Promise<{ data: any }> {
+    try {
+      const { data } = await axios.post(
+        CONSTANTS.VTraceApi + "/masterdata/insertInventory",body,
+        { headers: { "x-access-token": key } }
+      );
+      console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%',data)
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new Error(`Error occurred. ${e}`);
+    }
+  }
   public async getData(
     user_id: string,
     key: string
@@ -61,6 +76,7 @@ export abstract class MasterService {
         CONSTANTS.VTraceApi + `/masterdata/getMasterData/${PID}`,
         { headers: { "x-access-token": key } }
       );
+      console.log(data,'test#################################')
       return data;
     } catch (e) {
       this.logger.error(e);

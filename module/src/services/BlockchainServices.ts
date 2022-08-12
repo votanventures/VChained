@@ -7,6 +7,7 @@ import { CONSTANTS } from "../constants";
 // Contract file
 import { updateContract } from "./Common";
 import { Tx } from "./Tx";
+import { buf2hex } from "@taquito/utils";
 
 export class BlockchainService {
   private tezos: TezosToolkit;
@@ -85,54 +86,34 @@ export class BlockchainService {
       console.log('this is x',x)
       return x;
     } catch (ex) {
-      console.error(ex);
+      console.log(ex);
       return { data: { error: ex} };
     }
   }
   // create details function starting here
-  public async create(body: {
-    id: string,
-    name: string,
-    user_id: string,
-    PID: string,
-    owner: string,
-    category: string,
-    model: string,
-    manufactureIn: string,
-    createdIn: string,
-    description: string,
-    action: string,
-    contract?: string;
-  }): Promise<{ data: any }> {
+  public async create(body: any): Promise<{ data: any }> {
     try {
       console.log(body, "body here");
-      if (!body.contract) {
-        body.contract = await axios.get(
-          CONSTANTS.VTraceApi + "/user/id?user_id"
-        );
+      // if (!body.contract) {
+      //   body.contract = await axios.get(
+      //     CONSTANTS.VTraceApi + "/user/id?user_id"
+      //   );
+      // }
+      // if (!body.contract) {
+      //   return { data: "Please Specify Contract Address" };
+      // }
+      const temp = {
+        id: body.id,
+        data: buf2hex(Buffer.from(JSON.stringify(body)))
       }
-      if (!body.contract) {
-        return { data: "Please Specify Contract Address" };
-      }
+      console.log(temp, "temp here");
       const ctrct = await this.tezos.contract.at(body.contract);
-      const contract = await axios.get(CONSTANTS.VTraceApi + "/user/getUser");
-      if (!body.contract) {
-        return contract;
-      }
+      // const contract = await axios.get(CONSTANTS.VTraceApi + "/user/getUser");
+      // if (!body.contract) {
+      //   return contract;
+      // }
       const op = await ctrct.methodsObject
-        .create_product({
-          id: body.id,
-          name: body.name,
-          user_id: body.user_id,
-          pid: body.PID,
-          owner: body.owner,
-          category: body.category,
-          model: body.model,
-          manufactureIn: body.manufactureIn,
-          createdIn: body.createdIn,
-          description: body.description,
-          action: body.action
-        })
+        .create_product(temp)
         .send();
       return { data: await op.confirmation(1).then(() => op.hash) };
     } catch (e) {
@@ -141,24 +122,7 @@ export class BlockchainService {
     }
   }
   //  update function starting here
-  public async update(body: {
-    id: string,
-    name: string,
-    user_id: string,
-    PID: string,
-    owner: string,
-    claimRequest: string,
-    category: string,
-    model: string,
-    manufactureIn: string,
-    createdIn: string,
-    description: string,
-    action: string,
-    contract: string,
-    parentIDs: Array<string>,
-    percentageUsed: Array<string>,
-    subParts: Array<string>
-  }): Promise<{ data: any }> {
+  public async update(body: any): Promise<{ data: any }> {
     try {
       const ctrct = await this.tezos.contract.at(body.contract);
       const contract = await axios.get(CONSTANTS.VTraceApi + "/user/getUser");
@@ -166,23 +130,7 @@ export class BlockchainService {
         return contract;
       }
       const op = await ctrct.methodsObject
-        .update_product({
-          id: body.id,
-          name: body.name,
-          user_id: body.user_id,
-          pid: body.PID,
-          owner: body.owner,
-          claimRequest: body.claimRequest,
-          category: body.category,
-          model: body.model,
-          manufactureIn: body.manufactureIn,
-          createdIn: body.createdIn,
-          description: body.description,
-          action: body.action,
-          parentIDs: body.parentIDs,
-          percentageUsed: body.percentageUsed,
-          subParts: body.subParts
-        })
+        .update_product(body)
         .send();
       return { data: await op.confirmation(1).then(() => op.hash) };
     } catch (e) {
@@ -190,12 +138,7 @@ export class BlockchainService {
     }
   }
   //  modify user
-  public async updateUser(body: {
-    address: string,
-    UID: string,
-    PID: string,
-    contract: string
-  }): Promise<{ data: any }> {
+  public async updateUser(body: any): Promise<{ data: any }> {
     try {
       const ctrct = await this.tezos.contract.at(body.contract);
       const contract = await axios.get(CONSTANTS.VTraceApi + "/user/getUser");
@@ -203,11 +146,7 @@ export class BlockchainService {
         return contract;
       }
       const op = await ctrct.methodsObject
-        .create_user({
-          address: body.address,
-          uid: body.UID,
-          pid: body.PID
-        })
+        .create_user(body)
         .send();
       return { data: await op.confirmation(1).then(() => op.hash) };
     } catch (e) {

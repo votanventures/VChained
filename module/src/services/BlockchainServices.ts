@@ -37,17 +37,18 @@ export class BlockchainService {
 
   //deploy function
   public async deploy(key:string, user_id: string): Promise<{ data: any }> {
-    // async function deploy() {
-    const tezos = new TezosToolkit(CONSTANTS.RPC_URL);
-    await importKey(
-      tezos,
-      CONSTANTS.wallet.email,
-      CONSTANTS.wallet.password,
-      CONSTANTS.wallet.mnemonic.join(" "),
-      "57a58ba2e1cfa419ea4c4e7636b47e2ffd1e3527" //private key
-    );
-
+   
     try {
+       // async function deploy() {
+      const tezos = new TezosToolkit(CONSTANTS.RPC_URL);
+      await importKey(
+        tezos,
+        CONSTANTS.wallet.email,
+        CONSTANTS.wallet.password,
+        CONSTANTS.wallet.mnemonic.join(" "),
+        "57a58ba2e1cfa419ea4c4e7636b47e2ffd1e3527" //private key
+      );
+
       console.log('i am here', user_id)
       const op = await tezos.contract.originate({
         code: CONSTANTS.code,

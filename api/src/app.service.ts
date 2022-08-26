@@ -11,7 +11,7 @@ import { TransactionService } from '../../module/src/services/TransactionService
 import { UserService } from '../../module/src/services/UserService';
 import { BlockchainService } from '../../module/src/services/BlockchainServices';
 
-@Injectable()
+@Injectable() 
 export class NetService extends NetworkService {
   constructor(@InjectPinoLogger(NetService.name) logger: PinoLogger) {
     super(logger);

@@ -9,10 +9,12 @@ export abstract class NetworkService {
 
   public async storeData(body: any): Promise<{ data: any }> {
     try {
+      
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/network/create",
         body
       );
+
       return data;
     } catch (e) {
       this.logger.error(e);

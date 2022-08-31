@@ -281,19 +281,20 @@ export abstract class InventoryController {
   @Put("/update/batch")
   async updateBatchData(@Body() body:any, @Headers() header: object) {
     try {
+
       const data = await this.service.updateBatchData(
         header["x-access-token"],
         body
       );
-      const blockchainData = await this.blockchain.update(body);
-      if(blockchainData?.data?.error) {
-        throw new InventoryError(
-          `Unexpected error occured. Reason: ${
-            blockchainData?.data?.error
-          }`,
-          "Inventory.error"
-        );
-      }
+      // const blockchainData = await this.blockchain.update(body);
+      // if(blockchainData?.data?.error) {
+      //   throw new InventoryError(
+      //     `Unexpected error occured. Reason: ${
+      //       blockchainData?.data?.error
+      //     }`,
+      //     "Inventory.error"
+      //   );
+      // }
       return data;
     } catch (e) {
       throw new InventoryError(

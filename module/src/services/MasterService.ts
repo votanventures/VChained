@@ -23,14 +23,15 @@ export abstract class MasterService {
     }
   }
   public async insertInventory(
-    key: string,
+    header: any,
     body: any
   ): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/masterdata/insertInventory",body,
-        { headers: { "x-access-token": key } }
+        { headers: header }
       );
+      console.log(header,"header")
       console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%',data)
       return data;
     } catch (e) {

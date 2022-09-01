@@ -40,7 +40,7 @@ export abstract class MasterController {
   @Post("/insertInventory")
   async insertInventory(@Body() body: any, @Headers() header: object) {
     try {
-      const data = await this.service.insertInventory(header["x-access-token"],body);
+      const data = await this.service.insertInventory(header,body);
       return data;
     } catch (e) {
       console.log(e)

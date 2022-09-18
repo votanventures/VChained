@@ -1,14 +1,14 @@
 openapi: 3.0.0
 servers:
-  - url: 'https://api-eu1.votan.io'
+  - url: 'https://vtracy.herokuapp.com/'
 info:
   version: 1.0.0
-  title: votan Hyperledger Fabric API
+  title: VChained API Client
 tags:
   - description: |
-      <p>Hyperledger FAbric is an open-source, private-permissioned blockchain. It provides enhanced enterprise functionality with multiple pluggable consensus mechanisms, enterprise-grade permissions management, and transaction privacy features. <br/>
-      The Hyperledger Fabric network is not run by votan, developers should connect to their own private instance. For testing purposes, there is a playground Fabric implementation available at <b>http://ec2-35-159-31-167.eu-central-1.compute.amazonaws.com:8080/</b>.</p>
-    name: Blockchain / Fabric
+      <p>VChained is the world's first open source API client solution for supply chain management on blockchain. <br/>
+      Anyone can use this plug and play sdk to connect it with their existing supply chain management solutions and start writing transactions on blockchain</b>.</p>
+    name: VChained / Ledger
 paths:
   /v3/fabric/data:
     post:

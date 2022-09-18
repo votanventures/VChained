@@ -1,0 +1,5 @@
+{
+  users:(Big_map.empty as big_map<string,bytes>),
+  carbon:(Big_map.empty as big_map<string,bytes>),
+  products:(Big_map.empty as big_map<string,bytes>)
+  }

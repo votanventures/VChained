@@ -1,21 +1,21 @@
 import { Module } from '@nestjs/common';
 import { LoggerModule } from 'nestjs-pino';
-import { EmpController, IncController, InvController, 
+import { NetController, IncController, InvController, 
          MasController, ParController, RecController, 
-         TransController, UsrController } from './app.controller';
-import { EmpService, IncService, InvService, 
+         TransController, UsrController, BlckController } from './app.controller';
+import { NetService, IncService, InvService, 
          MasService, ParService, RecService, 
-         TransService, UsrService } from './app.service';
+         TransService, UsrService, BlckService } from './app.service';
 
 
 @Module({
   imports: [LoggerModule.forRoot()],
-  controllers: [EmpController, InvController, IncController, 
+  controllers: [NetController, InvController, IncController, 
                MasController, ParController, MasController, 
                ParController, RecController, TransController, 
-               UsrController],
-  providers: [EmpService, InvService, IncService, 
+               UsrController, BlckController],
+  providers: [NetService, IncService, InvService, 
               MasService, ParService, RecService, 
-              TransService, UsrService],
+              TransService, UsrService, BlckService],
 })
 export class AppModule {}

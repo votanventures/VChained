@@ -1,6 +1,7 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class ParticipentAddress {
+
+export class AddParticipant {
     @IsNotEmpty()
     public company: string;
     @IsNotEmpty()
@@ -12,7 +13,7 @@ export class ParticipentAddress {
     @IsNotEmpty()
     public email: string;
     @IsNotEmpty()
-    public status: string;
+    public TezosAppID: string;
     @IsNotEmpty()
-    public action: string;
+    public AppNetworkID: string;
 }

@@ -1,5 +1,5 @@
 {
-  "name": "example-quorum-integration",
+  "name": "VChained-integration",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -24,6 +24,8 @@
     "@nestjs/common": "^8.3.0",
     "@nestjs/core": "^8.3.0",
     "@nestjs/platform-express": "^8.3.0",
+    "@taquito/signer": "^11.2.0",
+    "@taquito/taquito": "^11.2.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "nestjs-pino": "^2.5.0",

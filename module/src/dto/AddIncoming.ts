@@ -1,7 +1,7 @@
 import { IsNotEmpty } from 'class-validator';
 
 
-export class IncomingAddress {
+export class AddIncoming {
     @IsNotEmpty()
     public productId: string;
     @IsNotEmpty()

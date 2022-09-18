@@ -1,24 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { PinoLogger } from 'pino-logger';
 import { InjectPinoLogger } from 'nestjs-pino';
-import { EmployeeService } from '../../module/src/services/EmployeeService';
+import { NetworkService } from '../../module/src/services/NetworkService';
 import { IncomingService } from '../../module/src/services/IncomingService';
 import { InventoryService } from '../../module/src/services/InventoryService';
 import { MasterService } from '../../module/src/services/MasterService';
-import { ParticipentService } from '../../module/src/services/ParticipentService';
+import { ParticipantService } from '../../module/src/services/ParticipantService';
 import { RecipientService } from '../../module/src/services/RecipientService';
 import { TransactionService } from '../../module/src/services/TransactionService';
 import { UserService } from '../../module/src/services/UserService';
+import { BlockchainService } from '../../module/src/services/BlockchainServices';
 
-@Injectable()
-export class EmpService extends EmployeeService {
-  constructor(@InjectPinoLogger(EmpService.name) logger: PinoLogger) {
+@Injectable() 
+export class NetService extends NetworkService {
+  constructor(@InjectPinoLogger(NetService.name) logger: PinoLogger) {
     super(logger);
   }
 }
 @Injectable()
 export class IncService extends IncomingService {
-  constructor(@InjectPinoLogger(InvService.name) logger: PinoLogger) {
+  constructor(@InjectPinoLogger(IncService.name) logger: PinoLogger) {
     super(logger);
   }
 }
@@ -35,7 +36,7 @@ export class MasService extends MasterService {
   }
 }
 @Injectable()
-export class ParService extends ParticipentService {
+export class ParService extends ParticipantService {
   constructor(@InjectPinoLogger(ParService.name) logger: PinoLogger) {
     super(logger);
   }
@@ -54,7 +55,13 @@ export class TransService extends TransactionService {
 }
 @Injectable()
 export class UsrService extends UserService {
-  constructor(@InjectPinoLogger(TransService.name) logger: PinoLogger) {
+  constructor(@InjectPinoLogger(UsrService.name) logger: PinoLogger) {
+    super(logger);
+  }
+}
+@Injectable()
+export class BlckService extends BlockchainService {
+  constructor(@InjectPinoLogger(BlckService.name) logger: PinoLogger) {
     super(logger);
   }
 }

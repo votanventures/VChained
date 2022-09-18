@@ -1,8 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class UserAddress {
-    @IsNotEmpty()
-    public userid: string;
+export class CreateUser {
     @IsNotEmpty()
     public firstname: string;
     @IsNotEmpty()
@@ -13,12 +11,4 @@ export class UserAddress {
     public email: string;
     @IsNotEmpty()
     public password: string;
-    @IsNotEmpty()
-    public usedcresit: string;
-    @IsNotEmpty()
-    public credits: string;
-    @IsNotEmpty()
-    public plan: string;
-    @IsNotEmpty()
-    public active:  string;
 }

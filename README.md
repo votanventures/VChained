@@ -51,13 +51,13 @@ Right now the Backend is hosted on Heroku with default timeouts of 30secs per re
 │   │   ├── app.module.ts
 │   │   ├── app.service.ts
 │   │   └── main.ts // this will start the server
-└── smart-contract  // smart contracts samples in JSLigo
+└── smart-contract  // smart contracts samples JSLigo
 └── module
 │   ├── src
 │   │   ├── controllers // api endpoints per module
 │   │   ├── dto         // dtos to be added per transactions 
 │   │   ├── services    // services per module   
-│   |   └── constants.ts        // Constants
+│   │   └── constants.ts        // Constants
 ├── README.md
 └── .gitignore
 ```

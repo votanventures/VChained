@@ -6,7 +6,6 @@ import {
   Post,
   Put,
   Delete,
-  UseGuards,
   Query,
 } from "@nestjs/common";
 import { NetworkService } from "../services/NetworkService";
@@ -48,22 +47,7 @@ export abstract class NetworkController {
   @Get("/id")
   async getData(@Query("NID") NID: string) {
     try {
-      const data = await this.service.getData(NID);
-      return data;
-    } catch (e) {
-      throw new NetworkError(
-        `Unexpected error occurred. Reason: ${
-          e.message?.message || e.response?.data || e.message || e
-        }`,
-        "Network.error"
-      );
-    }
-  }
-
-  @Get("/getNetwork")
-  async getNetworkData() {
-    try {
-      const data = await this.service.getNetworkData();
+      const data = await this.service.getByID(NID);
       return data;
     } catch (e) {
       throw new NetworkError(

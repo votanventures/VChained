@@ -9,12 +9,15 @@ export abstract class UserService {
 
   
   public async signupData(
-    body: CreateUser
+    body: CreateUser,
+    key: string,
+    netid: string
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/user/register",
         body,
+        { headers: { "x-access-token": key, "netid": netid} }
       );
       return data;
     } catch (e) {
@@ -24,12 +27,15 @@ export abstract class UserService {
   }
 
   public async loginData(
-    body: CreateUser
+    key: string,
+    netid: string,
+    body: CreateUser,
   ): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/user/login",
-        body
+        body,
+        { headers: { "x-access-token": key, "netid": netid} }
       );
       return data;
     } catch (e) {
@@ -38,11 +44,11 @@ export abstract class UserService {
     }
   }
 
-  public async getData(key: string,user_id: string): Promise<{ data: any }> {
+  public async getData(key: string,netid: string,user_id: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/user/id?user_id=${user_id}`,
-        { headers: { "x-access-token": key } }
+        { headers: { "x-access-token": key, "netid": netid} }
       );
       return data;
     } catch (e) {
@@ -50,10 +56,11 @@ export abstract class UserService {
       throw new UserError(`Error occurred. ${e}`, "User.error");
     }
   }
-  public async resetPassword(email: string): Promise<{ data: any }> {
+  public async resetPassword(email: string, key: string, netid: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/user/reset?email=${email}`,
+        { headers: { "x-access-token": key, "netid": netid} }
       );
       console.log(data,"data from user service")
       return data;
@@ -63,35 +70,9 @@ export abstract class UserService {
     }
   }
 
-  public async getUserData(key: string): Promise<{ data: any }> {
+  public async updateData(key: string, body: any, netid: string): Promise<{ data: any }> {
     try {
-      const { data } = await axios.get(CONSTANTS.VTraceApi + "/user/getUser", {
-        headers: { "x-access-token": key },
-      });
-      return data;
-    } catch (e) {
-      this.logger.error(e);
-      throw new UserError(`Error occured. ${e}`, "User.error");
-    }
-  }
-
-  public async getBlockchainData(key: string): Promise<{ data: any }> {
-    try {
-      const { data } = await axios.get(CONSTANTS.VTraceApi + "/user/getData", {
-        headers: { "x-access-token": key },
-      });
-      return data;
-    } catch (e) {
-      this.logger.error(e);
-      throw new UserError(`Error occured. ${e}`, "User.error");
-    }
-  }
-
-  public async updateData(key: string, data: any): Promise<{ data: any }> {
-    try {
-      const { data } = await axios.put(CONSTANTS.VTraceApi + "/user/update", {
-        headers: { "x-access-token": key },
-      });
+      const { data } = await axios.put(CONSTANTS.VTraceApi + "/user/update", body, { headers: { "x-access-token": key, "netid": netid} });
       return data;
     } catch (e) {
       this.logger.error(e);
@@ -99,27 +80,12 @@ export abstract class UserService {
     }
   }
 
-  public async updateBlockchainData(
-    key: string,
-    data: any
-  ): Promise<{ data: any }> {
-    try {
-      const { data } = await axios.get(
-        CONSTANTS.VTraceApi + "/user/updateData",
-        { headers: { "x-access-token": key } }
-      );
-      return data;
-    } catch (e) {
-      this.logger.error(e);
-      throw new UserError(`Error occured. ${e}`, "User.error");
-    }
-  }
 
-  public async deleteData(key: string, user_id:string): Promise<{ data: any }> {
+  public async deleteData(key: string, netid:string, user_id:string): Promise<{ data: any }> {
     try {
       const { data } = await axios.delete(
         CONSTANTS.VTraceApi + `/user/delete/id?user_id=${user_id}`,
-        { headers: { "x-access-token": key } }
+        { headers: { "x-access-token": key, "netid": netid} }
       );
       return data;
     } catch (e) {

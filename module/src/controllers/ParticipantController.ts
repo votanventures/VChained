@@ -6,7 +6,6 @@ import {
   Post,
   Put,
   Delete,
-  UseGuards,
   Query,
 } from "@nestjs/common";
 import { ParticipantService } from "../services/ParticipantService";
@@ -19,7 +18,7 @@ export abstract class ParticipantController {
   @Post("/create")
   async storeData(@Body() body: AddParticipient, @Headers() header: object) {
     try {
-      const data = await this.service.storeData(header["x-access-token"], body);
+      const data = await this.service.storeData(header["x-access-token"], body, header["netid"]);
       return data;
     } catch (e) {
       throw new ParticipantError(
@@ -34,24 +33,7 @@ export abstract class ParticipantController {
   @Get("/id")
   async getData(@Query("PID") PID: string, @Headers() header: object) {
     try {
-      const data = await this.service.getData(header["x-access-token"], PID);
-      return data;
-    } catch (e) {
-      throw new ParticipantError(
-        `Unexpected error occurred. Reason: ${
-          e.message?.message || e.response?.data || e.message || e
-        }`,
-        "Participant.error"
-      );
-    }
-  }
-
-  @Get("/getParticipant")
-  async getParticipentData(@Headers() header: object) {
-    try {
-      const data = await this.service.getParticipentData(
-        header["x-access-token"]
-      );
+      const data = await this.service.getData(header["x-access-token"], PID, header["netid"]);
       return data;
     } catch (e) {
       throw new ParticipantError(
@@ -81,23 +63,6 @@ export abstract class ParticipantController {
     }
   }
 
-  @Get("/getData")
-  async getBlockchainData(@Body("PID") @Headers() header: object) {
-    try {
-      const data = await this.service.getBlockchainData(
-        header["x-access-token"]
-      );
-      return data;
-    } catch(e) {
-      throw new ParticipantError(
-        `Unexpected error occured. Reason: ${
-          e.message?.message || e.response?.data || e.message || e
-        }`,
-        "Participant error"
-      )
-    }
-  }
-
   @Put("/update")
   async updateData(
     @Body() body:any,
@@ -106,6 +71,7 @@ export abstract class ParticipantController {
     try {
       const data = await this.service.updateData(
         header["x-access-token"],
+        header["netid"],
         body
       );
       return data;
@@ -119,10 +85,17 @@ export abstract class ParticipantController {
     }
   }
 
-  @Put("/updateData")
-  async updateBlockchainData(@Body("PID") PID:string, @Headers() header:object) {
-    try{
-      const data = await this.service.updateBlockchainData(header["x-access-token"], PID);
+  @Delete("/delete")
+  async deleteData(
+    @Query("PID") @Body() PID: string,
+    @Headers() header: object
+  ) {
+    try {
+      const data = await this.service.deleteData(
+        header["x-access-token"],
+        header["netid"],
+        PID
+      );
       return data;
     } catch (e) {
       throw new ParticipantError(
@@ -130,25 +103,6 @@ export abstract class ParticipantController {
           e.message?.message || e.response?.data || e.message || e
         }`,
         "Participant.error"
-      );
-    }
-  }
-
-  @Delete("/delete")
-  async deleteData(
-    @Query("user_id") @Body() user_id: string,
-    @Headers() header: object
-  ) {
-    try {
-      const data = await this.service.deleteData(
-        header["x-access-token"],
-        user_id
-      );
-      return data;
-    } catch (e) {
-      throw new ParticipantError(
-        `Incompatible chain`,
-        "deleteParticipant.error"
       );
     }
   }

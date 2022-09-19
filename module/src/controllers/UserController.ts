@@ -15,10 +15,12 @@ export abstract class UserController {
 
   
   @Post("/register")
-  async signupData(@Body() body: any) {
+  async signupData(@Body() body: any, @Headers() header: object) {
     try {
       const data = await this.service.signupData(
         body,
+        header["x-access-token"],
+        header["netid"],
       );
       return data;
     } catch (e) {
@@ -32,9 +34,9 @@ export abstract class UserController {
   }
 
   @Post("/login")
-  async loginData(@Body() body: any) {
+  async loginData(@Body() body: any, @Headers() header: object) {
     try {
-      const data = await this.service.loginData(body);
+      const data = await this.service.loginData(header["x-access-token"],header["netid"],body);
       return data;
     } catch (e) {
       throw new UserError(
@@ -51,6 +53,7 @@ export abstract class UserController {
     try {
       const data = await this.service.getData(
         header["x-access-token"],
+        header["netid"],
         user_id
       );
       return data;
@@ -64,68 +67,17 @@ export abstract class UserController {
     }
   }
 
-  @Get("/getUser")
-  async getUserData(@Headers() header: object) {
-    try {
-      const data = await this.service.getUserData(header["x-access-token"]);
-      return data;
-    } catch (e) {
-      throw new UserError(
-        `Unexpected error occurred. Reason: ${
-          e.message?.message || e.response?.data || e.message || e
-        }`,
-        "User.error"
-      );
-    }
-  }
-
-  @Get("/getData")
-  async getBlockchainData(@Body("user_id") @Headers() header: object) {
-    try {
-      const data = await this.service.getBlockchainData(
-        header["x-access-token"]
-      );
-      return data;
-    } catch (e) {
-      throw new UserError(
-        `Unexpected error occurred. Reason: ${
-          e.message?.message || e.response?.data || e.message || e
-        }`,
-        "User.error"
-      );
-    }
-  }
 
   @Put("/update")
   async updateData(
-    @Body("user_id") user_id: string,
+    @Body() body: string,
     @Headers() header: object
   ) {
     try {
       const data = await this.service.updateData(
         header["x-access-token"],
-        user_id
-      );
-      return data;
-    } catch (e) {
-      throw new UserError(
-        `Unexpected error occured. Reason: ${
-          e.message?.message || e.response?.data || e.message || e
-        }`,
-        "User.error"
-      );
-    }
-  }
-
-  @Put("/updateData")
-  async updateBlockchainData(
-    @Body("user_id") user_id: string,
-    @Headers() header: object
-  ) {
-    try {
-      const data = await this.service.updateBlockchainData(
-        header["x-access-token"],
-        user_id
+        body,
+        header["netid"],
       );
       return data;
     } catch (e) {
@@ -141,11 +93,12 @@ export abstract class UserController {
   @Delete("/delete")
   async deleteData(
     @Query("user_id") user_id: string,
-    @Body() @Headers() header: object
+    @Headers() header: object
   ) {
     try {
       const data = await this.service.deleteData(
         header["x-access-token"],
+        header["netid"],
         user_id
       );
       return data;
@@ -155,11 +108,13 @@ export abstract class UserController {
   }
   @Get("/reset")
   async resetPassword(
-    @Query("email") email: string
+    @Query("email") email: string, @Headers() header: object
   ) {
     try {
       const data = await this.service.resetPassword(
-        email
+        email,
+        header["x-access-token"],
+        header["netid"],
       );
       console.log(data,"data from user controller")
       return data;

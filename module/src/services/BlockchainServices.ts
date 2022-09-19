@@ -4,7 +4,6 @@ import { TezosToolkit } from "@taquito/taquito";
 import { importKey } from "@taquito/signer";
 import { InMemorySigner } from "@taquito/signer";
 import { CONSTANTS } from "../constants";
-import { updateContract } from "./Common";
 import { buf2hex } from "@taquito/utils";
 import { BlockchainError } from "../dto/BlockchainError";
 
@@ -62,20 +61,7 @@ export class BlockchainService {
       console.log("Contract here:", contract.address);
       // return {data:op.hash};
       const ct= await op.confirmation(1).then(async () => {
-        const UpdateContract = await updateContract(
-          user_id,
-          contract.address,
-          CONSTANTS.wallet.address,
-          "1",
-          key
-        );
-        console.log(UpdateContract);
-        if (!UpdateContract) {
-          return {
-            data: "Error While Saving The Details To Database",
-            contract: contract.address,
-          };
-        }
+        // add a call to save in your database
         return { data: op.hash, contract: contract.address };
       });
       return ct;

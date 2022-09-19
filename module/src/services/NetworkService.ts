@@ -7,9 +7,9 @@ import { AddNetwork } from "../dto/AddNetwork";
 export abstract class NetworkService {
   protected constructor(protected readonly logger: PinoLogger) {}
 
+  // This will also create a new network smart contract for you
   public async storeData(body: any): Promise<{ data: any }> {
     try {
-      
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/network/create",
         body
@@ -35,27 +35,15 @@ export abstract class NetworkService {
     }
   }
 
-  public async getData(user_id: string): Promise<{ data: string }> {
+  public async getByID(NID: string): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + `/network/id?user_id=${user_id}`
+        CONSTANTS.VTraceApi + `/network/id?NID=${NID}`
       );
       return data;
     } catch (e) {
       this.logger.error(e);
       throw new NetworkError(`Error occurred. ${e}`, "Network.error");
-    }
-  }
-
-  public async getNetworkData(): Promise<{ data: string }> {
-    try {
-      const { data } = await axios.get(
-        CONSTANTS.VTraceApi + "/network/getNetwork"
-      );
-      return data;
-    } catch (e) {
-      this.logger.error(e);
-      throw new NetworkError(`Error occured. ${e}`, "Network.error");
     }
   }
 
@@ -81,9 +69,9 @@ export abstract class NetworkService {
       throw new NetworkError(`Error occurred. ${e}`, "Network.error");
     }
   }
-  public async updateData(data: any): Promise<{ data: string }> {
+  public async updateData(body: any): Promise<{ data: string }> {
     try {
-      const { data } = await axios.put(CONSTANTS.VTraceApi + "/network/update");
+      const { data } = await axios.put(CONSTANTS.VTraceApi + "/network/update", body);
       return data;
     } catch (e) {
       this.logger.error(e);
@@ -94,7 +82,7 @@ export abstract class NetworkService {
   public async deleteData(NID: string): Promise<{ data: string }> {
     try {
       const { data } = await axios.delete(
-        CONSTANTS.VTraceApi + `/network/delete/id?NId=${NID}`
+        CONSTANTS.VTraceApi + `/network/delete/id?NID=${NID}`
       );
       return data;
     } catch (e) {

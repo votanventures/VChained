@@ -1,7 +1,6 @@
 import { Body, Get, Headers, Param, Post, Put } from "@nestjs/common";
 import { BlockchainService } from "../services/BlockchainServices";
 import { BlockchainError } from "../dto/BlockchainError";
-import axios from "axios";
 
 export abstract class BlockchainController {
   protected constructor(protected readonly service: BlockchainService) {}

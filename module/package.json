@@ -9,6 +9,7 @@
   "author": "votan-ventures",
   "license": "ISC",
   "dependencies": {
+    "@nestjs/common": "^9.0.11",
     "@nestjs/platform-express": "^9.0.11",
     "@taquito/signer": "^14.0.0",
     "@taquito/taquito": "^14.0.0",

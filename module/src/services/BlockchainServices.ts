@@ -5,9 +5,8 @@ import { importKey } from "@taquito/signer";
 import { InMemorySigner } from "@taquito/signer";
 import { CONSTANTS } from "../constants";
 import { updateContract } from "./Common";
-import { Tx } from "./Tx";
 import { buf2hex } from "@taquito/utils";
-import { BlockchainError } from "src/dto/BlockchainError";
+import { BlockchainError } from "../dto/BlockchainError";
 
 export class BlockchainService {
   private tezos: TezosToolkit;

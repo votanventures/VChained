@@ -11,4 +11,6 @@ export class CreateUser {
     public email: string;
     @IsNotEmpty()
     public password: string;
+    @IsNotEmpty()
+    public PID: object;
 }

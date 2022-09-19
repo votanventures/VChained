@@ -7,6 +7,7 @@ import { CONSTANTS } from "../constants";
 import { updateContract } from "./Common";
 import { Tx } from "./Tx";
 import { buf2hex } from "@taquito/utils";
+import { BlockchainError } from "src/dto/BlockchainError";
 
 export class BlockchainService {
   private tezos: TezosToolkit;
@@ -34,8 +35,7 @@ export class BlockchainService {
     }
   }
 
-  //deploy function
-  public async deploy(key:string, user_id: string): Promise<{ data: any }> {
+  public async deploySample(key:string, user_id: string): Promise<{ data: any }> {
    
     try {
        // async function deploy() {
@@ -62,7 +62,7 @@ export class BlockchainService {
       console.log("Operation hash:", op.hash);
       console.log("Contract here:", contract.address);
       // return {data:op.hash};
-      const x= await op.confirmation(1).then(async () => {
+      const ct= await op.confirmation(1).then(async () => {
         const UpdateContract = await updateContract(
           user_id,
           contract.address,
@@ -79,21 +79,18 @@ export class BlockchainService {
         }
         return { data: op.hash, contract: contract.address };
       });
-      console.log('this is x',x)
-      return x;
-    } catch (ex) {
-      console.log(ex);
-      return { data: { error: ex} };
+      return ct;
+    } catch (err) {
+      console.log(err);
+      return { data: { error: err} };
     }
   }
-  // @To:DO: edit the call to come from server
-  public async create(body: any): Promise<{ data: any }> {
+  public async createSample(body: any): Promise<{ data: any }> {
     try {
       const temp = {
         id: body.id,
         data: buf2hex(Buffer.from(JSON.stringify(body)))
       }
-      console.log(temp, "temp here");
       const ctrct = await this.tezos.contract.at(body.contract)
       const op = await ctrct.methodsObject
         .create_product(temp)
@@ -104,36 +101,67 @@ export class BlockchainService {
       return { data: { error: e} };
     }
   }
-  //  update function starting here
-  public async update(body: any): Promise<{ data: any }> {
+  public async getDatabyKey(
+    key: string,
+    id: string,
+    NID: string,
+  ): Promise<{ data: any }> {
     try {
-      const ctrct = await this.tezos.contract.at(body.contract);
-      const contract = await axios.get(CONSTANTS.VTraceApi + "/user/getUser");
-      if (!body.contract) {
-        return contract;
-      }
-      const op = await ctrct.methodsObject
-        .update_product(body)
-        .send();
-      return { data: await op.confirmation(1).then(() => op.hash) };
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/ledger/get/${id}`,
+        { headers: { "x-access-token": key, "netid": NID } }
+      );
+      return data;
     } catch (e) {
-      return { data: { error: e} };
+      this.logger.error(e);
+      throw new BlockchainError(`Error occurred ${e}`, "Blockchain.error");
     }
   }
-  //  modify user
-  public async updateUser(body: any): Promise<{ data: any }> {
+  public async getHistoryDatabyKey(
+    key: string,
+    id: string,
+    NID: string,
+  ): Promise<{ data: any }> {
     try {
-      const ctrct = await this.tezos.contract.at(body.contract);
-      const contract = await axios.get(CONSTANTS.VTraceApi + "/user/getUser");
-      if (!body.contract) {
-        return contract;
-      }
-      const op = await ctrct.methodsObject
-        .create_user(body)
-        .send();
-      return { data: await op.confirmation(1).then(() => op.hash) };
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/ledger/history/${id}`,
+        { headers: { "x-access-token": key, "netid": NID } }
+      );
+      return data;
     } catch (e) {
-      return { data: { error: e} };
+      this.logger.error(e);
+      throw new BlockchainError(`Error occurred ${e}`, "Blockchain.error");
+    }
+  }
+  public async deploy(
+    key:string,
+    netid: string,
+  ): Promise<{ data: any }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/ledger/deploy/${netid}`,
+        { headers: { "x-access-token": key, "netid": netid } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new BlockchainError(`Error occurred ${e}`, "Blockchain.error");
+    }
+  }
+  public async write(
+    key: string,
+    body: any,
+    netid: string
+  ): Promise<{ data: any }> {
+    try {
+      const { data } = await axios.post(
+        CONSTANTS.VTraceApi + "/ledger/create",body,
+        { headers: { "x-access-token": key, "netid": netid } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new BlockchainError(`Error occurred. ${e}`, "Blockchain.error");
     }
   }
 }

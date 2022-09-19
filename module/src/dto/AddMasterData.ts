@@ -7,4 +7,7 @@ export class AddMasterData {
     public productId: string;
     @IsNotEmpty()
     public productAttributes: object;
+    // add new entry
+    @IsNotEmpty()
+    public user_id: string;
 }

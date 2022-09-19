@@ -1,8 +1,8 @@
 {
-  "name": "VChained-integration",
+  "name": "vchained-integration",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "votan-ventures",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

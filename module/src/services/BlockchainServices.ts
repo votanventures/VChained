@@ -4,7 +4,6 @@ import { TezosToolkit } from "@taquito/taquito";
 import { importKey } from "@taquito/signer";
 import { InMemorySigner } from "@taquito/signer";
 import { CONSTANTS } from "../constants";
-// Contract file
 import { updateContract } from "./Common";
 import { Tx } from "./Tx";
 import { buf2hex } from "@taquito/utils";
@@ -49,18 +48,14 @@ export class BlockchainService {
         "57a58ba2e1cfa419ea4c4e7636b47e2ffd1e3527" //private key
       );
 
-      console.log('i am here', user_id)
       const op = await tezos.contract.originate({
         code: CONSTANTS.code,
         init: CONSTANTS.init,
       });
-      console.log('i am here2')
       //beginning to deploy
       console.log("Awaiting confirmation...", op);
-      console.log('i am here3')
       const contract = await op.contract();
       //deployment report: amount of used gas, storage state
-      console.log('i am here4')
       console.log("Gas Used", op.consumedGas);
       console.log("Storage", await contract.storage());
       //operation hash one can use to find the contract in the explorer
@@ -91,28 +86,15 @@ export class BlockchainService {
       return { data: { error: ex} };
     }
   }
-  // create details function starting here
+  // @To:DO: edit the call to come from server
   public async create(body: any): Promise<{ data: any }> {
     try {
-      console.log(body, "body here");
-      // if (!body.contract) {
-      //   body.contract = await axios.get(
-      //     CONSTANTS.VTraceApi + "/user/id?user_id"
-      //   );
-      // }
-      // if (!body.contract) {
-      //   return { data: "Please Specify Contract Address" };
-      // }
       const temp = {
         id: body.id,
         data: buf2hex(Buffer.from(JSON.stringify(body)))
       }
       console.log(temp, "temp here");
-      const ctrct = await this.tezos.contract.at(body.contract);
-      // const contract = await axios.get(CONSTANTS.VTraceApi + "/user/getUser");
-      // if (!body.contract) {
-      //   return contract;
-      // }
+      const ctrct = await this.tezos.contract.at(body.contract)
       const op = await ctrct.methodsObject
         .create_product(temp)
         .send();

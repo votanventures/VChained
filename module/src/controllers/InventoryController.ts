@@ -286,15 +286,6 @@ export abstract class InventoryController {
         header["x-access-token"],
         body
       );
-      // const blockchainData = await this.blockchain.update(body);
-      // if(blockchainData?.data?.error) {
-      //   throw new InventoryError(
-      //     `Unexpected error occured. Reason: ${
-      //       blockchainData?.data?.error
-      //     }`,
-      //     "Inventory.error"
-      //   );
-      // }
       return data;
     } catch (e) {
       throw new InventoryError(

@@ -31,8 +31,6 @@ export abstract class MasterService {
         CONSTANTS.VTraceApi + "/masterdata/insertInventory",body,
         { headers: header }
       );
-      console.log(header,"header")
-      console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%',data)
       return data;
     } catch (e) {
       this.logger.error(e);
@@ -77,7 +75,6 @@ export abstract class MasterService {
         CONSTANTS.VTraceApi + `/masterdata/getMasterData/${PID}`,
         { headers: { "x-access-token": key } }
       );
-      console.log(data,'test#################################')
       return data;
     } catch (e) {
       this.logger.error(e);

@@ -11,12 +11,13 @@ import {
 } from "@nestjs/common";
 import { RecipientService } from "../services/RecipientService";
 import { RecipientError } from "../dto/RecipientError";
+import { AddRecipient } from "../dto/AddRecipient";
 
 export abstract class RecipientController {
   protected constructor(protected readonly service: RecipientService) {}
 
   @Post("/create")
-  async storeData(@Body() body: any, @Headers() header: object) {
+  async storeData(@Body() body: AddRecipient, @Headers() header: object) {
     try {
       const data = await this.service.storeData(header["x-access-token"], body);
       return data;

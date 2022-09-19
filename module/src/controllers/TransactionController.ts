@@ -10,12 +10,13 @@ import {
 } from "@nestjs/common";
 import { TransactionService } from "../services/TransactionService";
 import { TransactionError } from "../dto/TransactionError";
+import { AddTransaction } from "../dto/AddTransactions";
 
 export abstract class TransactionController {
   protected constructor(protected readonly service: TransactionService) {}
 
   @Post("/create")
-  async storeData(@Body() body: any, @Headers() header: object) {
+  async storeData(@Body() body: AddTransaction, @Headers() header: object) {
     try {
       const data = await this.service.storeData(header["x-access-token"], body);
       return data;

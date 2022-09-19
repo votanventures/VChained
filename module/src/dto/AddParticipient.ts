@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class AddParticipent {
+export class AddParticipient {
     @IsNotEmpty()
     public company: string;
     @IsNotEmpty()

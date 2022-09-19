@@ -2,14 +2,14 @@ import { PinoLogger } from "nestjs-pino";
 import axios from "axios";
 import { ParticipantError } from "../dto/ParticipantError";
 import { CONSTANTS } from "../constants";
-import { AddParticipant } from "../dto/AddParticipant";
+import { AddParticipient } from "../dto/AddParticipient";
 
 export abstract class ParticipantService {
   protected constructor(protected readonly logger: PinoLogger) {}
 
   public async storeData(
     key: string,
-    body: AddParticipant
+    body: AddParticipient
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.post(

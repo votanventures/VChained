@@ -1,19 +1,16 @@
 import { IsNotEmpty } from 'class-validator';
 
-
 export class AddParticipant {
     @IsNotEmpty()
-    public company: string;
+    public firstname: string;
     @IsNotEmpty()
-    public city: string;
+    public lastname: string;
     @IsNotEmpty()
-    public country: string;
-    @IsNotEmpty()
-    public role: string;
+    public address: string;
     @IsNotEmpty()
     public email: string;
     @IsNotEmpty()
-    public TezosAppID: string;
+    public password: string;
     @IsNotEmpty()
-    public AppNetworkID: string;
+    public PID: object;
 }

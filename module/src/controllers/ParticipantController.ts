@@ -11,12 +11,13 @@ import {
 } from "@nestjs/common";
 import { ParticipantService } from "../services/ParticipantService";
 import { ParticipantError } from "../dto/ParticipantError";
+import { AddParticipient } from "../dto/AddParticipient";
 
 export abstract class ParticipantController {
   protected constructor(protected readonly service: ParticipantService) {}
 
   @Post("/create")
-  async storeData(@Body() body: any, @Headers() header: object) {
+  async storeData(@Body() body: AddParticipient, @Headers() header: object) {
     try {
       const data = await this.service.storeData(header["x-access-token"], body);
       return data;

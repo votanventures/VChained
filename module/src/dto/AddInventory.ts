@@ -1,20 +1,10 @@
 import { IsNotEmpty } from 'class-validator';
-
-//                 - id
-//  *              - user_id
-//  *              - owner
-//  *              - PID
-//  *              - modifiedAt
-//  *              - createdAt
-//  *              - percenatge
-//  *              - percentageUsed
-//  *              - action
-//  *              - productAttributes
-//  *              - claimRequest    
-
+ 
 export class AddInventory {
     @IsNotEmpty()
     public PID: string;
+    @IsNotEmpty()
+    public user_id: string;
     @IsNotEmpty()
     public productAttributes: object;
     // new entry added
@@ -26,6 +16,8 @@ export class AddInventory {
     public modifiedAt: string;
     @IsNotEmpty()
     public createdAt: string;
+    @IsNotEmpty()
+    public claimRequest: string;
     @IsNotEmpty()
     public action: string;
 }

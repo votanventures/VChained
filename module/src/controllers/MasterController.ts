@@ -15,10 +15,6 @@ import { MasterError } from "../dto/MasterError";
 import { AddMasterData } from "../dto/AddMasterData";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { storage } from "../constants";
-// import csv  from "csvtojson";
-// import csv=require('csvtojson')
-// import csv = require("csvtojson")
-// const csv=require('csvtojson')
 
 export abstract class MasterController {
   protected constructor(protected readonly service: MasterService) {}

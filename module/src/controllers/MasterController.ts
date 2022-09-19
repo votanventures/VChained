@@ -66,25 +66,6 @@ export abstract class MasterController {
     }
   }
 
-  // @Get("/getMasterData")
-  // async getMasterData(
-  //   @Headers() header: object
-  // ) {
-  //   try {
-  //     const data = await this.service.getMasterData(
-  //       header["x-access-token"],
-  //     );
-  //     return data;
-  //   } catch (e) {
-  //     throw new MasterError(
-  //       `Unexpected error occurred. Reason: ${
-  //         e.message?.message || e.response?.data || e.message || e
-  //       }`,
-  //       "Master.error"
-  //     );
-  //   }
-  // }
-
   @Get("/getMasterData/:PID")
   async getAllProducts(@Param('PID') PID: string,  @Headers() header: object) {
     try {
@@ -155,14 +136,7 @@ export abstract class MasterController {
         .fromFile(csvFilePath)
         .then((jsonObj)=>{
           console.log(jsonObj);
-          /**
-           * [
-           * 	{a:"1", b:"2", c:"3"},
-           * 	{a:"4", b:"5". c:"6"}
-           * ]
-           */ 
         })
-      // Async / await usage
       const jsonArray = await csv().fromFile(csvFilePath);
       console.log(jsonArray,"json Array")  
       return file;

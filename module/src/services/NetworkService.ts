@@ -28,8 +28,6 @@ export abstract class NetworkService {
         CONSTANTS.VTraceApi + "/network/connect",
         body
       );
-      console.log(data, "data here...");
-      console.log();
       return data;
     } catch (e) {
       this.logger.error(e);

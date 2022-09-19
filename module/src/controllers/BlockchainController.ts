@@ -4,10 +4,7 @@ import {
   Headers,
   Param,
   Post,
-  Put,
-  Delete,
-  UseGuards,
-  Query,
+  Put
 } from "@nestjs/common";
 import { BlockchainService } from "../services/BlockchainServices";
 import { BlockchainError } from "../dto/BlockchainError";

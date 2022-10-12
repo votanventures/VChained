@@ -45,10 +45,10 @@ export abstract class TransactionController {
     }
   }
 
-  @Get("/getTransaction")
-  async getUserData(@Headers() header: object) {
+  @Get("/getTransaction/:PID")
+  async getUserData(@Headers() header: object, @Param("PID") PID: string) {
     try {
-      const data = await this.service.getTransactionData(header["x-access-token"]);
+      const data = await this.service.getTransactionData(header["x-access-token"],PID);
       return data;
     } catch (e) {
       throw new TransactionError(
@@ -59,6 +59,52 @@ export abstract class TransactionController {
       );
     }
   }
+
+  @Get("/:txId")
+  async getTransactionId(@Headers() header: object, @Param("txID") txID: string) {
+    try {
+      const data = await this.service.getTransactionId(header["x-access-token"],txID);
+      return data;
+    } catch (e) {
+      throw new TransactionError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Transaction.error"
+      );
+    }
+  }
+
+  @Get("/:productId")
+  async getProductById(@Headers() header: object, @Param("productId") productId: string) {
+    try {
+      const data = await this.service.getProductById(header["x-access-token"],productId);
+      return data;
+    } catch (e) {
+      throw new TransactionError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Transaction.error"
+      );
+    }
+  }
+
+  @Get("/product")
+  async getProduct(@Headers() header: object) {
+    try {
+      const data = await this.service.getProduct(header["x-access-token"]);
+      return data;
+    } catch (e) {
+      throw new TransactionError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Transaction.error"
+      );
+    }
+  }
+
 
   @Put("/update")
   async updateData(

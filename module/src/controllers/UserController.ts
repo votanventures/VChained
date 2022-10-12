@@ -12,7 +12,6 @@ import { UserError } from "../dto/UserError";
 
 export abstract class UserController {
   protected constructor(protected readonly service: UserService) {}
-
   
   @Post("/register")
   async signupData(@Body() body: any, @Headers() header: object) {
@@ -67,6 +66,40 @@ export abstract class UserController {
     }
   }
 
+  @Get("/getUser")
+  async getUser(@Headers() header: object) {
+    try {
+      const data = await this.service.getUser(
+        header["x-access-token"]
+      );
+      return data;
+    } catch (e) {
+      throw new UserError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "User.error"
+      );
+    }
+  }
+
+  @Get("/reset")
+  async resetPassword(
+    @Query("email") email: string, @Headers() header: object
+  ) {
+    try {
+      const data = await this.service.resetPassword(
+        email,
+        header["x-access-token"],
+        header["netid"],
+      );
+      console.log(data,"data from user controller")
+      return data;
+    } catch (e) {
+      console.log(e)
+      throw new UserError(`Unable to reach servers, please try again later`, "user.error");
+    }
+  }
 
   @Put("/update")
   async updateData(
@@ -104,23 +137,6 @@ export abstract class UserController {
       return data;
     } catch (e) {
       throw new UserError(`Incompatible chain`, "deleteUser.error");
-    }
-  }
-  @Get("/reset")
-  async resetPassword(
-    @Query("email") email: string, @Headers() header: object
-  ) {
-    try {
-      const data = await this.service.resetPassword(
-        email,
-        header["x-access-token"],
-        header["netid"],
-      );
-      console.log(data,"data from user controller")
-      return data;
-    } catch (e) {
-      console.log(e)
-      throw new UserError(`Unable to reach servers, please try again later`, "user.error");
     }
   }
 }

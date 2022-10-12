@@ -33,7 +33,8 @@ export abstract class MasterController {
       );
     }
   }
-  @Post("/insertInventory")
+  
+  @Post("/PID/:PID/insertInventory")
   async insertInventory(@Body() body: any, @Headers() header: object) {
     try {
       const data = await this.service.insertInventory(header,body);
@@ -48,24 +49,6 @@ export abstract class MasterController {
     }
   }
   
-  @Get("/id")
-  async getData(@Query("user_id") user_id: string, @Headers() header: object) {
-    try {
-      const data = await this.service.getData(
-        header["x-access-token"],
-        user_id,
-      );
-      return data;
-    } catch (e) {
-      throw new MasterError(
-        `Unexpected error occurred. Reason: ${
-          e.message?.message || e.response?.data || e.message || e
-        }`,
-        "Master.error"
-      );
-    }
-  }
-
   @Get("/getMasterData/:PID")
   async getAllProducts(@Param('PID') PID: string,  @Headers() header: object) {
     try {
@@ -145,7 +128,6 @@ export abstract class MasterController {
         error: "Format not valid, please use csv files only"
       }
     }
-    
     } catch(e){
       throw new MasterError(
         `Unexpected error occured. Reason: ${

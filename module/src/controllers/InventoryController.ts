@@ -48,7 +48,7 @@ export abstract class InventoryController {
     }
   }
 
-  @Get("/id")
+  @Get("/PID/:PID/id")
   async getData(@Query("user_id") user_id: string, @Headers() header: object) {
     try {
       const data = await this.service.getData(header["x-access-token"], user_id);
@@ -152,7 +152,25 @@ export abstract class InventoryController {
     }
   }
 
-  @Get("/getParts")
+  @Get("/summary/:PID")
+  async getSummaryByPID(@Param('PID') PID: string, @Headers() header: object) {
+    try {
+      const data = await this.service.getSummaryByPID(
+        header["x-access-token"],
+        PID
+      );
+      return data;
+    } catch (e) {
+      throw new InventoryError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Inventory.error"
+      );
+    }
+  }
+
+  @Get("/PID/:PID/getParts")
   async getPartsData(@Query("productID") productID:string, @Query("pid") pid:string, @Headers() header: object) {
     try {
       const data = await this.service.getPartsData(
@@ -169,7 +187,7 @@ export abstract class InventoryController {
     }
   }
 
-  @Get("/getAllParts")
+  @Get("/PID/:PID/getAllParts")
   async getAllParts(@Headers() header: object, @Query("productID") productID:string) {
     try {
       const data = await this.service.getAllParts(
@@ -187,7 +205,7 @@ export abstract class InventoryController {
     }
   }
 
-  @Put("/update")
+  @Put("/PID/:PID/update")
   async updateData(@Body() body: any, @Headers() header: object) {
     try {
       console.log(body,"body here")
@@ -206,7 +224,7 @@ export abstract class InventoryController {
     }
   }
 
-  @Put("/addSubPart")
+  @Put("/PID/:PID/addSubPart")
   async addSubPartData(@Body() body:any, @Headers() header: object) {
     try {
       const data = await this.service.addSubPartData(
@@ -224,7 +242,7 @@ export abstract class InventoryController {
     }
   }
 
-  @Put("/removeSubPart")
+  @Put("/PID/:PID/removeSubPart")
   async removeSubPartData(@Body() body:any, @Headers() header: object) {
     try {
       const data = await this.service.removeSubPartData(
@@ -242,7 +260,7 @@ export abstract class InventoryController {
     }
   }
 
-  @Put("/claim/reject")
+  @Put("/PID/:PID/claim/reject")
   async claimRejectData(@Body() body:any, @Headers() header: object) {
     try {
       const data = await this.service.claimRejectData(
@@ -260,7 +278,7 @@ export abstract class InventoryController {
     }
   }
 
-  @Put("/claim/accept")
+  @Put("/PID/:PID/claim/accept")
   async claimAcceptData(@Body() body:any, @Headers() header: object) {
     try {
       const data = await this.service.claimAcceptData(
@@ -278,7 +296,7 @@ export abstract class InventoryController {
     }
   }
 
-  @Put("/update/batch")
+  @Put("/PID/:PID/update/batch")
   async updateBatchData(@Body() body:any, @Headers() header: object) {
     try {
 

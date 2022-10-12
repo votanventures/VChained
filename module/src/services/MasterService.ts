@@ -22,33 +22,20 @@ export abstract class MasterService {
       throw new MasterError(`Error occurred. ${e}`, "Master.error");
     }
   }
+  
   public async insertInventory(
     header: any,
     body: any
   ): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
-        CONSTANTS.VTraceApi + "/masterdata/insertInventory",body,
+        CONSTANTS.VTraceApi + "/masterdata/PID/:PID/insertInventory",body,
         { headers: header }
       );
       return data;
     } catch (e) {
       this.logger.error(e);
       throw new Error(`Error occurred. ${e}`);
-    }
-  }
-  public async getData(
-    user_id: string,
-    key: string
-  ): Promise<{ data: string }> {
-    try {
-      const { data } = await axios.get(CONSTANTS.VTraceApi + `/masterdata/id?user_id=${user_id}`, {
-        headers: { "x-access-token": key },
-      });
-      return data;
-    } catch (e) {
-      this.logger.error(e);
-      throw new MasterError(`Error occurred ${e}`, "Master.error");
     }
   }
 

@@ -56,6 +56,20 @@ export abstract class UserService {
       throw new UserError(`Error occurred. ${e}`, "User.error");
     }
   }
+
+  public async getUser(key: string): Promise<{ data: any }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/user/getUser`,
+        { headers: { "x-access-token": key} }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new UserError(`Error occurred. ${e}`, "User.error");
+    }
+  }
+
   public async resetPassword(email: string, key: string, netid: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(

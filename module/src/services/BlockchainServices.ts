@@ -24,6 +24,7 @@ export class BlockchainService {
       )
     );
   }
+
   public async activateAccount() {
     try {
       const operation = await this.tezos.tz.activate(CONSTANTS.wallet.pkh, "");
@@ -33,8 +34,7 @@ export class BlockchainService {
     }
   }
 
-  public async deploySample(key:string, user_id: string): Promise<{ data: any }> {
-   
+  public async deploySample(key:string, user_id: string): Promise<{ data: any }> {  
     try {
        // async function deploy() {
       const tezos = new TezosToolkit(CONSTANTS.RPC_URL);
@@ -70,6 +70,7 @@ export class BlockchainService {
       return { data: { error: err} };
     }
   }
+ 
   public async createSample(body: any): Promise<{ data: any }> {
     try {
       const temp = {
@@ -86,6 +87,7 @@ export class BlockchainService {
       return { data: { error: e} };
     }
   }
+ 
   public async getDatabyKey(
     key: string,
     id: string,
@@ -102,6 +104,7 @@ export class BlockchainService {
       throw new BlockchainError(`Error occurred ${e}`, "Blockchain.error");
     }
   }
+ 
   public async getHistoryDatabyKey(
     key: string,
     id: string,
@@ -118,6 +121,7 @@ export class BlockchainService {
       throw new BlockchainError(`Error occurred ${e}`, "Blockchain.error");
     }
   }
+ 
   public async deploy(
     key:string,
     netid: string,
@@ -133,6 +137,21 @@ export class BlockchainService {
       throw new BlockchainError(`Error occurred ${e}`, "Blockchain.error");
     }
   }
+
+  public async getProduct(
+    body:any,
+  ): Promise<{ data: any }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/ledger/getProduct`,body
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new BlockchainError(`Error occurred ${e}`, "Blockchain.error");
+    }
+  }
+
   public async write(
     key: string,
     body: any,

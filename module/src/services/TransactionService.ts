@@ -37,10 +37,49 @@ export abstract class TransactionService {
     }
   }
 
-  public async getTransactionData(key: string): Promise<{ data: string }> {
+  public async getTransactionData(key: string, PID:string): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + "/transaction/getTransaction",
+        CONSTANTS.VTraceApi + `/transaction/getTransaction/${PID}`,
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new TransactionError(`Error occurred ${e}`, "Transaction.error");
+    }
+  }
+
+  public async getTransactionId(key: string, txID:string): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/transaction/${txID}`,
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new TransactionError(`Error occurred ${e}`, "Transaction.error");
+    }
+  }
+
+  public async getProductById(key: string, productID:string): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/transaction/${productID}`,
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new TransactionError(`Error occurred ${e}`, "Transaction.error");
+    }
+  }
+
+  public async getProduct(key: string): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/transaction/product`,
         { headers: { "x-access-token": key } }
       );
       return data;

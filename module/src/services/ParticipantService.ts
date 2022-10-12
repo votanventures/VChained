@@ -54,6 +54,87 @@ export abstract class ParticipantService {
       throw new ParticipantError(`Error occurred ${e}`, "Participant.error");
     }
   }
+
+  public async getOParticipantByPid(
+    key: string,
+    PID: string,
+  ): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/participant/getParticipant/${PID}`,
+        { headers: { "x-access-token": key} }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new ParticipantError(`Error occurred ${e}`, "Participant.error");
+    }
+  }
+
+  public async getDeleteNotificationOne(
+    key: string,
+    PID: string,
+  ): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/participant/:PID/notifications/delete/${PID}`,
+        { headers: { "x-access-token": key} }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new ParticipantError(`Error occurred ${e}`, "Participant.error");
+    }
+  }
+
+  public async getDeleteNotificationAll(
+    key: string,
+    PID: string,
+  ): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/participant/:PID/notifications/deleteAll/${PID}`,
+        { headers: { "x-access-token": key} }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new ParticipantError(`Error occurred ${e}`, "Participant.error");
+    }
+  }
+
+  public async DeleteNotificationAdd(
+    key: string,
+    PID: string,
+  ): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.post(
+        CONSTANTS.VTraceApi + `/participant/:PID/notifications/add/${PID}`,
+        { headers: { "x-access-token": key} }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new ParticipantError(`Error occurred ${e}`, "Participant.error");
+    }
+  }
+
+  public async DeleteNotificationAdmin(
+    key: string,
+    PID: string,
+  ): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.post(
+        CONSTANTS.VTraceApi + `/participant/:PID/notifications/add/${PID}`,
+        { headers: { "x-access-token": key} }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new ParticipantError(`Error occurred ${e}`, "Participant.error");
+    }
+  }
+
   public async getAllOtherParticipantByNid(
     key: string,
     PID: string,
@@ -90,6 +171,19 @@ export abstract class ParticipantService {
     try {
       const { data } = await axios.delete(
         CONSTANTS.VTraceApi + `/participant/delete?PID=${PID}`,
+        { headers: { "x-access-token": key, "netid": netid} }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new ParticipantError(`Error occurred. ${e}`, "Participant.error");
+    }
+  }
+
+  public async deleteDataByPID(key: string, netid: string, PID: string ): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.delete(
+        CONSTANTS.VTraceApi + `/participant/delete/PID?PID=${PID}`,
         { headers: { "x-access-token": key, "netid": netid} }
       );
       return data;

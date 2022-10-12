@@ -43,7 +43,7 @@ export abstract class InventoryService {
 
   public async getData(id: string, key: string): Promise<{ data: string }> {
     try {
-      const { data } = await axios.get(CONSTANTS.VTraceApi + "/inventory/id?user_id=id", {
+      const { data } = await axios.get(CONSTANTS.VTraceApi + "/inventory/PID/:PID/id?user_id=id", {
         headers: { "x-access-token": key },
       });
       return data;
@@ -130,6 +130,22 @@ export abstract class InventoryService {
     }
   }
 
+  public async getSummaryByPID(
+    key: string,
+    PID: string
+  ): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/inventory/summary/${PID}`,
+        { headers: { "x-access-token": key } }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new InventoryError(`Error occurred ${e}`, "Inventory.error");
+    }
+  }
+
   public async getPartsData(
     productID: string,
     pid:string,
@@ -137,7 +153,7 @@ export abstract class InventoryService {
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + `/inventory/getParts?productID=${productID}&&pid=${pid}`,
+        CONSTANTS.VTraceApi + `/inventory/PID/:PID/getParts?productID=${productID}&&pid=${pid}`,
         { headers: { "x-access-token": key } }
       );
       return data;
@@ -150,7 +166,7 @@ export abstract class InventoryService {
   public async getAllParts(key: string, productID: string): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + `/inventory/getAllParts?productID=${productID}`,
+        CONSTANTS.VTraceApi + `/inventory/PID/:PID/getAllParts?productID=${productID}`,
         { headers: { "x-access-token": key } }
       );
       return data;
@@ -163,7 +179,7 @@ export abstract class InventoryService {
   public async updateData(key: string, body: any): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(
-        CONSTANTS.VTraceApi + "/inventory/update",body,
+        CONSTANTS.VTraceApi + "/inventory/PID/:PID/update",body,
         { headers: { "x-access-token": key } }
       );
       return data;
@@ -179,7 +195,7 @@ export abstract class InventoryService {
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(
-        CONSTANTS.VTraceApi + "/inventory/addSubPart",
+        CONSTANTS.VTraceApi + "/inventory/PID/:PID/addSubPart",
         body,
         { headers: { "x-access-token": key } }
       );
@@ -197,7 +213,7 @@ export abstract class InventoryService {
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(
-        CONSTANTS.VTraceApi + "/inventory/removeSubPart",
+        CONSTANTS.VTraceApi + "/inventory/PID/:PID/removeSubPart",
         body,
         { headers: { "x-access-token": key } }
       );
@@ -214,7 +230,7 @@ export abstract class InventoryService {
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(
-        CONSTANTS.VTraceApi + "/inventory/claim/reject",
+        CONSTANTS.VTraceApi + "/inventory/PID/:PID/claim/reject",
         body,
         { headers: { "x-access-token": key } }
       );
@@ -231,7 +247,7 @@ export abstract class InventoryService {
   ): Promise<{ data: string }> {
     try {
       const { data } = await axios.put(
-        CONSTANTS.VTraceApi + "/inventory/claim/accept",
+        CONSTANTS.VTraceApi + "/inventory/PID/:PID/claim/accept",
         body,
         { headers: { "x-access-token": key } }
       );
@@ -248,7 +264,7 @@ export abstract class InventoryService {
   ): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
-        CONSTANTS.VTraceApi + "/inventory/update/batch",
+        CONSTANTS.VTraceApi + "/inventory/PID/:PID/update/batch",
         body,
         { headers: { "x-access-token": key } }
       );

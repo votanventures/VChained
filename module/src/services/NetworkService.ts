@@ -47,6 +47,18 @@ export abstract class NetworkService {
     }
   }
 
+  public async getNetwork(body:any): Promise<{ data: string }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/network/getNetwork`,body
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new NetworkError(`Error occurred. ${e}`, "Network.error");
+    }
+  }
+
   public async getcheckStatusData(NID: string): Promise<{ data: string }> {
     try {
       const { data } = await axios.get(

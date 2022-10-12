@@ -59,6 +59,21 @@ export abstract class NetworkController {
     }
   }
 
+  @Get("/getNetwork")
+  async getNetwork(@Body() body: any) {
+    try {
+      const data = await this.service.getNetwork(body);
+      return data;
+    } catch (e) {
+      throw new NetworkError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "Network.error"
+      );
+    }
+  }
+
   @Get("/checkStatus")
   async getcheckStatusData(@Query("NID") NID: string) {
     try {

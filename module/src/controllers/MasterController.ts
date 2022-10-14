@@ -139,7 +139,7 @@ export abstract class MasterController {
   }
 
 
-  @Delete("/delete")
+  @Delete("/PID/:PID/delete")
   async deleteData(@Headers() header: object, @Query("productId") productId:string) {
     try {
       const data = await this.service.deleteData(header["x-access-token"],productId);

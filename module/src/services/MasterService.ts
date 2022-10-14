@@ -106,7 +106,7 @@ export abstract class MasterService {
   public async deleteData(key: string, productId:string): Promise<{ data: string }> {
     try {
       const { data } = await axios.delete(
-        CONSTANTS.VTraceApi + `/masterdata/delete?productId=${productId}`,{
+        CONSTANTS.VTraceApi + `/masterdata/PID/:PID/delete?productId=${productId}`,{
           headers: { "x-access-token": key } },
       );
       return data;

@@ -6,7 +6,6 @@ import { CreateUser } from "../dto/CreateUser";
 
 export abstract class UserService {
   protected constructor(protected readonly logger: PinoLogger) {}
-
   
   public async signupData(
     body: CreateUser,
@@ -57,6 +56,19 @@ export abstract class UserService {
     }
   }
 
+  public async getDataByPID(key: string, netid: string, PID: string): Promise<{ data: any }> {
+    try {
+      const { data } = await axios.get(
+        CONSTANTS.VTraceApi + `/user/PID/${PID}/get`,
+        { headers: { "x-access-token": key, "netid": netid} }
+      );
+      return data;
+    } catch (e) {
+      this.logger.error(e);
+      throw new UserError(`Error occurred. ${e}`, "User.error");
+    }
+  }
+
   public async getUser(key: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
@@ -86,7 +98,8 @@ export abstract class UserService {
 
   public async updateData(key: string, body: any, netid: string): Promise<{ data: any }> {
     try {
-      const { data } = await axios.put(CONSTANTS.VTraceApi + "/user/update", body, { headers: { "x-access-token": key, "netid": netid} });
+      const { data } = await axios.put(CONSTANTS.VTraceApi + "/user/update", body, 
+      { headers: { "x-access-token": key, "netid": netid} });
       return data;
     } catch (e) {
       this.logger.error(e);

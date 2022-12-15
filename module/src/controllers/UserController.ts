@@ -6,6 +6,7 @@ import {
   Put,
   Delete,
   Query,
+  Param,
 } from "@nestjs/common";
 import { UserService } from "../services/UserService";
 import { UserError } from "../dto/UserError";
@@ -65,6 +66,26 @@ export abstract class UserController {
       );
     }
   }
+
+  @Get("/PID/:PID/get")
+  async getDataByPID(@Param("PID") PID: string, @Headers() header: object) {
+    try {
+      const data = await this.service.getDataByPID(
+        header["x-access-token"],
+        header["netid"],
+        PID
+      );
+      return data;
+    } catch (e) {
+      throw new UserError(
+        `Unexpected error occurred. Reason: ${
+          e.message?.message || e.response?.data || e.message || e
+        }`,
+        "User.error"
+      );
+    }
+  }
+
 
   @Get("/getUser")
   async getUser(@Headers() header: object) {

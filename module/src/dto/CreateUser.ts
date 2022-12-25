@@ -13,4 +13,6 @@ export class CreateUser {
     public password: string;
     @IsNotEmpty()
     public PID: object;
+    @IsNotEmpty()
+    public active: Boolean; 
 }

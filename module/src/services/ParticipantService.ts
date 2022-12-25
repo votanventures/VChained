@@ -11,7 +11,7 @@ export abstract class ParticipantService {
     key: string,
     body: AddParticipient,
     netid: string
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/participant/create",
@@ -25,7 +25,7 @@ export abstract class ParticipantService {
     }
   }
 
-  public async getData(key: string, PID: string, netid: string): Promise<{ data: string }> {
+  public async getData(key: string, PID: string, netid: string): Promise<{ data: any }> {
     try {
 
       const { data } = await axios.get(
@@ -42,7 +42,7 @@ export abstract class ParticipantService {
   public async getAllParticipantByNid(
     key: string,
     NID: string,
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/participant/getParticipant/${NID}`,
@@ -58,10 +58,10 @@ export abstract class ParticipantService {
   public async getOParticipantByPid(
     key: string,
     PID: string,
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
-        CONSTANTS.VTraceApi + `/participant/getParticipant/${PID}`,
+        CONSTANTS.VTraceApi + `/participant/getOParticipant/${PID}`,
         { headers: { "x-access-token": key} }
       );
       return data;
@@ -74,7 +74,7 @@ export abstract class ParticipantService {
   public async getDeleteNotificationOne(
     key: string,
     PID: string,
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/participant/:PID/notifications/delete/${PID}`,
@@ -90,7 +90,7 @@ export abstract class ParticipantService {
   public async getDeleteNotificationAll(
     key: string,
     PID: string,
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/participant/:PID/notifications/deleteAll/${PID}`,
@@ -106,7 +106,7 @@ export abstract class ParticipantService {
   public async DeleteNotificationAdd(
     key: string,
     PID: string,
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + `/participant/:PID/notifications/add/${PID}`,
@@ -122,7 +122,7 @@ export abstract class ParticipantService {
   public async DeleteNotificationAdmin(
     key: string,
     PID: string,
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + `/participant/:PID/notifications/add/${PID}`,
@@ -139,7 +139,7 @@ export abstract class ParticipantService {
     key: string,
     PID: string,
     NID: string
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/participant/getParticipant/${PID}`,
@@ -152,7 +152,7 @@ export abstract class ParticipantService {
     }
   }
 
-  public async updateData(key: string, netid: any, body: any): Promise<{ data: string }> {
+  public async updateData(key: string, netid: any, body: any): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/participant/update",
@@ -167,7 +167,7 @@ export abstract class ParticipantService {
   }
 
 
-  public async deleteData(key: string, netid: string, PID: string ): Promise<{ data: string }> {
+  public async deleteData(key: string, netid: string, PID: string ): Promise<{ data: any }> {
     try {
       const { data } = await axios.delete(
         CONSTANTS.VTraceApi + `/participant/delete?PID=${PID}`,
@@ -180,7 +180,7 @@ export abstract class ParticipantService {
     }
   }
 
-  public async deleteDataByPID(key: string, netid: string, PID: string ): Promise<{ data: string }> {
+  public async deleteDataByPID(key: string, netid: string, PID: string ): Promise<{ data: any }> {
     try {
       const { data } = await axios.delete(
         CONSTANTS.VTraceApi + `/participant/delete/PID?PID=${PID}`,

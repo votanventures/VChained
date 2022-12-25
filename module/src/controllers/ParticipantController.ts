@@ -63,7 +63,7 @@ export abstract class ParticipantController {
     }
   }
 
-  @Get("/getParticipant/:PID")
+  @Get("/getOParticipant/:PID")
   async getOParticipantByPid(@Param('PID') PID: string,  @Headers() header: object) {
     try {
       const data = await this.service.getOParticipantByPid(

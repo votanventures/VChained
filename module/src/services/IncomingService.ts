@@ -7,7 +7,7 @@ import { AddIncoming } from "../dto/AddIncoming";
 export abstract class IncomingService {
   protected constructor(protected readonly logger: PinoLogger) {}
 
-  public async storeData(key: string, body:AddIncoming): Promise<{ data: string }> {
+  public async storeData(key: string, body:AddIncoming): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/incoming/create",body,
@@ -20,7 +20,7 @@ export abstract class IncomingService {
     }
   }
 
-  public async getData(user_id: string, key: string): Promise<{ data: string }> {
+  public async getData(user_id: string, key: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(CONSTANTS.VTraceApi + `/incoming/id?user_id=${user_id}`, {
         headers: { "x-access-token": key },
@@ -32,7 +32,7 @@ export abstract class IncomingService {
     }
   }
 
-  public async getIncomingData(key: string): Promise<{ data: string }> {
+  public async getIncomingData(key: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + "/incoming/getIncoming",
@@ -45,7 +45,7 @@ export abstract class IncomingService {
     }
   }
 
-  public async updateData(key: string, body: any): Promise<{ data: string }> {
+  public async updateData(key: string, body: any): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/incoming/update",
@@ -59,7 +59,7 @@ export abstract class IncomingService {
     }
   }
 
-  public async deleteData(key: string, productId:string): Promise<{ data: string }> {
+  public async deleteData(key: string, productId:string): Promise<{ data: any }> {
     try {
       const { data } = await axios.delete(
         CONSTANTS.VTraceApi + `/incoming/delete/id?productId=${productId}`,

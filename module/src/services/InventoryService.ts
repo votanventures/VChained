@@ -41,7 +41,7 @@ export abstract class InventoryService {
     }
   }
 
-  public async getData(id: string, key: string): Promise<{ data: string }> {
+  public async getData(id: string, key: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(CONSTANTS.VTraceApi + "/inventory/PID/:PID/id?user_id=id", {
         headers: { "x-access-token": key },
@@ -53,7 +53,7 @@ export abstract class InventoryService {
     }
   }
 
-  public async getInventoryData(key: string): Promise<{ data: string }> {
+  public async getInventoryData(key: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + "/inventory/getInventory",
@@ -69,7 +69,7 @@ export abstract class InventoryService {
   public async getAllProducts(
     key: string,
     PID: string,
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/inventory/getProducts/${PID}`,
@@ -85,7 +85,7 @@ export abstract class InventoryService {
   public async getInventoryByPID(
     key: string,
     pid: string,
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/inventory/getInventory/${pid}`,
@@ -101,7 +101,7 @@ export abstract class InventoryService {
   public async getOutgoingByPID(
     key: string,
     pid: string
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/inventory/getOutgoing/${pid}`,
@@ -117,7 +117,7 @@ export abstract class InventoryService {
   public async getIncomingByPID(
     key: string,
     pid: string
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/inventory/getIncoming/${pid}`,
@@ -133,7 +133,7 @@ export abstract class InventoryService {
   public async getSummaryByPID(
     key: string,
     PID: string
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/inventory/summary/${PID}`,
@@ -150,7 +150,7 @@ export abstract class InventoryService {
     productID: string,
     pid:string,
     key: string
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/inventory/PID/:PID/getParts?productID=${productID}&&pid=${pid}`,
@@ -163,7 +163,7 @@ export abstract class InventoryService {
     }
   }
 
-  public async getAllParts(key: string, productID: string): Promise<{ data: string }> {
+  public async getAllParts(key: string, productID: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/inventory/PID/:PID/getAllParts?productID=${productID}`,
@@ -176,7 +176,7 @@ export abstract class InventoryService {
     }
   }
 
-  public async updateData(key: string, body: any): Promise<{ data: string }> {
+  public async updateData(key: string, body: any): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/inventory/PID/:PID/update",body,
@@ -192,7 +192,7 @@ export abstract class InventoryService {
   public async addSubPartData(
     key: string,
     body: any
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/inventory/PID/:PID/addSubPart",
@@ -210,7 +210,7 @@ export abstract class InventoryService {
   public async removeSubPartData(
     key: string,
     body: any
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/inventory/PID/:PID/removeSubPart",
@@ -227,7 +227,7 @@ export abstract class InventoryService {
   public async claimRejectData(
     key: string,
     body: any
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/inventory/PID/:PID/claim/reject",
@@ -244,7 +244,7 @@ export abstract class InventoryService {
   public async claimAcceptData(
     key: string,
     body: any
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/inventory/PID/:PID/claim/accept",
@@ -278,7 +278,7 @@ export abstract class InventoryService {
   public async insertBatchData(
     key: string,
     body: any
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/inventory/insert/batch",

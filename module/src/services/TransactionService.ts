@@ -10,7 +10,7 @@ export abstract class TransactionService {
   public async storeData(
     key: string,
     body: AddTransaction
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/transaction/create",
@@ -24,7 +24,7 @@ export abstract class TransactionService {
     }
   }
 
-  public async getData(user_id:string, key: string): Promise<{ data: string }> {
+  public async getData(user_id:string, key: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/transaction/id?user_id=${user_id}`,
@@ -37,7 +37,7 @@ export abstract class TransactionService {
     }
   }
 
-  public async getTransactionData(key: string, PID:string): Promise<{ data: string }> {
+  public async getTransactionData(key: string, PID:string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/transaction/getTransaction/${PID}`,
@@ -50,7 +50,7 @@ export abstract class TransactionService {
     }
   }
 
-  public async getTransactionId(key: string, txID:string): Promise<{ data: string }> {
+  public async getTransactionId(key: string, txID:string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/transaction/${txID}`,
@@ -63,7 +63,7 @@ export abstract class TransactionService {
     }
   }
 
-  public async getProductById(key: string, productID:string): Promise<{ data: string }> {
+  public async getProductById(key: string, productID:string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/transaction/${productID}`,
@@ -76,7 +76,7 @@ export abstract class TransactionService {
     }
   }
 
-  public async getProduct(key: string): Promise<{ data: string }> {
+  public async getProduct(key: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/transaction/product`,
@@ -92,7 +92,7 @@ export abstract class TransactionService {
   public async updateData(
     key: string,
     body: AddTransaction,
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/transaction/update",
@@ -106,7 +106,7 @@ export abstract class TransactionService {
     }
   }
 
-  public async deleteData(key: string, id: string): Promise<{ data: string }> {
+  public async deleteData(key: string, id: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.delete(
         CONSTANTS.VTraceApi + "/transaction/delete",

@@ -22,7 +22,7 @@ export abstract class NetworkService {
     }
   }
 
-  public async connectData(body: AddNetwork): Promise<{ data: string }> {
+  public async connectData(body: AddNetwork): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/network/connect",
@@ -35,7 +35,7 @@ export abstract class NetworkService {
     }
   }
 
-  public async getByID(NID: string): Promise<{ data: string }> {
+  public async getByID(NID: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/network/id?NID=${NID}`
@@ -47,7 +47,7 @@ export abstract class NetworkService {
     }
   }
 
-  public async getNetwork(body:any): Promise<{ data: string }> {
+  public async getNetwork(body:any): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/network/getNetwork`,body
@@ -59,7 +59,7 @@ export abstract class NetworkService {
     }
   }
 
-  public async getcheckStatusData(NID: string): Promise<{ data: string }> {
+  public async getcheckStatusData(NID: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/network/id?NID=${NID}`
@@ -70,7 +70,7 @@ export abstract class NetworkService {
       throw new NetworkError(`Error occurred. ${e}`, "Network.error");
     }
   }
-  public async forgot(NID: string): Promise<{ data: string }> {
+  public async forgot(NID: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + `/network/forgot?NID=${NID}`
@@ -81,7 +81,7 @@ export abstract class NetworkService {
       throw new NetworkError(`Error occurred. ${e}`, "Network.error");
     }
   }
-  public async updateData(body: any): Promise<{ data: string }> {
+  public async updateData(body: any): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(CONSTANTS.VTraceApi + "/network/update", body);
       return data;
@@ -91,7 +91,7 @@ export abstract class NetworkService {
     }
   }
 
-  public async deleteData(NID: string): Promise<{ data: string }> {
+  public async deleteData(NID: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.delete(
         CONSTANTS.VTraceApi + `/network/delete/id?NID=${NID}`

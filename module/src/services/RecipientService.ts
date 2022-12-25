@@ -10,7 +10,7 @@ export abstract class RecipientService {
   public async storeData(
     key: string,
     body: AddRecipient
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.post(
         CONSTANTS.VTraceApi + "/recipient/create",
@@ -24,7 +24,7 @@ export abstract class RecipientService {
     }
   }
 
-  public async getData(user_id: string, key: string): Promise<{ data: string }> {
+  public async getData(user_id: string, key: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(CONSTANTS.VTraceApi + `/recipient/id/${user_id}`, {
         headers: { "x-access-token": key },
@@ -38,7 +38,7 @@ export abstract class RecipientService {
 
   public async getRecipientData(
     key: string
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.get(
         CONSTANTS.VTraceApi + "/recipient/getRecipient",
@@ -54,7 +54,7 @@ export abstract class RecipientService {
   public async updateData(
     key: string,
     body: AddRecipient
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/recipient/update",
@@ -68,7 +68,7 @@ export abstract class RecipientService {
     }
   }
 
-  public async deleteData(key: string, id: string): Promise<{ data: string }> {
+  public async deleteData(key: string, id: string): Promise<{ data: any }> {
     try {
       const { data } = await axios.delete(
         CONSTANTS.VTraceApi + "/recipient/delete",

@@ -89,7 +89,7 @@ export abstract class MasterService {
   public async insertBatchData(
     key: string,
     body: AddMasterData
-  ): Promise<{ data: string }> {
+  ): Promise<{ data: any }> {
     try {
       const { data } = await axios.put(
         CONSTANTS.VTraceApi + "/masterdata/insert/batch",
@@ -103,7 +103,7 @@ export abstract class MasterService {
     }
   }
 
-  public async deleteData(key: string, productId:string): Promise<{ data: string }> {
+  public async deleteData(key: string, productId:string): Promise<{ data: any }> {
     try {
       const { data } = await axios.delete(
         CONSTANTS.VTraceApi + `/masterdata/PID/:PID/delete?productId=${productId}`,{
